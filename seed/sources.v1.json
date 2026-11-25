@@ -1,0 +1,58 @@
+{
+  "seed_version": "seed-2026-11-25.v1",
+  "note": "Candidate deal communities and price comparison/history providers. Not a verified traffic ranking, guaranteed integration, or permission to scrape. Access status starts unknown. Retailers are discovery hints only, not an allowlist.",
+  "event_config": {
+    "edition": "ep001-2026",
+    "previous_event_date": "2025-11-28",
+    "offseason_start": "2025-11-29",
+    "offseason_end": "2026-11-26",
+    "current_event_start": "2026-11-27"
+  },
+  "markets": [
+    { "code": "US", "name": "United States", "currency": "USD", "languages": ["en-US"], "timezone": "America/New_York", "aliases": [] },
+    { "code": "NZ", "name": "New Zealand", "currency": "NZD", "languages": ["en-NZ"], "timezone": "Pacific/Auckland", "aliases": [] },
+    { "code": "AU", "name": "Australia", "currency": "AUD", "languages": ["en-AU"], "timezone": "Australia/Sydney", "aliases": [] },
+    { "code": "EE", "name": "Estonia", "currency": "EUR", "languages": ["et-EE", "en"], "timezone": "Europe/Tallinn", "aliases": ["EST"] },
+    { "code": "DE", "name": "Germany", "currency": "EUR", "languages": ["de-DE", "en"], "timezone": "Europe/Berlin", "aliases": ["GER"] }
+  ],
+  "sources": [
+    { "market": "US", "domain": "slickdeals.net", "name": "Slickdeals", "type": "deal_community" },
+    { "market": "US", "domain": "dealnews.com", "name": "DealNews", "type": "deal_community" },
+    { "market": "US", "domain": "blackfriday.com", "name": "BlackFriday.com", "type": "deal_community" },
+    { "market": "US", "domain": "camelcamelcamel.com", "name": "camelcamelcamel", "type": "price_history" },
+    { "market": "US", "domain": "keepa.com", "name": "Keepa", "type": "price_history" },
+    { "market": "NZ", "domain": "cheapies.nz", "name": "ChoiceCheapies", "type": "deal_community" },
+    { "market": "NZ", "domain": "pricespy.co.nz", "name": "PriceSpy NZ", "type": "price_comparison" },
+    { "market": "NZ", "domain": "priceme.co.nz", "name": "PriceMe", "type": "price_comparison" },
+    { "market": "NZ", "domain": "cheapest.co.nz", "name": "Cheapest NZ", "type": "price_comparison" },
+    { "market": "NZ", "domain": "betadeals.co.nz", "name": "BetaDeals", "type": "price_comparison" },
+    { "market": "AU", "domain": "ozbargain.com.au", "name": "OzBargain", "type": "deal_community" },
+    { "market": "AU", "domain": "pricehipster.com", "name": "PriceHipster", "type": "price_history" },
+    { "market": "AU", "domain": "staticice.com.au", "name": "StaticICE", "type": "price_comparison" },
+    { "market": "AU", "domain": "getprice.com.au", "name": "GetPrice", "type": "price_comparison" },
+    { "market": "AU", "domain": "pricehound.com.au", "name": "PriceHound", "type": "price_comparison" },
+    { "market": "AU", "domain": "au.camelcamelcamel.com", "name": "camelcamelcamel AU", "type": "price_history" },
+    { "market": "EE", "domain": "foorum.hinnavaatlus.ee", "name": "Hinnavaatlus foorum", "type": "deal_community" },
+    { "market": "EE", "domain": "hinnavaatlus.ee", "name": "Hinnavaatlus", "type": "price_comparison" },
+    { "market": "EE", "domain": "hind.ee", "name": "Hind.ee", "type": "price_comparison" },
+    { "market": "DE", "domain": "mydealz.de", "name": "mydealz", "type": "deal_community" },
+    { "market": "DE", "domain": "monsterdealz.de", "name": "Monsterdealz", "type": "deal_community" },
+    { "market": "DE", "domain": "idealo.de", "name": "idealo", "type": "price_comparison" },
+    { "market": "DE", "domain": "geizhals.de", "name": "Geizhals", "type": "price_comparison" },
+    { "market": "DE", "domain": "keepa.com", "name": "Keepa (amazon.de)", "type": "price_history" }
+  ],
+  "retailer_hints": {
+    "US": ["Amazon US", "Walmart", "Target", "Best Buy", "Costco", "Home Depot"],
+    "NZ": ["PB Tech", "Noel Leeming", "JB Hi-Fi NZ", "Harvey Norman NZ", "Briscoes", "Farmers"],
+    "AU": ["Amazon AU", "JB Hi-Fi AU", "Officeworks", "The Good Guys", "Harvey Norman AU", "Kmart AU"],
+    "EE": ["Euronics", "Klick", "Arvutitark", "Kaup24", "1a", "RDE"],
+    "DE": ["Amazon DE", "MediaMarkt", "Saturn", "Otto", "Kaufland", "Lidl"]
+  },
+  "vocabulary": {
+    "US": ["price history", "lowest price", "sale", "Black Friday"],
+    "NZ": ["price history", "lowest price", "sale", "Black Friday"],
+    "AU": ["price history", "lowest price", "sale", "Black Friday"],
+    "EE": ["must reede", "hind", "hinnalugu", "sooduspakkumine", "price history", "Black Friday"],
+    "DE": ["Preisverlauf", "Angebot", "Tiefstpreis", "Black Friday"]
+  }
+}

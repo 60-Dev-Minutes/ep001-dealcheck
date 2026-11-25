@@ -1,0 +1,28 @@
+{
+  "frozen_at": "2026-11-25T02:00:00Z",
+  "frozen_by": "Claude Code (Opus 5.5) without running any product searches; chosen from general knowledge before observing results",
+  "rules": "Do not edit after the first benchmark run. Inputs are submitted exactly as written. Ambiguous items: the runner selects the first candidate and records that it did so. Unresolved identity counts as not correct.",
+  "deviation": "All 20 inputs are product names/model numbers. Retailer-link inputs could not be chosen without first searching retailer sites (which the protocol forbids before the measured run); link handling is covered by automated tests instead.",
+  "products": [
+    { "n": 1, "market": "US", "category": "electronics", "input": "Sony WH-1000XM5 wireless noise cancelling headphones black", "price": null, "difficulty": "standard" },
+    { "n": 2, "market": "US", "category": "tools", "input": "DEWALT DCD771C2 20V MAX cordless drill/driver kit", "price": null, "difficulty": "standard" },
+    { "n": 3, "market": "US", "category": "homeware", "input": "Ninja AF101 Air Fryer 4 quart", "price": null, "difficulty": "standard" },
+    { "n": 4, "market": "US", "category": "electronics", "input": "Apple iPad", "price": null, "difficulty": "ambiguous" },
+    { "n": 5, "market": "NZ", "category": "electronics", "input": "Apple AirPods Pro 2 USB-C", "price": null, "difficulty": "standard" },
+    { "n": 6, "market": "NZ", "category": "tools", "input": "Ryobi ONE+ 18V brushless drill driver R18DDBL-0 skin only", "price": null, "difficulty": "standard" },
+    { "n": 7, "market": "NZ", "category": "homeware", "input": "Breville the Barista Express BES870BSS", "price": null, "difficulty": "standard" },
+    { "n": 8, "market": "NZ", "category": "whiteware", "input": "Fisher & Paykel 8kg front loader washing machine", "price": null, "difficulty": "ambiguous" },
+    { "n": 9, "market": "AU", "category": "electronics", "input": "Nintendo Switch OLED Model white", "price": null, "difficulty": "standard" },
+    { "n": 10, "market": "AU", "category": "tools", "input": "Makita DHP485Z 18V brushless hammer driver drill skin", "price": null, "difficulty": "standard" },
+    { "n": 11, "market": "AU", "category": "homeware", "input": "Dyson V15 Detect Absolute", "price": null, "difficulty": "standard" },
+    { "n": 12, "market": "AU", "category": "homeware", "input": "Philips air fryer", "price": null, "difficulty": "ambiguous" },
+    { "n": 13, "market": "EE", "category": "electronics", "input": "Apple iPhone 16 128GB", "price": null, "difficulty": "standard" },
+    { "n": 14, "market": "EE", "category": "tools", "input": "Bosch Professional GSR 12V-15 akutrell", "price": null, "difficulty": "standard" },
+    { "n": 15, "market": "EE", "category": "homeware", "input": "Philips Airfryer HD9252/90", "price": null, "difficulty": "standard" },
+    { "n": 16, "market": "EE", "category": "homeware", "input": "Xiaomi robottolmuimeja", "price": null, "difficulty": "ambiguous" },
+    { "n": 17, "market": "DE", "category": "electronics", "input": "Sony PlayStation 5 Slim Digital Edition", "price": null, "difficulty": "standard" },
+    { "n": 18, "market": "DE", "category": "tools", "input": "Bosch Professional GSR 18V-55 Akku-Bohrschrauber", "price": null, "difficulty": "standard" },
+    { "n": 19, "market": "DE", "category": "homeware", "input": "De'Longhi Magnifica S ECAM 22.110.B Kaffeevollautomat", "price": null, "difficulty": "standard" },
+    { "n": 20, "market": "DE", "category": "electronics", "input": "Samsung Fernseher 55 Zoll", "price": null, "difficulty": "ambiguous" }
+  ]
+}

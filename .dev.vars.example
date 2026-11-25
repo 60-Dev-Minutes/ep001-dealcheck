@@ -1,0 +1,10 @@
+# Copy to .dev.vars for local development. Placeholders only — never commit real values.
+ENVIRONMENT=development
+RESEARCH_ENABLED=true
+PROVIDER=fixture
+ANTHROPIC_API_KEY=replace-me
+QUOTA_HMAC_SECRET=replace-with-32+-random-bytes
+SESSION_SECRET=replace-with-32+-random-bytes
+# Cloudflare Turnstile test keys (always pass) — for local development only.
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
