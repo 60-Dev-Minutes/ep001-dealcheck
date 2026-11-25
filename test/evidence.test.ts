@@ -125,3 +125,19 @@ describe('variant matching', () => {
     expect(r.status).toBe('lead');
   });
 });
+
+describe('fetch attempt tracking', () => {
+  it('maps failed fetches back to their URL via tool_use_id', () => {
+    const c = emptyCorpus();
+    collectEvidence(c, [
+      { type: 'server_tool_use', id: 'srv_1', name: 'web_fetch', input: { url: 'https://blocked.co.nz/p' } },
+      { type: 'web_fetch_tool_result', tool_use_id: 'srv_1', content: { type: 'web_fetch_tool_error', error_code: 'url_not_accessible' } },
+      { type: 'server_tool_use', id: 'srv_2', name: 'web_fetch', input: { url: 'https://ok.co.nz/p' } },
+      { type: 'web_fetch_tool_result', tool_use_id: 'srv_2', content: { type: 'web_fetch_result', url: 'https://ok.co.nz/p', content: { type: 'document', source: { type: 'text', data: 'x' } } } },
+    ]);
+    expect(c.fetchAttempts).toEqual([
+      { url: 'https://blocked.co.nz/p', ok: false, code: 'url_not_accessible' },
+      { url: 'https://ok.co.nz/p', ok: true, code: null },
+    ]);
+  });
+});

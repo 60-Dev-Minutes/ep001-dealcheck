@@ -1,0 +1,188 @@
+{
+  "n": 5,
+  "market": "NZ",
+  "input": "Apple AirPods Pro 2 USB-C",
+  "started_at": "2026-11-25T02:01:17.429Z",
+  "events": [
+    {
+      "t": 1101,
+      "state": "identifying"
+    },
+    {
+      "t": 2617,
+      "state": "identifying"
+    },
+    {
+      "t": 4886,
+      "state": "identifying"
+    },
+    {
+      "t": 8280,
+      "state": "identifying"
+    },
+    {
+      "t": 13310,
+      "state": "researching"
+    },
+    {
+      "t": 18333,
+      "state": "researching"
+    },
+    {
+      "t": 23357,
+      "state": "researching"
+    },
+    {
+      "t": 28381,
+      "state": "researching"
+    },
+    {
+      "t": 33405,
+      "state": "researching"
+    },
+    {
+      "t": 38429,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_CnxPRNKxRhruA4iqshZ6JsvO",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 38429,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:01:54.968Z",
+    "market": {
+      "code": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "timezone": "Pacific/Auckland"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Apple AirPods Pro (2nd generation) with MagSafe Charging Case (USB-C)",
+      "brand": "Apple",
+      "model": "AirPods Pro (2nd generation)",
+      "variant": "MagSafe Charging Case (USB-C)",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "PB Tech listing for the MTJV3ZA/A AirPods Pro 2 (USB-C) with a 'Black Friday Sale' banner, a 'Normally' price of $346.09 and a structured offer of NZD 368 with priceValidUntil 2025-12-03, seen only in search snippet text.",
+        "source_url": "https://www.pbtech.co.nz/product/HSTAPP5922283/Apple-AirPods-Pro-2nd-Gen-True-Wireless-In-Ear-Hea",
+        "reason": "Fetch failed, so the price, date and availability could not be verified. It is the most relevant lead for the previous Black Friday window and needs a fetch."
+      },
+      {
+        "description": "PriceMe price-trend table for the MTJV3ZA/A variant showing Mwave NZ entries at $353.05 dated 01 Dec 2025 and 25 Dec 2025, with a current best price of $359.00.",
+        "source_url": "https://www.priceme.co.nz/Apple-AirPods-Pro-2/p-913669369.aspx",
+        "reason": "Fetch failed. The table was seen only in a search snippet and the variant match and dates are unverified."
+      },
+      {
+        "description": "Noel Leeming listing for the MTJV3ZA/A AirPods Pro 2nd generation with MagSafe Case USB-C showing $439.00 with no date.",
+        "source_url": "https://www.noelleeming.co.nz/p/apple-airpods-pro-2nd-generation-with-magsafe-case-usb-c/N220935.html",
+        "reason": "Fetch failed. Price is from a search snippet only and undated."
+      },
+      {
+        "description": "Parallel Imported NZ listing for the 2023 USB-C AirPods Pro 2 showing $409 against an RRP of $479, marked in stock.",
+        "source_url": "https://parallelimported.co.nz/apple-airpods-pro-2nd-generation-with-magsafe-case-usb-c-2023/",
+        "reason": "Snippet only and undated. Parallel-imported stock may not be an identical market offer."
+      },
+      {
+        "description": "TechCrazy NZ listing for the brand-new AirPods Pro 2 with MagSafe Case USB-C at NZD 369.00 with an RRP of $479.00.",
+        "source_url": "https://www.techcrazy.co.nz/products/apple-airpods-pro-2nd-generation-with-magsafe-charging-case-usb-type-c",
+        "reason": "Snippet only and undated. Could not confirm the price in the Black Friday or off-season windows."
+      },
+      {
+        "description": "PriceSpy NZ pages showing the 2023 USB-C variant with a lowest price of $398.00 to $409.00 from multiple listings, and a Heathcote Appliances listing at $477.00.",
+        "source_url": "https://pricespy.co.nz/s/apple-airpods-2/",
+        "reason": "Search-result snippets only, undated, and the PriceSpy product page states there is no price history data for the 2023 USB-C variant."
+      },
+      {
+        "description": "Airpoints Store NZ listing for the USB-C AirPods Pro 2 marked as sold out at NZD 479.00.",
+        "source_url": "https://www.airpointsstore.co.nz/product/airpods-pro-2nd-generation-with-magsafe-case-usb-c-eolairpodsprousbc",
+        "reason": "Snippet only. Sold-out status and the undated price are unverified."
+      },
+      {
+        "description": "Talkischeap NZ listing for the USB-C AirPods Pro 2 in Grade 1 condition at $250.00.",
+        "source_url": "https://talkischeap.co.nz/products/airpods-pro-2nd-generation-with-magsafe-case-usb-c",
+        "reason": "Excluded from observations because it is a used or refurbished grade, not new."
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "All six web_fetch attempts failed. Every candidate page (PriceMe, PB Tech, Noel Leeming) returned an access error, and the fetch budget of 3 was spent, so no price could be verified from a fetched page. No observations or current alternatives are submitted.",
+      "Candidate sources ChoiceCheapies (cheapies.nz), BetaDeals and Cheapest NZ were not searched within the limited search budget.",
+      "Previous Black Friday (2025-11-28) price for the exact MTJV3ZA/A USB-C variant could not be established from a verified page. The only related lead is a PB Tech snippet from search results, which is unverified.",
+      "The off-season window (2025-11-29 to 2026-11-26) has no verified dated price. Snippet leads from PriceMe and Mwave show a $353.05 entry dated 01 Dec 2025 and a 25 Dec 2025 entry, but these are unverified.",
+      "Search snippets show conflicting current prices across retailers (about NZD 369 to 479 for the USB-C variant), with no date-stamped history confirming which is current. Some listings may be the 2022 Lightning-case model or the 2023 USB-C model, so product matching is uncertain.",
+      "PriceSpy's product page for the 2023 USB-C variant says there is no price history data, and no continuous price-history series with start and end dates was found for NZ.",
+      "Retailer promotion expiry is unknown. The PB Tech priceValidUntil value (2025-12-03) appears only in an unfetched snippet and is not documented.",
+      "Shipping, tax basis and stock status could not be verified for any NZ offer.",
+      "3 source request(s) failed or were blocked (url_not_accessible).",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 5,
+      "fetches": 4,
+      "duration_ms": 37486,
+      "cache_hit": false
+    }
+  }
+}

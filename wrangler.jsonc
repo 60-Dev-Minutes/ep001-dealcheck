@@ -20,7 +20,7 @@
       "binding": "DB",
       "database_name": "dealcheck-prod",
       // Replaced with the real ID after `wrangler d1 create dealcheck-prod` (not a secret).
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "93d8b50b-4ab4-471a-8dbd-7a74cccf5c86",
       "migrations_dir": "migrations"
     }
   ],
@@ -43,7 +43,7 @@
     "GLOBAL_CONCURRENCY": "5",
     "BUDGET_TIMEZONE": "Pacific/Auckland",
     "QUOTA_KEY_VERSION": "1",
-    "TURNSTILE_SITE_KEY": "",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAGRsjy6m1ZCIH1HV",
     "PUBLICATION_URL": "https://60devminutes.substack.com/"
   },
   "observability": { "enabled": true, "logs": { "invocation_logs": false } }

@@ -17,10 +17,12 @@ export interface EvidenceCorpus {
   citations: { url: string; cited_text: string }[];
   toolErrors: { tool: string; code: string }[];
   queries: string[];
+  /** Every provider web_fetch attempt and whether it returned content (for source access learning). */
+  fetchAttempts: { url: string; ok: boolean; code: string | null }[];
 }
 
 export function emptyCorpus(): EvidenceCorpus {
-  return { searchResults: [], fetched: [], citations: [], toolErrors: [], queries: [] };
+  return { searchResults: [], fetched: [], citations: [], toolErrors: [], queries: [], fetchAttempts: [] };
 }
 
 export function mergeCorpus(a: EvidenceCorpus, b: EvidenceCorpus): EvidenceCorpus {
@@ -30,6 +32,7 @@ export function mergeCorpus(a: EvidenceCorpus, b: EvidenceCorpus): EvidenceCorpu
     citations: [...a.citations, ...b.citations],
     toolErrors: [...a.toolErrors, ...b.toolErrors],
     queries: [...a.queries, ...b.queries],
+    fetchAttempts: [...a.fetchAttempts, ...b.fetchAttempts],
   };
 }
 

@@ -24,7 +24,42 @@ import {
 import { AnthropicProvider } from './research/anthropic';
 import { alnum, fingerprint, hostOf, normText, type EvidenceCorpus, type ModelObservation, type ProductIdentity, validateObservation } from './research/evidence';
 import { FixtureProvider } from './research/fixture';
-import type { IdentifyOutput, ProviderResult, ResearchOutput, ResearchProvider } from './research/provider';
+import type { AccessHints, IdentifyOutput, ProviderResult, ResearchOutput, ResearchProvider } from './research/provider';
+
+const ACCESS_WINDOW_DAYS = 7;
+
+/** Domains whose provider fetch recently succeeded / failed in this market. */
+export async function accessHints(db: D1Database, market: string): Promise<AccessHints> {
+  const since = new Date(Date.now() - ACCESS_WINDOW_DAYS * 86400_000).toISOString();
+  const rows = await db.prepare(
+    `SELECT domain, access_status FROM sources WHERE market = ?1 AND last_checked >= ?2 AND access_status IN ('accessible','blocked') ORDER BY last_checked DESC LIMIT 60`,
+  ).bind(market, since).all<{ domain: string; access_status: string }>();
+  const accessible = new Set<string>();
+  const blocked = new Set<string>();
+  for (const r of rows.results) (r.access_status === 'accessible' ? accessible : blocked).add(r.domain);
+  for (const d of accessible) blocked.delete(d);
+  return { accessible: Array.from(accessible).slice(0, 20), blocked: Array.from(blocked).slice(0, 30) };
+}
+
+/** Records provider fetch outcomes per domain (seed rows updated; new domains added as discovered). */
+export async function recordSourceAccess(db: D1Database, market: string, attempts: EvidenceCorpus['fetchAttempts']): Promise<void> {
+  const now = nowIso();
+  const stmts: D1PreparedStatement[] = [];
+  for (const a of attempts.slice(0, 20)) {
+    const domain = hostOf(a.url);
+    if (!domain || domain.length > 253) continue;
+    const status = a.ok ? 'accessible' : 'blocked';
+    const note = a.ok ? 'provider web_fetch succeeded' : `provider web_fetch failed: ${a.code ?? 'unknown'}`;
+    stmts.push(
+      db.prepare(`UPDATE sources SET access_status = ?3, last_checked = ?4, notes = ?5 WHERE market = ?1 AND domain = ?2`).bind(market, domain, status, now, note),
+      db.prepare(
+        `INSERT OR IGNORE INTO sources (id, market, domain, name, type, provenance, access_status, last_checked, notes)
+         SELECT ?1, ?2, ?3, ?3, 'discovered', 'discovered', ?4, ?5, ?6 WHERE NOT EXISTS (SELECT 1 FROM sources WHERE market = ?2 AND domain = ?3)`,
+      ).bind(`src_${(await fingerprint([market, domain, 'discovered'])).slice(0, 20)}`, market, domain, status, now, note),
+    );
+  }
+  if (stmts.length) await db.batch(stmts);
+}
 
 export interface JobInput {
   market: string;
@@ -139,6 +174,8 @@ async function paidCall<T>(
       const unbilled = !result.ok && result.error.billing === 'unbilled';
       await recordCallResult(env.DB, callId, { status: unbilled ? 'failed_unbilled' : 'unknown', durationMs: Date.now() - started }, nowIso());
     }
+    const job = await getJob(env.DB, jobId);
+    if (job) await recordSourceAccess(env.DB, job.market, result.corpus.fetchAttempts);
     await logEvent(env.DB, jobId, `${stage}_call`, {
       ok: result.ok, ms: Date.now() - started,
       error: result.ok ? null : result.error.code,
@@ -188,9 +225,10 @@ export async function identifyStage(env: Env, jobId: string): Promise<IdentifySt
     const market = marketOf(job.market);
     const todayLocal = localDate(new Date(), market.timezone);
     await setState(env.DB, jobId, 'identifying', { detail: 'identifying' });
+    const access = await accessHints(env.DB, market.code);
     const provider = makeProvider(env, cfg, input.product);
     const res = await paidCall(env, cfg, jobId, 'identify', (signal) =>
-      provider.identify({ marketCode: market.code, productInput: input.product, userPriceMinor: input.price_minor, retailerHint: input.retailer, chosenCandidate: null, todayLocal }, signal),
+      provider.identify({ marketCode: market.code, productInput: input.product, userPriceMinor: input.price_minor, retailerHint: input.retailer, chosenCandidate: null, todayLocal, access }, signal),
     );
     if (!res.ok) throw new StopJob('failed', res.error.code === 'timeout' ? 'TIMEOUT' : 'PROVIDER_UNAVAILABLE', res.error.message);
     const out: IdentifyOutput = res.output;
@@ -320,8 +358,9 @@ export async function researchStage(env: Env, jobId: string, product: ResolvedPr
     }
 
     const provider = makeProvider(env, cfg, input.product);
+    const access = await accessHints(env.DB, market.code);
     const res = await paidCall(env, cfg, jobId, 'research', (signal) =>
-      provider.research({ marketCode: market.code, productLabel: product.label, brand: product.brand, model: product.model, variant: product.variant, gtin: product.gtin, assessedMinor: input.price_minor ?? assessedMinor, assessedRetailer: input.retailer ?? assessedRetailer, todayLocal }, signal),
+      provider.research({ marketCode: market.code, productLabel: product.label, brand: product.brand, model: product.model, variant: product.variant, gtin: product.gtin, assessedMinor: input.price_minor ?? assessedMinor, assessedRetailer: input.retailer ?? assessedRetailer, todayLocal, access }, signal),
     );
     await setState(env.DB, jobId, 'validating', { detail: 'validating' });
     if (!res.ok) {

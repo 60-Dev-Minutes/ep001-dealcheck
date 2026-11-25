@@ -178,6 +178,7 @@ function addUsage(u: Usage, raw: Record<string, unknown>): void {
 
 /** Extracts searched URLs, fetched page text and citations from response content (defensively typed). */
 export function collectEvidence(corpus: EvidenceCorpus, content: unknown[]): void {
+  const fetchUrls = new Map<string, string>();
   for (const raw of content) {
     if (!raw || typeof raw !== 'object') continue;
     const b = raw as Record<string, unknown>;
@@ -185,6 +186,7 @@ export function collectEvidence(corpus: EvidenceCorpus, content: unknown[]): voi
       case 'server_tool_use': {
         const input = (b.input ?? {}) as Record<string, unknown>;
         if (b.name === 'web_search' && typeof input.query === 'string') corpus.queries.push(input.query.slice(0, 300));
+        if (b.name === 'web_fetch' && typeof input.url === 'string' && typeof b.id === 'string') fetchUrls.set(b.id, input.url);
         break;
       }
       case 'web_search_tool_result': {
@@ -211,8 +213,12 @@ export function collectEvidence(corpus: EvidenceCorpus, content: unknown[]): voi
             binary: !isText,
             retrieved_at: typeof c.retrieved_at === 'string' ? c.retrieved_at : new Date().toISOString(),
           });
+          corpus.fetchAttempts.push({ url: c.url, ok: true, code: null });
         } else {
-          corpus.toolErrors.push({ tool: 'web_fetch', code: String(c.error_code ?? 'unknown') });
+          const code = String(c.error_code ?? 'unknown');
+          corpus.toolErrors.push({ tool: 'web_fetch', code });
+          const url = typeof b.tool_use_id === 'string' ? fetchUrls.get(b.tool_use_id) : undefined;
+          if (url) corpus.fetchAttempts.push({ url, ok: false, code });
         }
         break;
       }

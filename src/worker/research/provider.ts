@@ -71,6 +71,13 @@ export interface IdentifyRequest {
   retailerHint: string | null;
   chosenCandidate: string | null;
   todayLocal: string;
+  access?: AccessHints;
+}
+
+/** Learned provider-fetch accessibility per domain for the market (not a permission list). */
+export interface AccessHints {
+  blocked: string[];
+  accessible: string[];
 }
 
 export interface ResearchRequest {
@@ -83,6 +90,7 @@ export interface ResearchRequest {
   assessedMinor: number | null;
   assessedRetailer: string | null;
   todayLocal: string;
+  access?: AccessHints;
 }
 
 export interface ResearchProvider {
