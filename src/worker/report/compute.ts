@@ -140,7 +140,8 @@ export function coverage(primary: ReportObservation[], cfg: EventConfig, asOfLoc
   const distinctDates = new Set(dated.map((o) => o.date_start)).size;
   const start = primary.reduce((a, o) => (o.date_start < a ? o.date_start : a), primary[0]!.date_start);
   const end = primary.reduce((a, o) => (o.date_end > a ? o.date_end : a), primary[0]!.date_end);
-  const origins = new Set(primary.map((o) => domainOrigin(o.source_url))).size;
+  // Archived snapshots count towards the original retailer, not the archive.
+  const origins = new Set(primary.map((o) => domainOrigin(`https://${o.source_domain}/`))).size;
   const months = new Set<string>();
   for (const o of primary) {
     if (o.date_precision === 'day' || o.source_type === 'price_history_series') for (const mo of monthsInRange(o.date_start, o.date_end)) months.add(mo);

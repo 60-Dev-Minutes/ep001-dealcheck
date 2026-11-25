@@ -76,6 +76,10 @@ export const ModelLead = z.object({
   description: z.string().min(1).max(400),
   source_url: httpUrl.nullable(),
   reason: z.string().max(300),
+  amount_minor: z.number().int().positive().max(MAX_AMOUNT_MINOR).nullable(),
+  currency: z.string().max(3).nullable(),
+  retailer: z.string().max(200).nullable(),
+  date: z.string().max(40).nullable(),
 });
 
 // ------------------------------------------------------------------ text normalisation
@@ -213,15 +217,35 @@ export type ValidationOutcome =
   | { status: 'lead'; reason: string }
   | { status: 'rejected'; reason: string };
 
+/**
+ * Identifier tokens that prove the page is about this product: the GTIN, and model/MPN-like
+ * segments (letters+digits, e.g. "G91F", "LS49FG912EEXXY", "WH-1000XM5"). Any one must appear.
+ */
 export function productTokens(p: ProductIdentity): string[] {
-  const toks: string[] = [];
-  if (p.gtin) toks.push(alnum(p.gtin));
-  if (p.model) toks.push(alnum(p.model));
-  return toks.filter((t) => t.length >= 3);
+  const toks = new Set<string>();
+  if (p.gtin) toks.add(alnum(p.gtin));
+  if (p.model) {
+    const parts = p.model.split(/[\s(),;/|]+/).map((x) => x.replace(/["'’”]+/g, '')).filter(Boolean);
+    for (const part of parts) {
+      const a = alnum(part);
+      if (a.length >= 4 && /\d/.test(a) && /\p{L}/u.test(a)) toks.add(a);
+    }
+    // Adjacent pairs catch split identifiers like "WH 1000XM5" or "GSR 12V-15".
+    for (let i = 0; i + 1 < parts.length; i++) {
+      const a = alnum(parts[i]! + parts[i + 1]!);
+      if (a.length >= 5 && /\d/.test(a) && /\p{L}/u.test(a)) toks.add(a);
+    }
+    if (toks.size === 0 || (p.gtin && toks.size === 1)) {
+      const whole = alnum(p.model);
+      if (whole.length >= 3) toks.add(whole);
+    }
+  }
+  return Array.from(toks);
 }
 
-const UNIT_ALIASES: Record<string, string> = { gb: 'gb', tb: 'tb', mb: 'mb', kg: 'kg', l: 'l', litre: 'l', liter: 'l', inch: 'in', in: 'in', '"': 'in', zoll: 'in', tolli: 'in', qt: 'qt', quart: 'qt', w: 'w', v: 'v', ah: 'ah', mah: 'mah', mm: 'mm', cm: 'cm', hz: 'hz' };
-const MEASURE_RE = /(\d+(?:[.,]\d+)?)\s?(gb|tb|mb|kg|litre|liter|l|inch|in|"|zoll|tolli|qt|quart|mah|ah|w|v|mm|cm|hz)(?![a-z])/gi;
+// Price-relevant measured attributes only (storage, screen size, capacity, battery pack size).
+const UNIT_ALIASES: Record<string, string> = { gb: 'gb', tb: 'tb', kg: 'kg', l: 'l', litre: 'l', liter: 'l', inch: 'in', in: 'in', '"': 'in', zoll: 'in', tolli: 'in', qt: 'qt', quart: 'qt', ah: 'ah' };
+const MEASURE_RE = /(\d+(?:[.,]\d+)?)\s?-?\s?(gb|tb|kg|litre|liter|l|inch|in|"|zoll|tolli|qt|quart|ah)(?![a-z])/gi;
 
 /** Price-relevant measured attributes ("256 GB", "65 inch", "8kg") normalised to value+unit. */
 export function measures(text: string): { value: string; unit: string }[] {

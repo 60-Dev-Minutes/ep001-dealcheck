@@ -141,3 +141,16 @@ describe('fetch attempt tracking', () => {
     ]);
   });
 });
+
+import { productTokens } from '../src/worker/research/evidence';
+describe('productTokens', () => {
+  it('splits model strings into identifier tokens', () => {
+    const t = productTokens({ brand: 'Samsung', model: 'Odyssey G91F 49" (LS49FG912EEXXY)', variant: null, gtin: null });
+    expect(t).toContain('g91f');
+    expect(t).toContain('ls49fg912eexxy');
+    expect(t).not.toContain('odyssey');
+    expect(productTokens({ brand: 'Sony', model: 'WH-1000XM5', variant: null, gtin: null })).toContain('wh1000xm5');
+    expect(productTokens({ brand: 'Bosch', model: 'GSR 12V-15', variant: null, gtin: null })).toContain('gsr12v15');
+    expect(productTokens({ brand: 'Apple', model: 'iPad', variant: null, gtin: null })).toEqual(['ipad']);
+  });
+});

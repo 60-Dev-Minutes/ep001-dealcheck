@@ -133,6 +133,12 @@ export interface ReportLead {
   description: string;
   source_url: string | null;
   reason: string;
+  /** Price seen but not verified (never used in calculations). Only set when in the market currency. */
+  amount_minor: number | null;
+  currency: string | null;
+  retailer: string | null;
+  /** Date or date range as stated by the source, if any. */
+  date: string | null;
 }
 
 export interface AssessedOffer {

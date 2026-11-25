@@ -30,17 +30,30 @@ export const IdentifyOutput = z.object({
 });
 export type IdentifyOutput = z.infer<typeof IdentifyOutput>;
 
+/** Keeps only items that pass the schema: one malformed entry never discards the whole research. */
+function itemsOf<T extends z.ZodType>(schema: T, max: number) {
+  return z
+    .array(z.unknown())
+    .catch([])
+    .transform((arr) => arr.slice(0, max).flatMap((x) => {
+      const r = schema.safeParse(x);
+      return r.success ? [r.data as z.infer<T>] : [];
+    }));
+}
+
 export const ResearchOutput = z.object({
-  observations: z.array(ModelObservation).max(40),
-  current_alternatives: z.array(ModelObservation).max(10),
-  unverified_leads: z.array(ModelLead).max(20),
-  promotion_expiry: z.object({
-    status: z.enum(['documented', 'claimed_unspecified', 'not_found', 'conflicting']),
-    ends_local: z.string().max(40).nullable(),
-    source_url: z.string().max(2048).nullable(),
-    evidence_excerpt: z.string().max(600).nullable(),
-  }),
-  limitations: z.array(z.string().max(300)).max(10),
+  observations: itemsOf(ModelObservation, 40),
+  current_alternatives: itemsOf(ModelObservation, 10),
+  unverified_leads: itemsOf(ModelLead, 20),
+  promotion_expiry: z
+    .object({
+      status: z.enum(['documented', 'claimed_unspecified', 'not_found', 'conflicting']),
+      ends_local: z.string().max(40).nullable(),
+      source_url: z.string().max(2048).nullable(),
+      evidence_excerpt: z.string().max(600).nullable(),
+    })
+    .catch({ status: 'not_found', ends_local: null, source_url: null, evidence_excerpt: null }),
+  limitations: itemsOf(z.string().max(300), 10),
 });
 export type ResearchOutput = z.infer<typeof ResearchOutput>;
 

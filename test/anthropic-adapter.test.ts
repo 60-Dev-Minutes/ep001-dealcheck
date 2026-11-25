@@ -90,3 +90,16 @@ describe('AnthropicProvider (mocked HTTP)', () => {
     expect(!r.ok && r.error.code).toBe('refusal');
   });
 });
+
+describe('research output parsing', () => {
+  it('drops malformed items instead of failing the whole research, and sends findings non-strict', async () => {
+    const { ResearchOutput } = await import('../src/worker/research/provider');
+    const good = { amount_minor: 100, currency: 'NZD', date_start: '2026-01-01', date_end: '2026-01-01', date_precision: 'day', retailer: null, source_name: 's', source_url: 'https://a.co.nz/p', source_type: 'other', evidence_excerpt: 'x 1.00', condition: 'new', shipping_minor: null, tax_basis: 'unknown', eligibility: 'public', availability: 'unknown', market: 'NZ', product_match: 'exact', reference_price_minor: null };
+    const r = ResearchOutput.parse({ observations: [good, { ...good, amount_minor: -5 }, 'junk'], current_alternatives: null, unverified_leads: [{ description: 'd', source_url: null, reason: 'r', amount_minor: 1, currency: 'NZD', retailer: null, date: null }, { description: 'no new fields' }], promotion_expiry: 'bad', limitations: ['ok', 7] });
+    expect(r.observations).toHaveLength(1);
+    expect(r.current_alternatives).toEqual([]);
+    expect(r.unverified_leads).toHaveLength(1);
+    expect(r.promotion_expiry.status).toBe('not_found');
+    expect(r.limitations).toEqual(['ok']);
+  });
+});

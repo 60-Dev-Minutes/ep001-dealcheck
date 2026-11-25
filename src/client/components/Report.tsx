@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import type {
   AssessedOffer,
+  ReportLead,
   Comparison,
   Eligibility,
   ReportCondition,
@@ -91,6 +92,10 @@ interface Props {
 export function Report({ snapshot: s, onNewCheck }: Props) {
   const currency = s.assessed?.currency ?? s.market.currency;
   const byId = new Map(s.observations.map((o) => [o.id, o] as const));
+  // Older snapshots have no structured lead prices; treat missing fields as null.
+  const pricedLeads = s.leads.filter((l): l is ReportLead & { amount_minor: number } => typeof l.amount_minor === 'number' && l.currency === s.market.currency);
+  const textLeads = s.leads.filter((l) => !(typeof l.amount_minor === 'number' && l.currency === s.market.currency));
+  const verifiedCount = s.observations.length + s.current_alternatives.length;
 
   // The report replaces the progress view: move focus to its heading.
   useEffect(() => {
@@ -122,6 +127,7 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
           {VERDICT_LABELS[s.verdict]}
         </h2>
         <p className="verdict-text">{s.verdict_text}</p>
+        <PriceSummary verified={verifiedCount} leads={pricedLeads} currency={s.market.currency} />
         {s.condition !== 'ok' && (
           <div className={`condition-note condition-${s.condition}`} role="note">
             <p className="alert-title">{CONDITION_NOTES[s.condition].title}</p>
@@ -194,8 +200,19 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
           <PromotionExpiryView p={s.promotion_expiry} />
       </section>
 
+      {pricedLeads.length > 0 && (
+        <section aria-labelledby="seen-title" className="stack-sm">
+          <h2 id="seen-title">Other prices we saw (not verified)</h2>
+          <p className="hint">
+            These prices appeared in search results or on pages we could not fully check (for example, the retailer blocked our research tool). They are shown for
+            your information only and are <strong>not used</strong> in the verdict. Check them at the source.
+          </p>
+          <LeadPriceTable leads={pricedLeads} />
+        </section>
+      )}
+
       <section className="card" aria-labelledby="chart-title">
-        <h2 id="chart-title">Prices we found</h2>
+        <h2 id="chart-title">Verified prices over time</h2>
         <PriceChart snapshot={s} />
       </section>
 
@@ -213,12 +230,12 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
       </section>
 
       <section className="card" aria-labelledby="leads-title">
-        <h2 id="leads-title">Research leads (not verified, not used in calculations)</h2>
-        {s.leads.length === 0 ? (
-          <p className="muted">No unverified leads were recorded.</p>
+        <h2 id="leads-title">Other research leads (not verified, not used in calculations)</h2>
+        {textLeads.length === 0 ? (
+          <p className="muted">No other leads were recorded.</p>
         ) : (
           <ul className="leads">
-            {s.leads.map((l, i) => {
+            {textLeads.map((l, i) => {
               const href = safeHref(l.source_url);
               return (
                 <li key={i}>
@@ -554,6 +571,66 @@ function ObservationTable({ rows, caption, emptyText }: { rows: ReportObservatio
                   <span className="cell-note">Retrieved {formatLocalDateTime(o.retrieved_at)}</span>
                 </td>
                 <td data-label="Excerpt">{o.excerpt ? <q className="excerpt">{o.excerpt}</q> : <span className="muted">None</span>}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function PriceSummary({ verified, leads, currency }: { verified: number; leads: { amount_minor: number }[]; currency: string }) {
+  if (verified === 0 && leads.length === 0) return null;
+  const amounts = leads.map((l) => l.amount_minor);
+  const lo = amounts.length ? Math.min(...amounts) : 0;
+  const hi = amounts.length ? Math.max(...amounts) : 0;
+  return (
+    <p className="price-summary">
+      <strong>{verified}</strong> verified price{verified === 1 ? '' : 's'}
+      {leads.length > 0 && (
+        <>
+          {' · '}
+          <strong>{leads.length}</strong> unverified price{leads.length === 1 ? '' : 's'} seen
+          {' ('}
+          {lo === hi ? formatMoney(lo, currency) : `${formatMoney(lo, currency)} – ${formatMoney(hi, currency)}`}
+          {') — listed below, not used in the verdict.'}
+        </>
+      )}
+    </p>
+  );
+}
+
+function LeadPriceTable({ leads }: { leads: (ReportLead & { amount_minor: number })[] }) {
+  const sorted = [...leads].sort((a, b) => a.amount_minor - b.amount_minor);
+  return (
+    <div className="table-wrap">
+      <table className="evidence leads-table">
+        <caption className="visually-hidden">Unverified prices seen during research, lowest first</caption>
+        <thead>
+          <tr>
+            <th scope="col">Price</th>
+            <th scope="col">Retailer</th>
+            <th scope="col">Date stated</th>
+            <th scope="col">Source</th>
+            <th scope="col">Why not verified</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((l, i) => {
+            const href = safeHref(l.source_url);
+            return (
+              <tr key={i} className="row-noncomparable">
+                <td data-label="Price">
+                  <span className="nowrap">{formatMoney(l.amount_minor, l.currency ?? '')}</span>
+                  <span className="badge badge-no">Unverified</span>
+                </td>
+                <td data-label="Retailer">{l.retailer ?? <span className="muted">Unknown</span>}</td>
+                <td data-label="Date stated">{l.date ?? <span className="muted">Not stated</span>}</td>
+                <td data-label="Source">{href ? <ExternalLink href={href}>{hostOf(href)}</ExternalLink> : <span className="muted">No link</span>}</td>
+                <td data-label="Why not verified">
+                  <span className="cell-note">{l.reason}</span>
+                </td>
               </tr>
             );
           })}

@@ -51,7 +51,7 @@ export interface CallLimits {
 export const IDENTIFY_LIMITS: CallLimits = {
   maxSearches: 2,
   maxFetches: 1,
-  maxFetchContentTokens: 8000,
+  maxFetchContentTokens: 16000,
   maxOutputTokens: 6000,
   basePromptTokens: 5000,
   searchResultTokens: 12000,
@@ -61,7 +61,7 @@ export const IDENTIFY_LIMITS: CallLimits = {
 export const RESEARCH_LIMITS: CallLimits = {
   maxSearches: 6,
   maxFetches: 3,
-  maxFetchContentTokens: 8000,
+  maxFetchContentTokens: 16000,
   maxOutputTokens: 10000,
   basePromptTokens: 7000,
   searchResultTokens: 12000,

@@ -1038,3 +1038,13 @@ table.evidence {
     color: HighlightText;
   }
 }
+
+.price-summary {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid currentColor;
+  border-top-color: color-mix(in srgb, currentColor 20%, transparent);
+}
+.leads-table .badge {
+  margin-left: 0.5rem;
+}

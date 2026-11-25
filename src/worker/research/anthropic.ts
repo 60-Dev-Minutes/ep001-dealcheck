@@ -37,6 +37,8 @@ interface LoopSpec<T> {
   timeoutMs: number;
   marketCode: string;
   schema: ZodType<T>;
+  /** Strict (grammar-constrained) tool input. Large schemas exceed the provider's grammar limit. */
+  strict: boolean;
 }
 
 export class AnthropicProvider implements ResearchProvider {
@@ -61,6 +63,7 @@ export class AnthropicProvider implements ResearchProvider {
         timeoutMs: 45_000,
         marketCode: req.marketCode,
         schema: IdentifyOutput,
+        strict: true,
       },
       signal,
     );
@@ -79,6 +82,7 @@ export class AnthropicProvider implements ResearchProvider {
         timeoutMs: 70_000,
         marketCode: req.marketCode,
         schema: ResearchOutput,
+        strict: false,
       },
       signal,
     );
@@ -126,7 +130,7 @@ export class AnthropicProvider implements ResearchProvider {
                 name: spec.submitName,
                 description: spec.submitDescription,
                 input_schema: spec.submitSchema as Anthropic.Tool.InputSchema,
-                strict: true,
+                strict: spec.strict,
               },
             ],
           },
@@ -242,8 +246,10 @@ function classifyError(err: unknown, signal: AbortSignal): ProviderError {
     const status = err.status ?? 0;
     if (status === 529) return { billing: 'unbilled', code: 'overloaded', message: 'Provider overloaded.', retryable: true };
     if (status >= 400 && status < 500) {
-      const tools = /tool|web_search|web_fetch/i.test(err.message);
-      return { billing: 'unbilled', code: tools ? 'tools_unavailable' : 'http_error', message: `Provider rejected the request (${status}).`, retryable: false };
+      const tools = /tool|web_search|web_fetch|schema/i.test(err.message);
+      // Provider error text is not secret; keep a short, sanitised copy for the investigation log.
+      const detail = err.message.replace(/sk-ant-[A-Za-z0-9_-]+/g, '[key]').slice(0, 300);
+      return { billing: 'unbilled', code: tools ? 'tools_unavailable' : 'http_error', message: `Provider rejected the request (${status}): ${detail}`, retryable: false };
     }
     return { billing: 'unknown', code: 'http_error', message: `Provider error (${status}).`, retryable: status >= 500 };
   }

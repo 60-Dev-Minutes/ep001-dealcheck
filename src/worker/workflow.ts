@@ -21,6 +21,7 @@ export class InvestigationWorkflow extends WorkflowEntrypoint<Env, { jobId: stri
       let resolved: Parameters<typeof reportStage>[2];
       let assessedMinor: number | null = null;
       let assessedRetailer: string | null = null;
+      let seedUrls: string[] = [];
       if (ident.kind === 'ambiguous') {
         const expires = new Date(Date.now() + CLARIFICATION_WINDOW_MS).toISOString();
         await step.do('await-clarification', LOCAL, async () => {
@@ -50,9 +51,10 @@ export class InvestigationWorkflow extends WorkflowEntrypoint<Env, { jobId: stri
         resolved = ident;
         assessedMinor = ident.offer?.observation.amount_minor ?? null;
         assessedRetailer = ident.offer?.observation.retailer ?? null;
+        seedUrls = [ident.offer?.observation.source_url ?? '', ...ident.leads.map((l) => l.source_url ?? '')].filter(Boolean);
       }
 
-      const research = await step.do('research', PAID, () => researchStage(env, jobId, product, assessedMinor, assessedRetailer));
+      const research = await step.do('research', PAID, () => researchStage(env, jobId, product, assessedMinor, assessedRetailer, seedUrls));
       if ('kind' in research) return;
       await step.do('report', LOCAL, () => reportStage(env, jobId, resolved, research));
     } catch (err) {

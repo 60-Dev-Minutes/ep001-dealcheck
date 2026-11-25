@@ -24,6 +24,7 @@ import {
 import { AnthropicProvider } from './research/anthropic';
 import { alnum, fingerprint, hostOf, normText, type EvidenceCorpus, type ModelObservation, type ProductIdentity, validateObservation } from './research/evidence';
 import { FixtureProvider } from './research/fixture';
+import { waybackObservations } from './research/wayback';
 import type { AccessHints, IdentifyOutput, ProviderResult, ResearchOutput, ResearchProvider } from './research/provider';
 
 const ACCESS_WINDOW_DAYS = 7;
@@ -245,7 +246,7 @@ export async function identifyStage(env: Env, jobId: string): Promise<IdentifySt
     if (out.status !== 'resolved' || !out.product) {
       // A valid, inconclusive outcome: the product could not be identified. Reported, not a technical failure.
       const product: ResolvedProduct = { label: input.product.slice(0, 300), brand: null, model: null, variant: null, gtin: null };
-      return { kind: 'resolved', product, offer: null, leads: [{ description: out.status === 'not_a_product' ? 'The input does not look like a purchasable product.' : 'The exact product could not be identified in this market.', source_url: null, reason: out.status }], ...stats };
+      return { kind: 'resolved', product, offer: null, leads: [{ description: out.status === 'not_a_product' ? 'The input does not look like a purchasable product.' : 'The exact product could not be identified in this market.', source_url: null, reason: out.status, amount_minor: null, currency: null, retailer: null, date: null }], ...stats };
     }
     const product: ResolvedProduct = { label: out.product.label, brand: out.product.brand, model: out.product.model, variant: out.product.variant, gtin: out.product.gtin };
     const leads: ReportLead[] = [];
@@ -270,7 +271,13 @@ async function validateOne(
   const v = validateObservation(o, { market, product, corpus, todayLocal, kind });
   if (v.status === 'rejected') return { rejected: v.reason };
   if (v.status === 'lead') {
-    return { lead: { description: `${o.retailer ?? o.source_name}: ${o.currency} ${(o.amount_minor / 100).toFixed(2)} (${o.date_start === o.date_end ? o.date_start : `${o.date_start} to ${o.date_end}`})`, source_url: o.source_url, reason: v.reason } };
+    const date = o.date_start === o.date_end ? o.date_start : `${o.date_start} to ${o.date_end}`;
+    return {
+      lead: {
+        description: `${o.retailer ?? o.source_name}: ${o.currency} ${(o.amount_minor / 100).toFixed(2)} (${date})`, source_url: o.source_url, reason: v.reason,
+        amount_minor: o.amount_minor, currency: o.currency.toUpperCase(), retailer: o.retailer, date: kind === 'current' ? null : date,
+      },
+    };
   }
   const id = await fingerprint([o.source_url, o.retailer, product.model, product.variant, o.amount_minor, o.date_start, o.date_end]);
   return {
@@ -328,7 +335,7 @@ export async function upsertProduct(db: D1Database, p: ResolvedProduct, key: str
 
 const RESEARCH_TTL_MS = 24 * 3600 * 1000;
 
-export async function researchStage(env: Env, jobId: string, product: ResolvedProduct, assessedMinor: number | null, assessedRetailer: string | null): Promise<ResearchStageResult | { kind: 'stopped' }> {
+export async function researchStage(env: Env, jobId: string, product: ResolvedProduct, assessedMinor: number | null, assessedRetailer: string | null, seedUrls: string[] = []): Promise<ResearchStageResult | { kind: 'stopped' }> {
   return guard(env, jobId, async () => {
     const cfg = readConfig(env);
     const job = await getJob(env.DB, jobId);
@@ -365,7 +372,7 @@ export async function researchStage(env: Env, jobId: string, product: ResolvedPr
     await setState(env.DB, jobId, 'validating', { detail: 'validating' });
     if (!res.ok) {
       // Research failure after a successful identification: deliver a partial (inconclusive) report.
-      await logEvent(env.DB, jobId, 'research_failed', res.error.code);
+      await logEvent(env.DB, jobId, 'research_failed', `${res.error.code}: ${res.error.message}`);
       return {
         observations: [], alternatives: [], leads: [], cache_hit: false, searches: res.meta?.usage.web_search_requests ?? 0, fetches: res.meta?.usage.web_fetch_requests ?? 0, ms: res.meta?.durationMs ?? 0, rejected: 0,
         expiry: { status: 'not_found', ends_local: null, source_url: null, note: null },
@@ -375,7 +382,14 @@ export async function researchStage(env: Env, jobId: string, product: ResolvedPr
     const out: ResearchOutput = res.output;
     const observations: ObservationInput[] = [];
     const alternatives: ResearchStageResult['alternatives'] = [];
-    const leads: ReportLead[] = out.unverified_leads.map((l) => ({ description: l.description, source_url: safeUrl(l.source_url), reason: l.reason }));
+    const leads: ReportLead[] = out.unverified_leads.map((l) => {
+      const sameCurrency = (l.currency ?? '').toUpperCase() === market.currency;
+      return {
+        description: l.description, source_url: safeUrl(l.source_url), reason: l.reason,
+        amount_minor: sameCurrency ? l.amount_minor : null, currency: sameCurrency ? market.currency : null,
+        retailer: l.retailer, date: l.date,
+      };
+    });
     let rejected = 0;
     const seen = new Set<string>();
     for (const o of out.observations) {
@@ -390,12 +404,36 @@ export async function researchStage(env: Env, jobId: string, product: ResolvedPr
       else if (v.lead) leads.push(v.lead);
       else rejected++;
     }
+    // Internet Archive: dated structured-data prices from archived copies of discovered product pages.
+    const wb = await archiveStage(env, jobId, market, product, todayLocal, [
+      ...seedUrls, ...res.corpus.fetched.map((d) => d.url), ...leads.map((l) => l.source_url ?? ''),
+      ...out.observations.map((o) => o.source_url), ...out.current_alternatives.map((o) => o.source_url), ...res.corpus.searchResults.map((r) => r.url),
+    ]);
+    for (const o of wb.observations) if (!seen.has(o.id)) { seen.add(o.id); observations.push(o); }
     const expiry = validateExpiry(out.promotion_expiry, res.corpus);
     const limitations = out.limitations.slice(0, 10).map((l) => l.slice(0, 300));
     if (res.corpus.toolErrors.length) limitations.push(`${res.corpus.toolErrors.length} source request(s) failed or were blocked (${Array.from(new Set(res.corpus.toolErrors.map((e) => e.code))).join(', ')}).`);
+    limitations.push(wb.note);
     if (rejected) limitations.push(`${rejected} model-proposed price(s) were rejected by validation (wrong market, future date, non-new condition or unretrieved source).`);
     return { observations, alternatives, leads: leads.slice(0, 30), expiry, limitations, cache_hit: false, searches: res.meta.usage.web_search_requests, fetches: res.meta.usage.web_fetch_requests, ms: res.meta.durationMs, rejected };
   });
+}
+
+async function archiveStage(env: Env, jobId: string, market: Market, product: ResolvedProduct, todayLocal: string, urls: string[]): Promise<{ observations: ObservationInput[]; note: string }> {
+  if (readConfig(env).provider === 'fixture') return { observations: [], note: 'Internet Archive lookup skipped (synthetic fixture run).' };
+  const started = Date.now();
+  try {
+    const wb = await waybackObservations(urls.filter(Boolean), market, product, EVENT_CONFIG, todayLocal);
+    await logEvent(env.DB, jobId, 'wayback', { ...wb.log, found: wb.observations.length, ms: Date.now() - started });
+    const n = wb.observations.length;
+    const note = wb.log.urls.length === 0
+      ? 'Internet Archive: no retailer product page in this market was found to look up.'
+      : `Internet Archive: checked ${wb.log.snapshots_fetched} archived snapshot(s) of ${wb.log.urls.join(', ')}; ${n} dated price${n === 1 ? '' : 's'} read from structured page data.`;
+    return { observations: wb.observations, note };
+  } catch (err) {
+    await logEvent(env.DB, jobId, 'wayback_error', err instanceof Error ? err.message.slice(0, 200) : 'unknown');
+    return { observations: [], note: 'Internet Archive lookup failed for this investigation.' };
+  }
 }
 
 function validateExpiry(e: ResearchOutput['promotion_expiry'], corpus: EvidenceCorpus): ReportSnapshot['promotion_expiry'] {
