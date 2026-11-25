@@ -217,6 +217,36 @@ export function productTokens(p: ProductIdentity): string[] {
   return toks.filter((t) => t.length >= 3);
 }
 
+const UNIT_ALIASES: Record<string, string> = { gb: 'gb', tb: 'tb', mb: 'mb', kg: 'kg', l: 'l', litre: 'l', liter: 'l', inch: 'in', in: 'in', '"': 'in', zoll: 'in', tolli: 'in', qt: 'qt', quart: 'qt', w: 'w', v: 'v', ah: 'ah', mah: 'mah', mm: 'mm', cm: 'cm', hz: 'hz' };
+const MEASURE_RE = /(\d+(?:[.,]\d+)?)\s?(gb|tb|mb|kg|litre|liter|l|inch|in|"|zoll|tolli|qt|quart|mah|ah|w|v|mm|cm|hz)(?![a-z])/gi;
+
+/** Price-relevant measured attributes ("256 GB", "65 inch", "8kg") normalised to value+unit. */
+export function measures(text: string): { value: string; unit: string }[] {
+  const out: { value: string; unit: string }[] = [];
+  for (const m of text.toLowerCase().matchAll(MEASURE_RE)) {
+    out.push({ value: String(Number(m[1]!.replace(',', '.'))), unit: UNIT_ALIASES[m[2]!.toLowerCase()] ?? m[2]!.toLowerCase() });
+  }
+  return out;
+}
+
+/**
+ * Variant check: every measured attribute of the resolved variant must appear on the page, and the
+ * excerpt must not quote a different value of the same unit without also quoting the target value.
+ */
+export function variantConflict(variant: string | null, pageText: string, excerpt: string): string | null {
+  if (!variant) return null;
+  const want = measures(variant);
+  if (!want.length) return null;
+  const page = measures(pageText);
+  const ex = measures(excerpt);
+  for (const w of want) {
+    if (!page.some((p) => p.unit === w.unit && p.value === w.value)) return `The page does not mention the ${w.value} ${w.unit} variant.`;
+    const exSame = ex.filter((e) => e.unit === w.unit);
+    if (exSame.length && !exSame.some((e) => e.value === w.value)) return `The excerpt refers to a different variant (${exSame[0]!.value} ${w.unit}).`;
+  }
+  return null;
+}
+
 export function validateObservation(o: ModelObservation, ctx: ValidationContext): ValidationOutcome {
   const { market, corpus } = ctx;
   if (o.market.toUpperCase() !== market.code) return { status: 'rejected', reason: `Observation is for market ${o.market}, not ${market.code}.` };
@@ -248,6 +278,9 @@ export function validateObservation(o: ModelObservation, ctx: ValidationContext)
   const toks = productTokens(ctx.product);
   const pageAlnum = alnum(doc.text);
   if (toks.length === 0 || !toks.some((t) => pageAlnum.includes(t))) return { status: 'lead', reason: 'The page does not mention the exact model identifier.' };
+
+  const vc = variantConflict(ctx.product.variant, doc.text, o.evidence_excerpt);
+  if (vc) return { status: 'lead', reason: vc };
 
   const notes: string[] = [];
   if (ctx.kind === 'historical') {

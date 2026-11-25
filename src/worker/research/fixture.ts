@@ -110,6 +110,14 @@ export class FixtureProvider implements ResearchProvider {
         base.observations.push(obs(m, cur, 78900, '2026-04-01', evil, `2026-04-01: ${cur} 789.00`));
         break;
       }
+      case 'AMBIGUOUS': {
+        // Pages mention 128 GB only, except one 256 GB post: only that one may verify for the 256 GB choice.
+        const u5 = page('deal-256', `Posted 2 March 2026: FX-100 256 GB now ${cur} 899.00 (128 GB ${cur} 699.00).`);
+        base.observations.push(obs(m, cur, 74900, '2025-11-28', u1, `Black Friday deal 28 November 2025: Fixture Phone FX-100 128 GB for ${cur} 749.00`));
+        base.observations.push(obs(m, cur, 89900, '2026-03-02', u5, `FX-100 256 GB now ${cur} 899.00`));
+        base.observations.push(obs(m, cur, 69900, '2026-03-02', u5, `128 GB ${cur} 699.00`));
+        break;
+      }
       default: // CHEAPER
         base.observations.push(obs(m, cur, 74900, '2025-11-28', u1, `Black Friday deal 28 November 2025: Fixture Phone FX-100 128 GB for ${cur} 749.00`));
         base.observations.push(obs(m, cur, 77900, '2026-07-10', u2, `FX-100 128 GB winter sale ${cur} 779.00`));

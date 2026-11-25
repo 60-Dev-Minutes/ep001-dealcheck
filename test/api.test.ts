@@ -197,6 +197,26 @@ describe('HTTP API', () => {
     expect(st.state).toBe('complete');
     const snap = (await (await c.call(`/api/reports/${st.report_id}`)).json()) as ReportSnapshot;
     expect(snap.product.label).toContain('128 GB');
+    // 128 GB chosen: the 256 GB price must not be used.
+    expect(snap.observations.map((o) => o.amount_minor).sort()).toEqual([69900, 74900]);
+  });
+
+  it('ambiguous → other variant only keeps that variant\'s evidence', async () => {
+    const c = client();
+    const { id } = (await (await c.call('/api/investigations', { method: 'POST', json: body('FIXTURE-AMBIGUOUS phone', { price: '950' }) })).json()) as { id: string };
+    await using inst = await introspectWorkflowInstance(env.INVESTIGATION, id);
+    for (let i = 0; i < 100; i++) {
+      const s = (await (await c.call(`/api/investigations/${id}`)).json()) as InvestigationStatus;
+      if (s.state === 'awaiting_clarification') break;
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    await c.call(`/api/investigations/${id}/clarify`, { method: 'POST', json: { candidate_id: 'c2' } });
+    await inst.waitForStatus('complete');
+    const st = (await (await c.call(`/api/investigations/${id}`)).json()) as InvestigationStatus;
+    const snap = (await (await c.call(`/api/reports/${st.report_id}`)).json()) as ReportSnapshot;
+    expect(snap.product.label).toContain('256 GB');
+    expect(snap.observations.map((o) => o.amount_minor)).toEqual([89900]);
+    expect(snap.verdict).toBe('cheaper_before');
   });
 
   it('reports and jobs are private to the session receipt', async () => {
