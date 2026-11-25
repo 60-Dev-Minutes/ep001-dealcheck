@@ -1,0 +1,26 @@
+{
+  "n": 16,
+  "market": "EE",
+  "input": "Xiaomi robottolmuimeja",
+  "started_at": "2026-11-25T02:36:33.634Z",
+  "events": [
+    {
+      "t": 1058,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_cq2-nXNC170GSeuLbz4oZo3o",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 1058,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}

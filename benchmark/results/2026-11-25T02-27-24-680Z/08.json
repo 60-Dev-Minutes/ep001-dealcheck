@@ -1,0 +1,38 @@
+{
+  "n": 8,
+  "market": "NZ",
+  "input": "Fisher & Paykel 8kg front loader washing machine",
+  "started_at": "2026-11-25T02:33:08.545Z",
+  "events": [
+    {
+      "t": 1073,
+      "state": "identifying"
+    },
+    {
+      "t": 2589,
+      "state": "identifying"
+    },
+    {
+      "t": 4860,
+      "state": "identifying"
+    },
+    {
+      "t": 8261,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_gRrqK44rk25zgaQC-AzZMgmS",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 8261,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}

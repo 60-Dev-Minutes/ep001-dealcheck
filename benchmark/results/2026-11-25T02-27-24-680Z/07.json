@@ -1,0 +1,453 @@
+{
+  "n": 7,
+  "market": "NZ",
+  "input": "Breville the Barista Express BES870BSS",
+  "started_at": "2026-11-25T02:32:05.057Z",
+  "events": [
+    {
+      "t": 1060,
+      "state": "identifying"
+    },
+    {
+      "t": 2586,
+      "state": "identifying"
+    },
+    {
+      "t": 4860,
+      "state": "identifying"
+    },
+    {
+      "t": 8252,
+      "state": "identifying"
+    },
+    {
+      "t": 13275,
+      "state": "researching"
+    },
+    {
+      "t": 18296,
+      "state": "researching"
+    },
+    {
+      "t": 23317,
+      "state": "researching"
+    },
+    {
+      "t": 28335,
+      "state": "researching"
+    },
+    {
+      "t": 33350,
+      "state": "researching"
+    },
+    {
+      "t": 38370,
+      "state": "researching"
+    },
+    {
+      "t": 43394,
+      "state": "researching"
+    },
+    {
+      "t": 48416,
+      "state": "researching"
+    },
+    {
+      "t": 53438,
+      "state": "researching"
+    },
+    {
+      "t": 58455,
+      "state": "validating"
+    },
+    {
+      "t": 63477,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_rbnz_V3AQ3GautR2S9uNS9si",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 63477,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:33:06.795Z",
+    "market": {
+      "code": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "timezone": "Pacific/Auckland"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Breville The Barista Express Manual Espresso Machine, Brushed Stainless Steel (BES870BSS)",
+      "brand": "Breville",
+      "model": "Barista Express BES870",
+      "variant": "BES870BSS, Brushed Stainless Steel",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": {
+      "amount_minor": 74900,
+      "currency": "NZD",
+      "basis": "verified_offer",
+      "retailer": "Harvey Norman",
+      "source_url": "https://pricespy.co.nz/product.php?p=1819467",
+      "availability": "in_stock",
+      "tax_basis": "unknown",
+      "as_of": "2026-11-25T02:32:21+00:00",
+      "as_of_local_date": "2026-11-25",
+      "verified_match": "matches",
+      "verified_amount_minor": 74900
+    },
+    "verdict": "cheaper_before",
+    "verdict_text": "Yes. A verified comparable offer of NZD 723.00 on 2026-02-07 was lower than the current offer of NZD 749.00 (3.6% below it).",
+    "condition": "ok",
+    "previous_event": null,
+    "offseason": {
+      "minimum_minor": 72300,
+      "observation_id": "174fb8154c74816f8e49ba183959e322a4360735",
+      "date": "2026-02-07",
+      "difference_minor": 2600,
+      "percent": 3.6
+    },
+    "overall": {
+      "minimum_minor": 72300,
+      "observation_id": "174fb8154c74816f8e49ba183959e322a4360735",
+      "date": "2026-02-07",
+      "difference_minor": 2600,
+      "percent": 3.6
+    },
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [
+      {
+        "id": "174fb8154c74816f8e49ba183959e322a4360735",
+        "amount_minor": 72300,
+        "currency": "NZD",
+        "date_start": "2026-02-07",
+        "date_end": "2026-02-07",
+        "date_precision": "day",
+        "retailer": "100percent.co.nz",
+        "source_name": "Internet Archive snapshot of 100percent.co.nz",
+        "source_url": "https://web.archive.org/web/20260206231616/https://www.100percent.co.nz/breville-the-barista-express-bes870bss",
+        "source_domain": "100percent.co.nz",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 723.00 NZD (archived 2026-02-06 23:16:16 UTC)",
+        "retrieved_at": "2026-11-25T02:33:06.786Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": true,
+        "comparability_notes": [
+          "Tax basis not stated; assumed tax-inclusive per local price display norm.",
+          "Delivery cost unknown (not treated as zero); item prices compared."
+        ]
+      },
+      {
+        "id": "6d2687492a9538c44ca135290b202401e8e54d9a",
+        "amount_minor": 119995,
+        "currency": "NZD",
+        "date_start": "2026-07-05",
+        "date_end": "2026-07-05",
+        "date_precision": "day",
+        "retailer": "breville.com",
+        "source_name": "Internet Archive snapshot of breville.com",
+        "source_url": "https://web.archive.org/web/20260704200038/https://www.breville.com/en-nz/product/bes870",
+        "source_domain": "breville.com",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 1199.95 NZD (archived 2026-07-04 20:00:38 UTC)",
+        "retrieved_at": "2026-11-25T02:33:03.676Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": true,
+        "comparability_notes": [
+          "Tax basis not stated; assumed tax-inclusive per local price display norm.",
+          "Delivery cost unknown (not treated as zero); item prices compared."
+        ]
+      },
+      {
+        "id": "d83f607d2c60c6b01655bd2fb2e2fbb40eeceaa1",
+        "amount_minor": 119995,
+        "currency": "NZD",
+        "date_start": "2026-08-02",
+        "date_end": "2026-08-02",
+        "date_precision": "day",
+        "retailer": "breville.com",
+        "source_name": "Internet Archive snapshot of breville.com",
+        "source_url": "https://web.archive.org/web/20260802052106/https://www.breville.com/en-nz/product/bes870",
+        "source_domain": "breville.com",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 1199.95 NZD (archived 2026-08-02 05:21:06 UTC)",
+        "retrieved_at": "2026-11-25T02:33:02.843Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": true,
+        "comparability_notes": [
+          "Tax basis not stated; assumed tax-inclusive per local price display norm.",
+          "Delivery cost unknown (not treated as zero); item prices compared."
+        ]
+      },
+      {
+        "id": "06d82ecc305ad6b85ba746f86fca77c51b9c1ac4",
+        "amount_minor": 119995,
+        "currency": "NZD",
+        "date_start": "2026-09-07",
+        "date_end": "2026-09-07",
+        "date_precision": "day",
+        "retailer": "breville.com",
+        "source_name": "Internet Archive snapshot of breville.com",
+        "source_url": "https://web.archive.org/web/20260906223947/https://www.breville.com/en-nz/product/bes870",
+        "source_domain": "breville.com",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 1199.95 NZD (archived 2026-09-06 22:39:47 UTC)",
+        "retrieved_at": "2026-11-25T02:33:02.198Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": true,
+        "comparability_notes": [
+          "Tax basis not stated; assumed tax-inclusive per local price display norm.",
+          "Delivery cost unknown (not treated as zero); item prices compared."
+        ]
+      },
+      {
+        "id": "9bdbf8058c66fecfcb8b27f204296c8303211800",
+        "amount_minor": 119995,
+        "currency": "NZD",
+        "date_start": "2026-10-12",
+        "date_end": "2026-10-12",
+        "date_precision": "day",
+        "retailer": "breville.com",
+        "source_name": "Internet Archive snapshot of breville.com",
+        "source_url": "https://web.archive.org/web/20261011144328/https://www.breville.com/en-nz/product/bes870",
+        "source_domain": "breville.com",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 1199.95 NZD (archived 2026-10-11 14:43:28 UTC)",
+        "retrieved_at": "2026-11-25T02:33:01.546Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": true,
+        "comparability_notes": [
+          "Tax basis not stated; assumed tax-inclusive per local price display norm.",
+          "Delivery cost unknown (not treated as zero); item prices compared."
+        ]
+      }
+    ],
+    "current_alternatives": [
+      {
+        "id": "56eccbd95ad6941853c8233f9953fde2c4b5ce42",
+        "amount_minor": 74900,
+        "currency": "NZD",
+        "date_start": "2026-11-25",
+        "date_end": "2026-11-25",
+        "date_precision": "day",
+        "retailer": "Harvey Norman",
+        "source_name": "PriceSpy NZ",
+        "source_url": "https://pricespy.co.nz/product.php?p=1819467",
+        "source_domain": "pricespy.co.nz",
+        "source_type": "price_comparison_listing",
+        "excerpt": "Harvey Norman, Breville the Barista Express Manual Espresso Machine - Brushed Stainless Steel (BES870BSS), $749.00, Visit shop",
+        "retrieved_at": "2026-11-25T02:32:21+00:00",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "availability": "in_stock",
+        "window": "current_event",
+        "comparable": true,
+        "comparability_notes": []
+      },
+      {
+        "id": "4055ed0397505205195088f01671429a43f92b63",
+        "amount_minor": 89900,
+        "currency": "NZD",
+        "date_start": "2026-11-25",
+        "date_end": "2026-11-25",
+        "date_precision": "day",
+        "retailer": "Folders",
+        "source_name": "PriceSpy NZ",
+        "source_url": "https://pricespy.co.nz/product.php?p=1819467",
+        "source_domain": "pricespy.co.nz",
+        "source_type": "price_comparison_listing",
+        "excerpt": "Folders, Breville The Barista Express Espresso Coffee Machine BES870BSS, $899.00, Visit shop",
+        "retrieved_at": "2026-11-25T02:32:21+00:00",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "availability": "in_stock",
+        "window": "current_event",
+        "comparable": true,
+        "comparability_notes": []
+      }
+    ],
+    "leads": [
+      {
+        "description": "JB Hi-Fi NZ product page for Breville the Barista Express (Stainless Steel), model BES870BSS, shows a $698 price and 'Black Friday is on now!' text in search snippet; date not stated",
+        "source_url": "https://www.jbhifi.co.nz/products/breville-the-barista-express-stainless-steel",
+        "reason": "Search snippet only; page not fetched; undated",
+        "amount_minor": 69800,
+        "currency": "NZD",
+        "retailer": "JB Hi-Fi",
+        "date": null
+      },
+      {
+        "description": "Harvey Norman NZ product page for BES870BSS shows $698 with 'Promotion' label in search snippet",
+        "source_url": "https://www.harveynorman.co.nz/home-appliances/coffee-and-beverages/coffee-machines/breville-barista-express-espresso-machine.html",
+        "reason": "Search snippet only; conflicts with fetched PriceSpy listing of $749.00 at Harvey Norman; undated",
+        "amount_minor": 69800,
+        "currency": "NZD",
+        "retailer": "Harvey Norman",
+        "date": null
+      },
+      {
+        "description": "Briscoes product listing for Breville Barista Express Coffee Machine BES870BSS shows $699.99 with HOT PRICE tag on brand page snippet",
+        "source_url": "https://www.briscoes.co.nz/shop-by-brand/breville/",
+        "reason": "Search snippet only; the fetched version of the page did not show the price; undated",
+        "amount_minor": 69999,
+        "currency": "NZD",
+        "retailer": "Briscoes",
+        "date": null
+      },
+      {
+        "description": "Breville NZ product page for BES870 lists $698.95 (search snippet; NZD schema shows 1199.95 RRP)",
+        "source_url": "https://www.breville.com/en-nz/product/bes870",
+        "reason": "Search snippet only; page not fetched; undated; model listing not confirmed as BES870BSS colour",
+        "amount_minor": 69895,
+        "currency": "NZD",
+        "retailer": "Breville NZ",
+        "date": null
+      },
+      {
+        "description": "100% Home NZ product page for BES870BSS shows $879",
+        "source_url": "https://www.100percent.co.nz/breville-the-barista-express-bes870bss",
+        "reason": "Search snippet only; undated; not fetched",
+        "amount_minor": 87900,
+        "currency": "NZD",
+        "retailer": "100% Home",
+        "date": null
+      },
+      {
+        "description": "Trade Me marketplace listings show various BES870 prices (including $699 and $620 private listings)",
+        "source_url": "https://www.trademe.co.nz/a/marketplace/s/breville-barista-express/k3c0-4",
+        "reason": "Used/private and undated listings; colour and condition not verified; not retailer offers",
+        "amount_minor": null,
+        "currency": "NZD",
+        "retailer": null,
+        "date": null
+      },
+      {
+        "description": "Other NZ product pages for this model to check in archives: Farmers BES870BSS page, Folders BES870BSS page, Noel Leeming N121455 page, PriceMe listing, PriceSpy product page 1819467, Harvey Norman product page, JB Hi-Fi product page, Briscoes product 1052561",
+        "source_url": "https://www.priceme.co.nz/Breville-the-Barista-Express-BES870/p-887759811.aspx",
+        "reason": "Product URLs listed as archive-lookup leads only; no prices verified from these in this run",
+        "amount_minor": null,
+        "currency": "NZD",
+        "retailer": null,
+        "date": null
+      },
+      {
+        "description": "Noel Leeming: NZD 549.00 (2026-10-31)",
+        "source_url": "https://www.cheapies.nz/product/breville-bes870",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 54900,
+        "currency": "NZD",
+        "retailer": "Noel Leeming",
+        "date": "2026-10-31"
+      },
+      {
+        "description": "Noel Leeming: NZD 599.00 (2026-05-31)",
+        "source_url": "https://www.cheapies.nz/product/breville-bes870",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 59900,
+        "currency": "NZD",
+        "retailer": "Noel Leeming",
+        "date": "2026-05-31"
+      },
+      {
+        "description": "Noel Leeming: NZD 599.00 (2026-08-08)",
+        "source_url": "https://www.cheapies.nz/product/breville-bes870",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 59900,
+        "currency": "NZD",
+        "retailer": "Noel Leeming",
+        "date": "2026-08-08"
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 5,
+      "distinct_dates": 5,
+      "date_range": {
+        "start": "2026-02-07",
+        "end": "2026-10-12"
+      },
+      "span_days": 247,
+      "distinct_origins": 2,
+      "months_represented": [
+        "2026-02",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-11"
+      ],
+      "threshold_met": true,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "Previous Black Friday (2025-11-28) price for the exact BES870BSS in NZ could not be established: no verified dated offer from that date or the days around it was found.",
+      "No continuous NZ price-history series was accessible; the PriceSpy price-history graph text was not present in the fetched page, and its stated low/high (549/797) applies to a Black Truffle variant, not this product.",
+      "Colour/variant uncertainty: several ChoiceCheapies in-window deals link to Black Truffle or generic BES870 pages, so the exact-colour match is unconfirmed (product_match marked uncertain).",
+      "Excluded in-window deals for different colours: JB Hi-Fi Black Sesame $597 (2026-02-10), Farmers BES870BKS $649.99 (2026-01-14).",
+      "Pre-window deal excluded: Harvey Norman BES870BSS $599 posted 2025-09-29 (before the 2025-11-28 Black Friday window start).",
+      "Conflicting current Harvey Norman price: a search snippet showed $698, while the fetched PriceSpy listing showed $749.00 in stock; the fetched value was used.",
+      "Not fetched or blocked: PriceMe and pbtech.com (recently failed), Noel Leeming, JB Hi-Fi, Harvey Norman, Farmers, Folders and Briscoes product pages; ChoiceCheapies deal pages and page 2 of the product deals list were not fetched.",
+      "Source dates: ChoiceCheapies deal dates are posting dates, not verified sale start or end dates; shipping and tax basis were not stated for most deals.",
+      "Search and fetch budget used: 3 searches and 3 fetches.",
+      "Internet Archive: checked 6 archived snapshot(s) of cheapies.nz, breville.com, 100percent.co.nz; 5 dated prices read from structured page data.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-03, 2026-04, 2026-05, 2026-06, 2026-11.",
+      "The lower price is supported by a single source; it has not been independently corroborated."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 5,
+      "fetches": 4,
+      "duration_ms": 61710,
+      "cache_hit": false
+    }
+  }
+}

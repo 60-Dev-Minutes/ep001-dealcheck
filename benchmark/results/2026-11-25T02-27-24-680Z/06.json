@@ -1,0 +1,157 @@
+{
+  "n": 6,
+  "market": "NZ",
+  "input": "Ryobi ONE+ 18V brushless drill driver R18DDBL-0 skin only",
+  "started_at": "2026-11-25T02:31:26.671Z",
+  "events": [
+    {
+      "t": 1070,
+      "state": "identifying"
+    },
+    {
+      "t": 2589,
+      "state": "identifying"
+    },
+    {
+      "t": 4854,
+      "state": "identifying"
+    },
+    {
+      "t": 8253,
+      "state": "researching"
+    },
+    {
+      "t": 13278,
+      "state": "researching"
+    },
+    {
+      "t": 18298,
+      "state": "researching"
+    },
+    {
+      "t": 23322,
+      "state": "validating"
+    },
+    {
+      "t": 28342,
+      "state": "validating"
+    },
+    {
+      "t": 33364,
+      "state": "validating"
+    },
+    {
+      "t": 38379,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_gAjNg2lOThhGjjqKKWsaGitt",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 38379,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:32:04.957Z",
+    "market": {
+      "code": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "timezone": "Pacific/Auckland"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Ryobi 18V ONE+ Brushless Drill Driver Tool Only (R18DDBL-0)",
+      "brand": "Ryobi",
+      "model": "R18DDBL-0",
+      "variant": "Tool only (skin only, no battery or charger)",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "PriceSpy NZ product page for Ryobi R18DDBL-0 (w/o Battery): shows 'No active listings at the moment' and 'There is no price history data for this product'. No NZ price or retailer listed.",
+        "source_url": "https://pricespy.co.nz/product.php?p=4339318",
+        "reason": "Fetched page confirms the product exists on PriceSpy NZ but contains no price, retailer, or dated history; it is not a price observation.",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": null,
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No verified NZ price for the exact product Ryobi R18DDBL-0 (18V ONE+ Brushless Drill Driver, tool only) was found in any fetched page, so the previous Black Friday (2025-11-28), off-season (2025-11-29 to 2026-11-26) and current-event prices could not be established.",
+      "PriceSpy NZ fetched page for R18DDBL-0 shows no active listings and no price history data, so it gives no price series.",
+      "No PB Tech, Noel Leeming, JB Hi-Fi NZ, Harvey Norman NZ, Briscoes or Farmers product page for R18DDBL-0 was found in search results, and no archived copy could be checked.",
+      "Ryobi NZ and Bunnings NZ pages surfaced in search were for different models (RDD18, RDD18C, PSBDD02K, R18DD3 and similar) and were excluded as not the exact product; the Ryobi NZ tools-only page fetched did not list R18DDBL-0.",
+      "Results for the same model in non-NZ markets (e.g. e-catalog USD, Tradeinn EUR, Ryobi AU support page, eBay GTIN listing) were excluded because prices from other countries are not valid for this market.",
+      "ChoiceCheapies, PriceMe, Cheapest NZ and BetaDeals were not searched or fetched within the search budget; PriceMe fetch was known to fail.",
+      "Search budget (6 searches, 3 fetches) was exhausted before any NZ retailer product page for this model could be identified and fetched.",
+      "No current NZ offer for this exact product was verified, so no current alternatives or promotion end date can be stated.",
+      "Internet Archive: checked 7 archived snapshot(s) of ryobi.co.nz, ryobi.co.nz, dollardealers.co.nz; 0 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 8,
+      "fetches": 2,
+      "duration_ms": 38254,
+      "cache_hit": false
+    }
+  }
+}

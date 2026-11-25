@@ -2,31 +2,37 @@ import { z } from 'zod';
 import type { Usage } from '../pricing';
 import { type EvidenceCorpus, ModelLead, ModelObservation } from './evidence';
 
+// Identification is parsed tolerantly: an invalid optional part (barcode, offer, one candidate,
+// over-long text) is dropped or trimmed instead of failing the whole investigation. Only the status
+// and, when resolved, a usable product label are required.
+const text = (max: number) => z.string().transform((s) => s.trim().slice(0, max));
+const optText = (max: number) => z.union([z.string(), z.null(), z.undefined()]).transform((s) => (typeof s === 'string' && s.trim() ? s.trim().slice(0, max) : null)).catch(null);
+
 export const IdentifyOutput = z.object({
   status: z.enum(['resolved', 'ambiguous', 'not_found', 'not_a_product']),
   product: z
     .object({
-      label: z.string().min(1).max(300),
-      brand: z.string().max(120).nullable(),
-      model: z.string().max(160).nullable(),
-      variant: z.string().max(300).nullable(),
-      gtin: z.string().regex(/^\d{8,14}$/).nullable(),
-      price_relevant_attributes: z.array(z.string().max(120)).max(10),
+      label: text(300).refine((s) => s.length > 0),
+      brand: optText(120),
+      model: optText(160),
+      variant: optText(300),
+      // GTINs are 8-14 digits; anything else (ASINs, SKUs, spaces) is discarded, not fatal.
+      gtin: z.unknown().transform((g) => (typeof g === 'string' && /^\d{8,14}$/.test(g.replace(/[\s-]/g, '')) ? g.replace(/[\s-]/g, '') : null)),
+      price_relevant_attributes: z.array(z.unknown()).catch([]).transform((a) => a.filter((x): x is string => typeof x === 'string').slice(0, 10).map((x) => x.slice(0, 120))),
     })
-    .nullable(),
+    .nullable()
+    .catch(null),
   candidates: z
-    .array(
-      z.object({
-        label: z.string().min(1).max(300),
-        brand: z.string().max(120).nullable(),
-        model: z.string().max(160).nullable(),
-        variant: z.string().max(300).nullable(),
-        distinguishing: z.string().max(300).nullable(),
+    .array(z.unknown())
+    .catch([])
+    .transform((arr) =>
+      arr.slice(0, 6).flatMap((x) => {
+        const r = z.object({ label: text(300).refine((s) => s.length > 0), brand: optText(120), model: optText(160), variant: optText(300), distinguishing: optText(300) }).safeParse(x);
+        return r.success ? [r.data] : [];
       }),
-    )
-    .max(6),
-  question: z.string().max(300).nullable(),
-  current_offer: ModelObservation.nullable(),
+    ),
+  question: optText(300),
+  current_offer: ModelObservation.nullable().catch(null),
 });
 export type IdentifyOutput = z.infer<typeof IdentifyOutput>;
 

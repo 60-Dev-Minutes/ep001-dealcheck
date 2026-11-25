@@ -1,0 +1,218 @@
+{
+  "n": 2,
+  "market": "US",
+  "input": "DEWALT DCD771C2 20V MAX cordless drill/driver kit",
+  "started_at": "2026-11-25T02:28:28.237Z",
+  "events": [
+    {
+      "t": 1067,
+      "state": "identifying"
+    },
+    {
+      "t": 2594,
+      "state": "identifying"
+    },
+    {
+      "t": 4861,
+      "state": "identifying"
+    },
+    {
+      "t": 8258,
+      "state": "researching"
+    },
+    {
+      "t": 13270,
+      "state": "researching"
+    },
+    {
+      "t": 18288,
+      "state": "researching"
+    },
+    {
+      "t": 23305,
+      "state": "researching"
+    },
+    {
+      "t": 28314,
+      "state": "researching"
+    },
+    {
+      "t": 33321,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_vI97IVwNJVW-8DM7MNjSdmCk",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 33321,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:28:59.685Z",
+    "market": {
+      "code": "US",
+      "name": "United States",
+      "currency": "USD",
+      "timezone": "America/New_York"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "DEWALT DCD771C2 20V MAX Lithium-Ion 1/2\" Compact Drill/Driver Kit",
+      "brand": "DEWALT",
+      "model": "DCD771C2",
+      "variant": "Kit: (2) 20V MAX 1.3Ah compact batteries, compact charger, contractor bag",
+      "gtin": "885911325905",
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Amazon US price for DEWALT 20V Max XR Drill Driver, Battery and Charger (DCD771C2), ASIN B00ET5VMTU (UPC 885911325905, matches GTIN; kit with 2 XR 1.3Ah batteries, charger, contractor bag). Search snippet only, not fetched.",
+        "source_url": "https://camelcamelcamel.com/product/B00ET5VMTU?locale=US",
+        "reason": "camelcamelcamel product page was returned in search snippets; direct fetch was blocked (permission denied). Snippet says '$99.99 Amazon Price as of Oct 18, 2026 06:58 PM'.",
+        "amount_minor": 9999,
+        "currency": "USD",
+        "retailer": "Amazon",
+        "date": "2026-10-18"
+      },
+      {
+        "description": "Third-party new offer for same ASIN B00ET5VMTU; seller type not stated in snippet.",
+        "source_url": "https://camelcamelcamel.com/product/B00ET5VMTU?locale=US",
+        "reason": "Search snippet only; fetch blocked. Third-party, not Amazon first-party.",
+        "amount_minor": 12900,
+        "currency": "USD",
+        "retailer": null,
+        "date": "2026-10-16"
+      },
+      {
+        "description": "Amazon lowest-ever price recorded for B00ET5VMTU per camelcamelcamel snippet (pre-window, April 2025).",
+        "source_url": "https://camelcamelcamel.com/product/B00ET5VMTU?locale=US",
+        "reason": "Search snippet only; date falls before the 2025-11-29 off-season window, so not an in-window observation.",
+        "amount_minor": 6900,
+        "currency": "USD",
+        "retailer": "Amazon",
+        "date": "2025-04-11"
+      },
+      {
+        "description": "Price-tracker page (SaveaLoonie) listing a DCD771C2 price history entry of 249.00 on April 11, 2026; currency, retailer and variant not confirmed; page could not be fetched (fetch limit reached); page metadata is internally inconsistent.",
+        "source_url": "https://www.savealoonie.com/shopping-deals/dewalt-dcd771c2-20v-max-lithium-ion-compact-drill-kit/",
+        "reason": "Search snippet only; unclear currency/retailer and conflicts with other sources showing about $99.99-$129 offers.",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": null,
+        "date": "2026-04-11"
+      },
+      {
+        "description": "ToolGuyd (fetched) lists DCD771C2 kit at Home Depot at $129 and an Amazon DCD771C2 kit at $116.75 during Black Friday 2025 coverage; article dated 2025-11-13, before the previous Black Friday window, and the Amazon bullet does not state the ASIN.",
+        "source_url": "https://toolguyd.com/dewalt-black-friday-cordless-drill-deal-trend-ended/",
+        "reason": "Dated before the 2025-11-28 previous Black Friday and the off-season window, so not an in-window observation; Amazon price lacks explicit ASIN/variant confirmation.",
+        "amount_minor": 11675,
+        "currency": "USD",
+        "retailer": "Amazon",
+        "date": "2025-11-13"
+      },
+      {
+        "description": "ToolGuyd (fetched) states DCD771C2 kit at Home Depot priced $129 (Black Friday 2025 coverage); no tool bag noted in the Home Depot kit description.",
+        "source_url": "https://toolguyd.com/dewalt-black-friday-cordless-drill-deal-trend-ended/",
+        "reason": "Dated 2025-11-13, before the window; retailer price page not fetched.",
+        "amount_minor": 12900,
+        "currency": "USD",
+        "retailer": "Home Depot",
+        "date": "2025-11-13"
+      },
+      {
+        "description": "AcmeTools 'DEWALT Early Black Friday' listing for DCD771C2 kit at $129.00 (was $179.00), with $10 gift card with $149+ order; undated page.",
+        "source_url": "https://www.acmetools.com/dewalt-tough-deals/",
+        "reason": "Search snippet only; no date stated for the price; promotion dates unknown.",
+        "amount_minor": 12900,
+        "currency": "USD",
+        "retailer": "AcmeTools",
+        "date": null
+      },
+      {
+        "description": "Amazon product listing for DCD771C2 kit tagged 'Black Friday Deal' (no price shown in snippet).",
+        "source_url": "https://www.amazon.com/clp/B00ET5VMTU",
+        "reason": "Search snippet with no price; fetch blocked.",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": "Amazon",
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No price observation within the previous-Black-Friday or off-season windows (2025-11-28 to 2026-11-26) could be verified from a fetched page, so the answer to whether the shopper could have bought it for less cannot be established.",
+      "camelcamelcamel product page for ASIN B00ET5VMTU (UPC matches GTIN 885911325905) returned permission-denied on fetch; its price history (including 2025-11-28 window data) relies only on search snippets.",
+      "Amazon product pages (amazon.com/clp/B00ET5VMTU) were blocked on fetch; no Amazon in-window price confirmed.",
+      "Fetch budget exhausted: SaveaLoonie price-history page (which lists dated entries) could not be fetched; its values are unverified and currency is not stated.",
+      "ToolGuyd fetched page is dated 2025-11-13, before the previous Black Friday window; its prices are context only and not in-window observations.",
+      "Home Depot, Lowe's, Best Buy, Costco, Walmart and Target product pages for DCD771C2 were not searched or fetched for the window.",
+      "Slickdeals, DealNews, BlackFriday.com and Keepa were not searched within the budget; no dated deal posts for Black Friday 2025 or off-season 2026 were verified.",
+      "Variant note: a 2016-era camelcamelcamel listing (B074BYNVKM) for a different DCD771C2 kit with an impact driver, and a CA listing, were excluded as different bundles or other markets.",
+      "Tax basis, shipping and stock status were not verifiable for any in-window offer.",
+      "3 source request(s) failed or were blocked (url_not_allowed, max_uses_exceeded).",
+      "Internet Archive: checked 0 archived snapshot(s) of camelcamelcamel.com, camelcamelcamel.com, camelcamelcamel.com; 0 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 4,
+      "fetches": 4,
+      "duration_ms": 31418,
+      "cache_hit": false
+    }
+  }
+}

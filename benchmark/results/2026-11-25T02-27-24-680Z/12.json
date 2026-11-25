@@ -1,0 +1,479 @@
+{
+  "n": 12,
+  "market": "AU",
+  "input": "Philips air fryer",
+  "started_at": "2026-11-25T02:35:21.946Z",
+  "events": [
+    {
+      "t": 1078,
+      "state": "identifying"
+    },
+    {
+      "t": 2592,
+      "state": "identifying"
+    },
+    {
+      "t": 4878,
+      "state": "identifying"
+    },
+    {
+      "t": 8259,
+      "state": "awaiting_clarification"
+    },
+    {
+      "t": 13292,
+      "state": "researching"
+    },
+    {
+      "t": 18311,
+      "state": "researching"
+    },
+    {
+      "t": 23329,
+      "state": "researching"
+    },
+    {
+      "t": 28340,
+      "state": "researching"
+    },
+    {
+      "t": 33357,
+      "state": "researching"
+    },
+    {
+      "t": 38368,
+      "state": "researching"
+    },
+    {
+      "t": 43383,
+      "state": "researching"
+    },
+    {
+      "t": 48401,
+      "state": "researching"
+    },
+    {
+      "t": 53416,
+      "state": "researching"
+    },
+    {
+      "t": 58427,
+      "state": "validating"
+    },
+    {
+      "t": 63443,
+      "state": "validating"
+    },
+    {
+      "t": 68464,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_SZDjkRDAeAp484mozghIE6eW",
+      "state": "queued"
+    }
+  },
+  "clarification": {
+    "question": "Which Philips air fryer model do you mean? The search results show many AU models differing in series (3000, 4000, 5000), capacity (7.2 L, 9 L, 10 L), basket type (single or dual), steam function and Wi-Fi. Please give the model number (e.g. NA551/00) or the capacity and series.",
+    "candidates": [
+      {
+        "id": "c1",
+        "label": "Philips 3000 Series 7.2L XXL Airfryer (NA342/00)",
+        "detail": "Entry 7.2 L single-basket model; price differs from steam and dual-basket models."
+      },
+      {
+        "id": "c2",
+        "label": "Philips 3000 Series Dual Basket 9L XXL Airfryer (NA352/00)",
+        "detail": "Dual-basket 9 L capacity; colour options (black/copper, white, grey) listed at different prices."
+      },
+      {
+        "id": "c3",
+        "label": "Philips 5000 Series 7.2L XXL Steam Airfryer (NA547/07)",
+        "detail": "Steam-function 5000 Series single basket; higher price tier than 3000 Series."
+      },
+      {
+        "id": "c4",
+        "label": "Philips 5000 Series 9L Dual Basket XXL Steam Airfryer (NA551/00)",
+        "detail": "Dual-basket steam model at the top 5000 Series 9 L capacity."
+      },
+      {
+        "id": "c5",
+        "label": "Philips 5000 Series XXL 7.2L Wi-Fi Airfryer (HD9285/90)",
+        "detail": "Connected model with Wi-Fi; differs from non-connected 5000 Series models."
+      }
+    ],
+    "chosen": "c1"
+  },
+  "final_state": "complete",
+  "duration_ms": 68464,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:36:27.811Z",
+    "market": {
+      "code": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "timezone": "Australia/Sydney"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Philips 3000 Series 7.2L XXL Airfryer (NA342/00)",
+      "brand": "Philips",
+      "model": "3000 Series XXL 7.2L (NA342/00)",
+      "variant": "7.2 L basket, single basket",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [
+      {
+        "id": "664072fffe556904ead87831f83d489ae6f9ee9f",
+        "amount_minor": 34900,
+        "currency": "AUD",
+        "date_start": "2025-12-08",
+        "date_end": "2025-12-08",
+        "date_precision": "day",
+        "retailer": "thegoodguys.com.au",
+        "source_name": "Internet Archive snapshot of thegoodguys.com.au",
+        "source_url": "https://web.archive.org/web/20251207213358/https://www.thegoodguys.com.au/philips-3000-series-xxl-72-litre-air-fryer-black-na34200",
+        "source_domain": "thegoodguys.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 349.00 AUD (archived 2025-12-07 21:33:58 UTC)",
+        "retrieved_at": "2026-11-25T02:36:27.802Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "9bf10e2734968607ea8cf98ac5797863c4f3687b",
+        "amount_minor": 34900,
+        "currency": "AUD",
+        "date_start": "2026-02-23",
+        "date_end": "2026-02-23",
+        "date_precision": "day",
+        "retailer": "thegoodguys.com.au",
+        "source_name": "Internet Archive snapshot of thegoodguys.com.au",
+        "source_url": "https://web.archive.org/web/20260222153039/https://www.thegoodguys.com.au/philips-3000-series-xxl-72-litre-air-fryer-black-na34200",
+        "source_domain": "thegoodguys.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 349.00 AUD (archived 2026-02-22 15:30:39 UTC)",
+        "retrieved_at": "2026-11-25T02:36:26.284Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "b4437a1c29da34be63dc02c957bd90dae195ca03",
+        "amount_minor": 24900,
+        "currency": "AUD",
+        "date_start": "2026-03-12",
+        "date_end": "2026-03-12",
+        "date_precision": "day",
+        "retailer": "thegoodguys.com.au",
+        "source_name": "Internet Archive snapshot of thegoodguys.com.au",
+        "source_url": "https://web.archive.org/web/20260311154616/https://www.thegoodguys.com.au/philips-3000-series-xxl-72-litre-air-fryer-black-na34200",
+        "source_domain": "thegoodguys.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 249.00 AUD (archived 2026-03-11 15:46:16 UTC)",
+        "retrieved_at": "2026-11-25T02:36:24.870Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "6106391710bd9e19146a3345a65cfeae21ba29e5",
+        "amount_minor": 24900,
+        "currency": "AUD",
+        "date_start": "2026-05-11",
+        "date_end": "2026-05-11",
+        "date_precision": "day",
+        "retailer": "jbhifi.com.au",
+        "source_name": "Internet Archive snapshot of jbhifi.com.au",
+        "source_url": "https://web.archive.org/web/20260511114337/https://www.jbhifi.com.au/products/philips-3000-series-7-2l-air-fryer-xxl-black",
+        "source_domain": "jbhifi.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 249.00 AUD (archived 2026-05-11 11:43:37 UTC)",
+        "retrieved_at": "2026-11-25T02:36:20.495Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "f26ecdb701ca23c675db24779c1ba043293db6d6",
+        "amount_minor": 34900,
+        "currency": "AUD",
+        "date_start": "2026-07-21",
+        "date_end": "2026-07-21",
+        "date_precision": "day",
+        "retailer": "thegoodguys.com.au",
+        "source_name": "Internet Archive snapshot of thegoodguys.com.au",
+        "source_url": "https://web.archive.org/web/20260720153700/https://www.thegoodguys.com.au/philips-3000-series-xxl-72-litre-air-fryer-black-na34200",
+        "source_domain": "thegoodguys.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 349.00 AUD (archived 2026-07-20 15:37:00 UTC)",
+        "retrieved_at": "2026-11-25T02:36:23.751Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "75945492cbc2f1bec0fde2ae4143d391db741f20",
+        "amount_minor": 13900,
+        "currency": "AUD",
+        "date_start": "2026-11-06",
+        "date_end": "2026-11-06",
+        "date_precision": "day",
+        "retailer": "David Jones",
+        "source_name": "OzBargain",
+        "source_url": "https://www.ozbargain.com.au/node/981957",
+        "source_domain": "ozbargain.com.au",
+        "source_type": "dated_deal_post",
+        "excerpt": "Philips 3000 Series 7.2L XXL Airfryer *$139* (RRP *$349*) Delivered / C&C / In-Store @ David Jones",
+        "retrieved_at": "2026-11-24T13:03:22+00:00",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      }
+    ],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Amazon AU lowest price listed on camelcamelcamel AU product page for Philips Air Fryer 3000 Series 7.2L (ASIN B0F5X75NGX, model NA342/00): lowest Amazon price $140.50",
+        "source_url": "https://au.camelcamelcamel.com/product/B0F5X75NGX",
+        "reason": "Search snippet only; camelcamelcamel AU fetch failed earlier, so not verified.",
+        "amount_minor": 14050,
+        "currency": "AUD",
+        "retailer": "Amazon AU",
+        "date": "2026-11-16"
+      },
+      {
+        "description": "Amazon AU highest price on camelcamelcamel AU page: $349.00 (Dec 05, 2025), within the off-season window",
+        "source_url": "https://au.camelcamelcamel.com/product/B0F5X75NGX",
+        "reason": "Search snippet only; fetch not possible.",
+        "amount_minor": 34900,
+        "currency": "AUD",
+        "retailer": "Amazon AU",
+        "date": "2025-12-05"
+      },
+      {
+        "description": "Good Guys Black Friday price for Philips 3000 Series XXL 7.2 Litre Air Fryer Black NA342/00: $148, '$51 OFF', 'Deal ends 02/12/26' (snippet JSON validFrom 2026-11-04)",
+        "source_url": "https://www.thegoodguys.com.au/philips-3000-series-xxl-72-litre-air-fryer-black-na34200",
+        "reason": "Retailer page appeared in search snippets; the fetched copy did not render the price, so not verified.",
+        "amount_minor": 14800,
+        "currency": "AUD",
+        "retailer": "The Good Guys",
+        "date": "2026-11-04"
+      },
+      {
+        "description": "Harvey Norman Philips 3000 Series XXL Airfryer - Black (NA342/00, GTIN 8720389034343) listed at $139 (snippet '^$139')",
+        "source_url": "https://www.harveynorman.com.au/philips-3000-series-xxl-airfryer-black.html",
+        "reason": "Undated; fetched page did not render the price in retrievable text.",
+        "amount_minor": 13900,
+        "currency": "AUD",
+        "retailer": "Harvey Norman",
+        "date": null
+      },
+      {
+        "description": "Harvey Norman Air Fryer Black Friday sale listing shows Philips 3000 Series XXL Airfryer - Black at $148",
+        "source_url": "https://www.harveynorman.com.au/black-friday/appliances/air-fryer-sale",
+        "reason": "Search snippet only; undated.",
+        "amount_minor": 14800,
+        "currency": "AUD",
+        "retailer": "Harvey Norman",
+        "date": null
+      },
+      {
+        "description": "JB Hi-Fi Philips 3000 Series 7.2L Air Fryer XXL (Black), Model NA342/00 SKU 815646: regular $199, sale $149 ('$50 OFF', Black Friday deal label)",
+        "source_url": "https://www.jbhifi.com.au/products/philips-3000-series-7-2l-air-fryer-xxl-black",
+        "reason": "Search snippet only; undated sale price.",
+        "amount_minor": 14900,
+        "currency": "AUD",
+        "retailer": "JB Hi-Fi",
+        "date": null
+      },
+      {
+        "description": "OzBargain comment (06/11/2026) says '$148 @ Amazon' for the same airfryer; a later comment (07/11/2026) says The Good Guys is 'currently selling the same unit for $148'",
+        "source_url": "https://www.ozbargain.com.au/node/981957",
+        "reason": "User comments on a fetched page, not retailer price pages; not verified.",
+        "amount_minor": 14800,
+        "currency": "AUD",
+        "retailer": "Amazon AU / The Good Guys",
+        "date": "2026-11-06"
+      },
+      {
+        "description": "OzBargain comment (07/11/2026) mentions $143 at The Good Guys after a price-beat request",
+        "source_url": "https://www.ozbargain.com.au/node/981957",
+        "reason": "User comment on fetched page; price-beat conditional, not a listed price.",
+        "amount_minor": 14300,
+        "currency": "AUD",
+        "retailer": "The Good Guys",
+        "date": "2026-11-07"
+      },
+      {
+        "description": "OzBargain deal: Philips NA342/00 3000 Series 7.2l XXL AIR Fryer $179.10 (RRP $349) at David Jones, datePublished 2026-06-07; comment notes $199 at David Jones with additional 10% off",
+        "source_url": "https://www.ozbargain.com.au/node/962430",
+        "reason": "Search snippet only; not fetched.",
+        "amount_minor": 17910,
+        "currency": "AUD",
+        "retailer": "David Jones",
+        "date": "2026-06-07"
+      },
+      {
+        "description": "Retravision Philips 3000 Series XXL Airfryer NA342/00 'HOT PRICE' $148 (Was $278)",
+        "source_url": "https://www.retravision.com.au/philips-3000-series-xxl-airfryer-na34200-na34200",
+        "reason": "Search snippet only; undated; 'Was' price conflicts with other listings.",
+        "amount_minor": 14800,
+        "currency": "AUD",
+        "retailer": "Retravision",
+        "date": null
+      },
+      {
+        "description": "Retravision Philips 3000 Series XXL Airfryer NA342/00 $138 (Was $148)",
+        "source_url": "https://www.retravision.com.au/kitchen/kitchen-appliances/fryers/philips-fryers",
+        "reason": "Search snippet only; undated, appears older than the off-season window.",
+        "amount_minor": 13800,
+        "currency": "AUD",
+        "retailer": "Retravision",
+        "date": null
+      },
+      {
+        "description": "Dick Smith Philips NA342/00 3000 Series XXL Airfryer - Black at $298 (Don't Pay $349, nominated 30 Apr 2025)",
+        "source_url": "https://www.dicksmith.com.au/da/buy/super-deals-philips-na34200-3000-series-xxl-airfryer-black-na34200/",
+        "reason": "Search snippet only; undated sale price; reference date is when price was nominated, not a sale date.",
+        "amount_minor": 29800,
+        "currency": "AUD",
+        "retailer": "Dick Smith",
+        "date": null
+      },
+      {
+        "description": "GetPrice lists lowest price $275 from Appliance Central for Philips 3000 Series NA342 7.2L; Amazon AU $278",
+        "source_url": "https://www.getprice.com.au/product/philips-3000-series-na342-7.2l-air-fryer",
+        "reason": "Price comparison snippet only; undated.",
+        "amount_minor": 27500,
+        "currency": "AUD",
+        "retailer": "Appliance Central",
+        "date": null
+      },
+      {
+        "description": "MyDeal listing for Philips NA342/00 3000 Series XXL Airfryer - Black at $347 sold by Voltedge",
+        "source_url": "https://www.mydeal.com.au/philips-na342-00-3000-series-xxl-airfryer-black-14494241",
+        "reason": "Search snippet only; undated.",
+        "amount_minor": 34700,
+        "currency": "AUD",
+        "retailer": "MyDeal (Voltedge)",
+        "date": null
+      },
+      {
+        "description": "Appliances Online listing for Philips 3000 Series 7.2L Air Fryer at $278 (shown on GetPrice)",
+        "source_url": "https://www.getprice.com.au/product/philips-3000-series-na342-7.2l-air-fryer",
+        "reason": "Snippet only; undated.",
+        "amount_minor": 27800,
+        "currency": "AUD",
+        "retailer": "Appliances Online",
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "Only one price observation was verified on a fetched page: OzBargain deal post 981957 (David Jones, A$139, RRP A$349, post dated 2026-11-06). Its page header shows 'out of stock', so current availability is unknown.",
+      "No price for the previous Black Friday window (2025-11-28 to 2025-11-29) was verified. No dated Black Friday 2025 price for this exact NA342/00 model was found.",
+      "The Good Guys Black Friday price (A$148, 'Deal ends 02/12/26') appeared only in search snippets. The fetched page did not render the price, so the deal end date is not documented by a fetched page.",
+      "Harvey Norman's A$139 and Black Friday A$148 listings and the JB Hi-Fi A$149 sale were seen only in snippets; their dates are unknown.",
+      "camelcamelcamel AU (Amazon low A$140.50 on 2026-11-16) could not be fetched; its figures are unverified leads.",
+      "Not accessed or not established: PriceHipster, StaticICE, PriceHound, and the full GetPrice history. No continuous price-history series was obtained for any AU retailer.",
+      "Several candidate retailers (Amazon AU current listing, Officeworks, Kmart, Bunnings) were not checked directly; pages in fetch-failure list were not re-fetched.",
+      "Excluded as non-matching or non-AUD: OzBargain Philips 5000 Series deals (different model), PriceSpy NZ (NZD), Tradeinn (USD), Coolblue and Geizhals (EUR), IM Trading (USD), Farmers NZ (NZD).",
+      "Shipping and tax basis were not established for the verified observation (the post says 'Delivered / C&C / In-Store' without a stated amount).",
+      "Search and fetch budgets were exhausted (6 searches, 3 fetches), limiting verification of the off-season window (2025-11-29 to 2026-11-26).",
+      "Internet Archive: checked 6 archived snapshot(s) of jbhifi.com.au, getprice.com.au, thegoodguys.com.au; 5 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 6,
+      "fetches": 3,
+      "duration_ms": 65835,
+      "cache_hit": false
+    }
+  }
+}

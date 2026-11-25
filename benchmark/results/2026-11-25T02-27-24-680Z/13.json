@@ -1,0 +1,26 @@
+{
+  "n": 13,
+  "market": "EE",
+  "input": "Apple iPhone 16 128GB",
+  "started_at": "2026-11-25T02:36:30.424Z",
+  "events": [
+    {
+      "t": 1092,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_hbjAH0INmwbmQ-S9dSyRliYp",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 1092,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}

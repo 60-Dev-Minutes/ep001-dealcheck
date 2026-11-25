@@ -70,7 +70,7 @@ describe('AnthropicProvider (mocked HTTP)', () => {
   });
 
   it('rejects schema-invalid model output', async () => {
-    const bad = { ...SUBMIT, input: { status: 'resolved', product: null, candidates: 'nope' } };
+    const bad = { ...SUBMIT, input: { status: 'not-a-status', product: null, candidates: 'nope' } };
     const p = new AnthropicProvider('k', 'claude-haiku-5-5', fakeFetch([{ status: 200, body: message([bad], 'tool_use') }]));
     const r = await p.identify(REQ, new AbortController().signal);
     expect(!r.ok && r.error.code).toBe('invalid_output');
@@ -123,5 +123,24 @@ describe('search location', () => {
     expect(seen).toHaveLength(2);
     const loc = (seen[1]!.tools as { name: string; user_location?: Record<string, string> }[]).find((t) => t.name === 'web_search')!.user_location;
     expect(loc).toEqual({ type: 'approximate', timezone: 'Pacific/Auckland' });
+  });
+});
+
+describe('identification parsing', () => {
+  it('drops invalid optional parts instead of failing the investigation', async () => {
+    const { IdentifyOutput } = await import('../src/worker/research/provider');
+    const r = IdentifyOutput.parse({
+      status: 'resolved',
+      product: { label: ' Dyson V15 Detect Absolute ', brand: 'Dyson', model: 'V15', variant: '', gtin: 'B0ABC123', price_relevant_attributes: ['x', 5] },
+      candidates: [{ label: 'ok' }, { nope: true }],
+      question: 42,
+      current_offer: { amount_minor: 'lots' },
+    });
+    expect(r.product).toMatchObject({ label: 'Dyson V15 Detect Absolute', variant: null, gtin: null, price_relevant_attributes: ['x'] });
+    expect(r.candidates).toHaveLength(1);
+    expect(r.question).toBeNull();
+    expect(r.current_offer).toBeNull();
+    expect(IdentifyOutput.parse({ status: 'resolved', product: { label: 'x', brand: null, model: null, variant: null, gtin: '0-12345-67890-5', price_relevant_attributes: [] }, candidates: [], question: null, current_offer: null }).product?.gtin).toBe('012345678905');
+    expect(IdentifyOutput.safeParse({ status: 'weird' }).success).toBe(false);
   });
 });

@@ -1,0 +1,26 @@
+{
+  "n": 14,
+  "market": "EE",
+  "input": "Bosch Professional GSR 12V-15 akutrell",
+  "started_at": "2026-11-25T02:36:31.516Z",
+  "events": [
+    {
+      "t": 1048,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_Dho7wJSvDKN423rmPzNtoTt_",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 1048,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}

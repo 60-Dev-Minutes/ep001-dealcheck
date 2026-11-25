@@ -1,0 +1,253 @@
+{
+  "n": 10,
+  "market": "AU",
+  "input": "Makita DHP485Z 18V brushless hammer driver drill skin",
+  "started_at": "2026-11-25T02:34:10.256Z",
+  "events": [
+    {
+      "t": 1057,
+      "state": "identifying"
+    },
+    {
+      "t": 2573,
+      "state": "identifying"
+    },
+    {
+      "t": 4846,
+      "state": "identifying"
+    },
+    {
+      "t": 8238,
+      "state": "identifying"
+    },
+    {
+      "t": 13255,
+      "state": "researching"
+    },
+    {
+      "t": 18271,
+      "state": "researching"
+    },
+    {
+      "t": 23287,
+      "state": "researching"
+    },
+    {
+      "t": 28298,
+      "state": "researching"
+    },
+    {
+      "t": 33316,
+      "state": "researching"
+    },
+    {
+      "t": 38333,
+      "state": "researching"
+    },
+    {
+      "t": 43349,
+      "state": "validating"
+    },
+    {
+      "t": 48364,
+      "state": "validating"
+    },
+    {
+      "t": 53381,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_ORGazo71ORrt38cS3te2kHxn",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 53381,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:35:01.854Z",
+    "market": {
+      "code": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "timezone": "Australia/Sydney"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Makita DHP485Z 18V Li-ion Brushless Hammer Driver Drill - skin only (tool only, no battery or charger)",
+      "brand": "Makita",
+      "model": "DHP485Z",
+      "variant": "Skin only (bare tool, no battery/charger)",
+      "gtin": "088381866156",
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Bunnings: AUD 236.52 (2026-11-25)",
+        "source_url": "https://www.bunnings.com.au/makita-18-brushless-hammer-driver-drill-skin-only_p0083413",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 23652,
+        "currency": "AUD",
+        "retailer": "Bunnings",
+        "date": null
+      },
+      {
+        "description": "Amazon AU listing for Makita DHP485Z skin only (in stock; page labelled 'Amazon Global Store'; no date shown in snippet)",
+        "source_url": "https://www.amazon.com.au/makita-MAKDHP485Z-Brushless-Hammer-Driver/dp/B07KWN1ZWF",
+        "reason": "Seen only in search snippet, not fetched; no date; seller/fulfilment status unclear",
+        "amount_minor": 19238,
+        "currency": "AUD",
+        "retailer": "Amazon AU",
+        "date": null
+      },
+      {
+        "description": "The Tool Store listing for Makita DHP485Z 18V Brushless Hammer Drill Skin Only (availability 'Available to Order')",
+        "source_url": "https://www.thetoolstore.com.au/makita-dhp485z-18v-brushless-hammer-drill-skin-only-dhp485z.html",
+        "reason": "Snippet only; not fetched; no date shown",
+        "amount_minor": 24900,
+        "currency": "AUD",
+        "retailer": "The Tool Store",
+        "date": null
+      },
+      {
+        "description": "Toolkit Depot listing for Makita Hammer Drill BL 18V DHP485Z Skin Only",
+        "source_url": "https://toolkitdepot.com.au/makita-18v-brushless-hammer-driver-drill-dhp485z/",
+        "reason": "Snippet only; not fetched; no date shown; schema price field in snippet",
+        "amount_minor": 23652,
+        "currency": "AUD",
+        "retailer": "Toolkit Depot",
+        "date": null
+      },
+      {
+        "description": "Sydney Tools category listing for Makita DHP485Z 18V Li-ion Cordless Brushless Hammer Driver Drill - Skin Only",
+        "source_url": "https://sydneytools.com.au/category/by-brand/makita/makita-18v-lxt-skins/hammer-drills",
+        "reason": "Snippet only from category page; not fetched; no date shown",
+        "amount_minor": 23600,
+        "currency": "AUD",
+        "retailer": "Sydney Tools",
+        "date": null
+      },
+      {
+        "description": "eBay AU new listing for Makita DHP485Z 18V Li-ion Cordless Brushless Hammer Driver Drill - DHP485Z Skin Only (seller not confirmed in snippet)",
+        "source_url": "https://www.ebay.com.au/itm/166482962203",
+        "reason": "Snippet only; third-party marketplace; no date shown",
+        "amount_minor": 27695,
+        "currency": "AUD",
+        "retailer": "eBay AU",
+        "date": null
+      },
+      {
+        "description": "eBay AU listing 'MAKITA AUSTRALIAN DHP485 18V BRUSHLESS HAMMER DRILL/ DRIVER' (body only; MPN shown as DHP485, not DHP485Z - product match uncertain)",
+        "source_url": "https://www.ebay.com.au/itm/153482435527",
+        "reason": "Snippet only; MPN differs (DHP485); no date",
+        "amount_minor": 18700,
+        "currency": "AUD",
+        "retailer": "eBay AU",
+        "date": null
+      },
+      {
+        "description": "Bunnings AU product page for Makita 18V Brushless Hammer Drill - Skin Only (I/N 0083413); AU price not verified (the price seen was on the NZ Bunnings page, which is not valid for AU)",
+        "source_url": "https://www.bunnings.com.au/makita-18-brushless-hammer-driver-drill-skin-only_p0083413",
+        "reason": "AU page could not be fetched; AU price and date unknown; product identity (DHP485 vs DHP485Z) not confirmed",
+        "amount_minor": null,
+        "currency": "AUD",
+        "retailer": "Bunnings",
+        "date": null
+      },
+      {
+        "description": "OzBargain Bunnings deal posts for Makita DHP485Z kits (2023 and 2024)",
+        "source_url": "https://www.ozbargain.com.au/product/makita-dhp485z",
+        "reason": "Kits/bundles (battery, charger, impact driver), not skin only; dated 2023-2024, outside the previous Black Friday window; excluded from observations",
+        "amount_minor": null,
+        "currency": "AUD",
+        "retailer": "Bunnings",
+        "date": "2024-10-13"
+      },
+      {
+        "description": "AK Tools: AUD 179.00 (2026-11-25)",
+        "source_url": "https://aktools.com.au/products/makita-dhp485z-18v-brushless-13mm-hammer-drill-skin-compact",
+        "reason": "The date is not stated in the retrieved page.",
+        "amount_minor": 17900,
+        "currency": "AUD",
+        "retailer": "AK Tools",
+        "date": "2026-11-25"
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No verified AU price for the exact DHP485Z skin-only product dated on or after the previous Black Friday (2025-11-28) was established; the only fetched dated observation is a sold-out AK Tools listing with a retrieval date of 2026-11-25, not a dated price change.",
+      "The AK Tools page shows no date for its $179.00 price; the observation date is the retrieval date, and the listing shows 'Sold out', so it is not a current offer.",
+      "The OzBargain product page fetched only lists kit/bundle deals (Bunnings 2023 and 2024 kits with batteries/chargers), which are excluded as different bundles and mostly outside the window; no skin-only OzBargain deal in the window was found.",
+      "Black Friday 2025 (2025-11-28) and off-season sale prices for this product in AU were not found in any fetched page.",
+      "PriceHipster, StaticICE, GetPrice, PriceHound and camelcamelcamel AU were not accessed; no price-history series for AU was obtained. The camelcamelcamel page found was the Canadian (ca.) Amazon history from 2022, not AU, and was not used.",
+      "Bunnings AU product page could not be fetched (tool restriction); the Bunnings NZ page showing $183.75 is a different market and was excluded.",
+      "Amazon AU, eBay AU, The Tool Store, Toolkit Depot and Sydney Tools prices are search-snippet leads only, undated and not fetched; some eBay listings are third-party and condition/seller not fully verified.",
+      "Several search results were Facebook Marketplace, Cashsavvy used listings and European/UK/US prices, which were excluded as used or other markets.",
+      "Search and fetch budgets (6 searches, 3 fetches) were exhausted before retailer-level dated archives (e.g., Wayback copies of Bunnings, JB Hi-Fi, Amazon AU, Officeworks, The Good Guys, Harvey Norman, Kmart) could be checked.",
+      "Could not determine whether the shopper could have bought the item for less since the previous Black Friday; coverage of the window is insufficient to answer.",
+      "1 source request(s) failed or were blocked (url_not_in_prior_context).",
+      "Internet Archive: checked 0 archived snapshot(s) of ozbargain.com.au, aktools.com.au, amazon.com.au; 0 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 7,
+      "fetches": 4,
+      "duration_ms": 51570,
+      "cache_hit": false
+    }
+  }
+}

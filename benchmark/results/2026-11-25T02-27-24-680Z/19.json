@@ -1,0 +1,307 @@
+{
+  "n": 19,
+  "market": "DE",
+  "input": "De'Longhi Magnifica S ECAM 22.110.B Kaffeevollautomat",
+  "started_at": "2026-11-25T02:38:26.451Z",
+  "events": [
+    {
+      "t": 1058,
+      "state": "identifying"
+    },
+    {
+      "t": 2577,
+      "state": "identifying"
+    },
+    {
+      "t": 4837,
+      "state": "identifying"
+    },
+    {
+      "t": 8226,
+      "state": "identifying"
+    },
+    {
+      "t": 13247,
+      "state": "researching"
+    },
+    {
+      "t": 18267,
+      "state": "researching"
+    },
+    {
+      "t": 23284,
+      "state": "researching"
+    },
+    {
+      "t": 28297,
+      "state": "researching"
+    },
+    {
+      "t": 33314,
+      "state": "researching"
+    },
+    {
+      "t": 38329,
+      "state": "researching"
+    },
+    {
+      "t": 43344,
+      "state": "researching"
+    },
+    {
+      "t": 48360,
+      "state": "validating"
+    },
+    {
+      "t": 53377,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_ROKtn64K_iWuD2MKYhEFDZky",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 53377,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:39:16.993Z",
+    "market": {
+      "code": "DE",
+      "name": "Germany",
+      "currency": "EUR",
+      "timezone": "Europe/Berlin"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "De'Longhi Magnifica S ECAM 22.110.B Kaffeevollautomat (schwarz)",
+      "brand": "De'Longhi",
+      "model": "Magnifica S ECAM 22.110.B",
+      "variant": "Schwarz, Basismodell ohne Bundle",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [
+      {
+        "id": "161c8d5c35e6a992fe1ad63793c8654637d2f173",
+        "amount_minor": 26899,
+        "currency": "EUR",
+        "date_start": "2026-01-29",
+        "date_end": "2026-01-29",
+        "date_precision": "day",
+        "retailer": "geizhals.de",
+        "source_name": "Internet Archive snapshot of geizhals.de",
+        "source_url": "https://web.archive.org/web/20260129171457/https://geizhals.de/delonghi-ecam-22-110-b-magnifica-s-schwarz-a578235.html",
+        "source_domain": "geizhals.de",
+        "source_type": "archive_snapshot",
+        "excerpt": "meta product:price:amount = 268.99 EUR (archived 2026-01-29 17:14:57 UTC)",
+        "retrieved_at": "2026-11-25T02:39:16.986Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "558a75188ead2f2ddc95251758df330c2dae8193",
+        "amount_minor": 26900,
+        "currency": "EUR",
+        "date_start": "2026-07-15",
+        "date_end": "2026-07-15",
+        "date_precision": "day",
+        "retailer": null,
+        "source_name": "Internet Archive snapshot of billiger.de",
+        "source_url": "https://web.archive.org/web/20260715011806/https://www.billiger.de/products/133866337-de-longhi-magnifica-s-ecam-22-110-b-schwarz",
+        "source_domain": "billiger.de",
+        "source_type": "price_comparison_listing",
+        "excerpt": "JSON-LD AggregateOffer.lowPrice = 269.00 EUR (archived 2026-07-15 01:18:06 UTC)",
+        "retrieved_at": "2026-11-25T02:39:13.763Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      }
+    ],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Heise price comparison snippet: DeLonghi ECAM 22.110 B Magnifica S schwarz, lowest 265.43 EUR, 6 offers, price stamp 03.09.2026 (retailer not shown; snippet only)",
+        "source_url": "https://preisvergleich.heise.de/delonghi-ecam-22-110-b-magnifica-s-schwarz-a578235.html",
+        "reason": "Fetch of heise failed in this run; snippet only; retailer not stated",
+        "amount_minor": 26543,
+        "currency": "EUR",
+        "retailer": null,
+        "date": "2026-09-03"
+      },
+      {
+        "description": "Geizhals snippet: DeLonghi ECAM 22.110 B Magnifica S schwarz, 'ab € 269,95', 11 offers, price stamp 15.10.2026 (retailer not shown)",
+        "source_url": "https://geizhals.de/delonghi-ecam-22-110-b-magnifica-s-schwarz-a578235.html",
+        "reason": "Geizhals fetch recently fails; snippet only; retailer not stated",
+        "amount_minor": 26995,
+        "currency": "EUR",
+        "retailer": null,
+        "date": "2026-10-15"
+      },
+      {
+        "description": "Preissuchmaschine snippet: Delonghi Magnifica S ECAM 22.110 (includes ECAM 22.110.SB silver variant), 'Preise vom 29.06.2026 ab 272,73 €'; variant match uncertain",
+        "source_url": "https://www.preissuchmaschine.de/in-Kaffeemaschine/Kaffeevollautomat/Delonghi-Magnifica-S-ECAM-22-110.html",
+        "reason": "Snippet only; aggregate page mixes colour variants",
+        "amount_minor": 27273,
+        "currency": "EUR",
+        "retailer": null,
+        "date": "2026-06-29"
+      },
+      {
+        "description": "Billiger.de snippet for ECAM 22.110 B schwarz: 261,82 EUR plus 7,00 EUR shipping, but 'Preis nur gültig mit Gutschein' (coupon-only); non-coupon price 272,73 EUR; 269,00 EUR with 0,00 shipping listed; page titled Dezember 2025 Preise but no per-offer date",
+        "source_url": "https://www.billiger.de/products/133866337-de-longhi-magnifica-s-ecam-22-110-b-schwarz",
+        "reason": "Snippet only; coupon-restricted price; undated offers",
+        "amount_minor": 26182,
+        "currency": "EUR",
+        "retailer": null,
+        "date": null
+      },
+      {
+        "description": "Kaufland product page snippet: DeLonghi ECAM 22.110B MagnificaS Kaffeevollautomat schwarz, offer price 302.99 EUR (schema InStock); no date shown",
+        "source_url": "https://www.kaufland.de/product/67837601/",
+        "reason": "Snippet only; undated; model naming close but not confirmed as identical",
+        "amount_minor": 30299,
+        "currency": "EUR",
+        "retailer": "Kaufland",
+        "date": null
+      },
+      {
+        "description": "Heise snippet with price stamp 19.11.2025 (pre-Black-Friday; 'ab € 269,00'); amounts per offer not captured in snippet",
+        "source_url": "https://preisvergleich.heise.de/delonghi-ecam-22-110-b-magnifica-s-schwarz-a578235.html#ratings",
+        "reason": "Snippet only; dated before previous Black Friday window (2025-11-28)",
+        "amount_minor": 26900,
+        "currency": "EUR",
+        "retailer": null,
+        "date": "2025-11-19"
+      },
+      {
+        "description": "Geizhals snippet with price stamp 23.09.2025: 'ab € 259,38', 13 offers (pre-window; retailer not shown)",
+        "source_url": "https://geizhals.de/delonghi-ecam-22-110-b-magnifica-s-schwarz-a578235.html?va=b",
+        "reason": "Snippet only; dated before the previous Black Friday window",
+        "amount_minor": 25938,
+        "currency": "EUR",
+        "retailer": null,
+        "date": "2025-09-23"
+      },
+      {
+        "description": "mein-deal.com post dated 2025-11-14: Amazon 269 EUR incl. shipping (pre-window); also mentions eBay coupon code POWEREBAY7 (coupon, not usable as an observation)",
+        "source_url": "https://www.mein-deal.com/delonghi-magnifica-s-ecam-22-110-kaffeevollautomat/",
+        "reason": "Snippet only; dated before the previous Black Friday window; coupon-related",
+        "amount_minor": 26900,
+        "currency": "EUR",
+        "retailer": "Amazon",
+        "date": "2025-11-14"
+      },
+      {
+        "description": "PCGH article on an early Black Friday Amazon deal at 299 EUR (25% off); article references a 2023 timeframe, not the 2025 Black Friday",
+        "source_url": "https://www.pcgameshardware.de/Baumarkt-Hardware-279480/News/DeLonghi-Kaffeevollautomat-zum-Black-Friday-Preis-1433256/",
+        "reason": "Snippet only; date appears outside the window (about 1098 days old)",
+        "amount_minor": 29900,
+        "currency": "EUR",
+        "retailer": "Amazon",
+        "date": null
+      },
+      {
+        "description": "mydealz Amazon deal post for this model at 249 EUR (expired); date not visible in fetched text",
+        "source_url": "https://www.mydealz.de/deals/amazon-delonghi-magnifica-s-ecam-22110b-kaffeevollautomat-1917969",
+        "reason": "Fetched page shows expired deal but no price or date in the captured text; likely outside window",
+        "amount_minor": 24900,
+        "currency": "EUR",
+        "retailer": "Amazon",
+        "date": null
+      },
+      {
+        "description": "Amazon: EUR 269.99 (2025-08-02)",
+        "source_url": "https://www.mein-deal.com/delonghi-magnifica-s-ecam-22-110-2-b/",
+        "reason": "The source does not establish that this price is for this market.",
+        "amount_minor": 26999,
+        "currency": "EUR",
+        "retailer": "Amazon",
+        "date": "2025-08-02"
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No verified price for the previous Black Friday (2025-11-28) or any day in the off-season window (2025-11-29 to 2026-11-26) for this exact product in DE. The only fetched dated price (Amazon 269,99 EUR, 2025-08-02) is before the window.",
+      "Heise and Geizhals price-history pages (the main verified sources for dated DE prices) could not be fetched; their snippets were kept only as leads. Keepa, idealo and Amazon.de product pages were not accessed.",
+      "The billiger.de fetch failed; its snippet is undated and partly coupon-only.",
+      "The mydealz deal page fetched was expired and showed no visible amount or date in the captured text.",
+      "No current (2026-11-25) new public offer was verified on a fetched page, so current_alternatives is empty.",
+      "Search and fetch budgets were exhausted before retrieving a dated Black Friday 2025 or Black Week 2026 price.",
+      "Silver (SB) variants and bundles were excluded from the matched price set; some aggregator snippets mix variants, so their amounts are uncertain.",
+      "Tax basis and shipping for most leads are not stated in the captured snippets.",
+      "1 source request(s) failed or were blocked (url_not_accessible).",
+      "Internet Archive: checked 4 archived snapshot(s) of billiger.de, preisvergleich.heise.de, geizhals.de; 2 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 6,
+      "fetches": 4,
+      "duration_ms": 50513,
+      "cache_hit": false
+    }
+  }
+}

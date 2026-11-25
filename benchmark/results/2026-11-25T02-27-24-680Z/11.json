@@ -1,0 +1,46 @@
+{
+  "n": 11,
+  "market": "AU",
+  "input": "Dyson V15 Detect Absolute",
+  "started_at": "2026-11-25T02:35:03.644Z",
+  "events": [
+    {
+      "t": 1065,
+      "state": "identifying"
+    },
+    {
+      "t": 2576,
+      "state": "identifying"
+    },
+    {
+      "t": 4849,
+      "state": "identifying"
+    },
+    {
+      "t": 8248,
+      "state": "identifying"
+    },
+    {
+      "t": 13274,
+      "state": "identifying"
+    },
+    {
+      "t": 18302,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_xAKCr_LI8IuaVLRLa_GDXUae",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 18302,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}

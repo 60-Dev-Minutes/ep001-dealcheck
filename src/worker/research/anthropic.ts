@@ -159,7 +159,8 @@ export class AnthropicProvider implements ResearchProvider {
       if (submit) {
         const parsed = spec.schema.safeParse(submit.input);
         if (!parsed.success) {
-          return { ok: false, error: { billing: 'billed', code: 'invalid_output', message: 'Model output failed schema validation.', retryable: false }, corpus, meta: meta() };
+          const where = parsed.error.issues.slice(0, 3).map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
+          return { ok: false, error: { billing: 'billed', code: 'invalid_output', message: `Model output failed schema validation (${where}).`.slice(0, 400), retryable: false }, corpus, meta: meta() };
         }
         return { ok: true, output: parsed.data, corpus, meta: meta() };
       }

@@ -1,0 +1,42 @@
+{
+  "n": 5,
+  "market": "NZ",
+  "input": "Apple AirPods Pro 2 USB-C",
+  "started_at": "2026-11-25T02:31:13.416Z",
+  "events": [
+    {
+      "t": 1065,
+      "state": "identifying"
+    },
+    {
+      "t": 2584,
+      "state": "identifying"
+    },
+    {
+      "t": 4846,
+      "state": "identifying"
+    },
+    {
+      "t": 8242,
+      "state": "identifying"
+    },
+    {
+      "t": 13255,
+      "state": "failed"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_pQbNW-5jTLRD17uxB8pnI8l5",
+      "state": "queued"
+    }
+  },
+  "final_state": "failed",
+  "duration_ms": 13255,
+  "error": {
+    "code": "PROVIDER_UNAVAILABLE",
+    "message": "A technical problem stopped this investigation. Your allowance was not used. Please try again.",
+    "retryable": true
+  }
+}
