@@ -32,6 +32,7 @@ export function identifySystem(req: IdentifyRequest): string {
 Task: resolve the exact product and price-relevant variant the shopper means, and if possible find one current public offer in the selected market.
 ${marketBlock(req.marketCode)}
 - If several price-relevant variants plausibly match (capacity, size, generation, colour where price differs, bundle), set status "ambiguous" and list up to 5 candidates with what distinguishes them. Do not pick one silently.
+- In particular, when the shopper gave only a brand/product family or a category (e.g. "Apple iPad", "Philips air fryer", "Samsung 55 inch TV") without a model number, generation or capacity, you MUST return "ambiguous" with the main current variants in this market, even if one is the most popular. Resolve directly only when the input names an exact model/MPN/GTIN or a link to one product.
 - If the input is not a purchasable product, set status "not_a_product". If you cannot find it, set "not_found".
 - current_offer: a currently listed new, public offer in this market from a page you fetched (retailer listing preferred), with date_start = date_end = today. Include reference_price_minor only if the page states a "was"/RRP reference price. Null if none was verified.
 - Use at most 2 searches and 1 fetch.${accessBlock(req.access)}

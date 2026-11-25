@@ -21,3 +21,11 @@ describe('source access learning', () => {
     expect(prompt).toContain('pricespy.co.nz');
   });
 });
+
+import { identifySystem } from '../src/worker/research/prompts';
+describe('identification prompt', () => {
+  it('requires clarification for family-only inputs', () => {
+    const p = identifySystem({ marketCode: 'NZ', productInput: 'Apple iPad', userPriceMinor: null, retailerHint: null, chosenCandidate: null, todayLocal: '2026-11-25' });
+    expect(p).toMatch(/MUST return "ambiguous"/);
+  });
+});
