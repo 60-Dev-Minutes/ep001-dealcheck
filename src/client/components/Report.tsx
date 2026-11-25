@@ -142,6 +142,18 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
 
       <AssessedCard assessed={s.assessed} />
 
+      {!s.assessed && s.historical_low && (
+        <section className="card historical-low" aria-labelledby="low-title">
+          <h2 id="low-title">Lowest verified price since the previous Black Friday</h2>
+          <p className="big-price">{formatMoney(s.historical_low.minimum_minor, s.historical_low.currency)}</p>
+          <p>
+            On {formatComparisonDate(s.historical_low.date)} at {s.historical_low.source_domain}.{' '}
+            {s.coverage.comparable_observations > 1 && `Lowest of ${s.coverage.comparable_observations} verified prices.`}
+          </p>
+          <p className="small muted">We could not confirm a current price, so there is no verdict. Run a new check with the advertised price to compare.</p>
+        </section>
+      )}
+
       <section aria-labelledby="cmp-title" className="stack-sm">
         <h2 id="cmp-title">How it compares</h2>
         <div className="grid-cards">

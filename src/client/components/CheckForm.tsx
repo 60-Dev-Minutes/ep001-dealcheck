@@ -331,7 +331,8 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
             placeholder="799.99"
           />
           <p id={ids.priceHint} className="hint">
-            The price you're seeing now. Leave blank and DealCheck will look for the current offer.
+            The price you're seeing now. Recommended: if left blank, DealCheck looks for a current offer, and without one it can show price history but
+            not a verdict.
           </p>
           {fieldErrors.price && (
             <p id={ids.priceErr} className="field-error">

@@ -220,6 +220,8 @@ export interface ReportSnapshot {
   offseason: Comparison | null;
   overall: Comparison | null;
   same_retailer: Comparison | null;
+  /** Lowest verified comparable price in the windows, even when there is no current price. */
+  historical_low?: { minimum_minor: number; currency: string; date: string; observation_id: string; source_domain: string } | null;
   advertised_discount: { reference_minor: number; percent: number; note: string } | null;
   observations: ReportObservation[];
   current_alternatives: ReportObservation[];

@@ -117,3 +117,22 @@ describe('arithmetic', () => {
     expect(r.cov.months_missing).not.toContain('2026-07');
   });
 });
+
+import { historicalLow, verdictText } from '../src/worker/report/compute';
+describe('no current price', () => {
+  it('still reports verified history, coverage and the historical low', () => {
+    const obs = [o(139900, '2026-10-07'), o(129900, '2026-09-06'), o(159900, '2026-08-23')];
+    const ann = annotate(obs, null, 'AU', EVENT_CONFIG, AS_OF, 'NZD');
+    const primary = ann.filter(isPrimary);
+    expect(primary).toHaveLength(3);
+    const cov = coverage(primary, EVENT_CONFIG, AS_OF);
+    expect(cov.months_represented).toEqual(['2026-08', '2026-09', '2026-10']);
+    const low = historicalLow(primary)!;
+    expect(low.minimum_minor).toBe(129900);
+    expect(decideVerdict(null, primary, cov)).toBe('insufficient_evidence');
+    expect(verdictText('insufficient_evidence', null, null, cov, low)).toMatch(/3 verified earlier prices .*lowest NZD 1,299.00 on 2026-09-06.*Enter the advertised price/);
+  });
+  it('without a market currency baseline nothing is comparable (legacy behaviour)', () => {
+    expect(annotate([o(1, '2026-10-07')], null, 'NZ', EVENT_CONFIG, AS_OF).filter(isPrimary)).toHaveLength(0);
+  });
+});

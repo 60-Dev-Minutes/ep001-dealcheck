@@ -61,10 +61,13 @@ export function comparability(
   return { comparable: ok, notes };
 }
 
-export function annotate(observations: ObservationInput[], assessed: AssessedOffer | null, market: string, cfg: EventConfig, asOfLocal: string): ReportObservation[] {
+export function annotate(observations: ObservationInput[], assessed: AssessedOffer | null, market: string, cfg: EventConfig, asOfLocal: string, marketCurrencyCode?: string): ReportObservation[] {
   return observations.map((o) => {
     const window = classifyWindow(o, cfg, asOfLocal);
-    const c = assessed ? comparability(o, assessed, market) : { comparable: false, notes: ['No assessed offer to compare against.'] };
+    // Without an assessed price, judge comparability against the market's public, local-currency norm
+    // so verified history (and coverage) is still reported.
+    const baseline = assessed ?? (marketCurrencyCode ? { currency: marketCurrencyCode, tax_basis: 'unknown' as const } : null);
+    const c = baseline ? comparability(o, baseline, market) : { comparable: false, notes: ['No assessed offer to compare against.'] };
     if (window === 'same_day_unordered') c.notes.push('Same date as (or later than) the assessed offer; not counted as an earlier price.');
     if (window === 'straddles_window') c.notes.push('Date range crosses a comparison window boundary; excluded from exact arithmetic.');
     return { ...o, window, comparable: c.comparable, comparability_notes: c.notes };
@@ -175,7 +178,29 @@ export function decideVerdict(c: number | null, primary: ReportObservation[], co
   return cov.threshold_met ? 'lowest_observed' : 'limited_history';
 }
 
-export function verdictText(v: Verdict, assessed: AssessedOffer | null, overall: Comparison | null, cov: Coverage): string {
+export interface HistoricalLow {
+  minimum_minor: number;
+  currency: string;
+  date: string;
+  observation_id: string;
+  source_domain: string;
+}
+
+/** Lowest verified comparable price in the windows, independent of any current price. */
+export function historicalLow(primary: ReportObservation[]): HistoricalLow | null {
+  if (!primary.length) return null;
+  const best = primary.reduce((a, o) => (o.amount_minor < a.amount_minor || (o.amount_minor === a.amount_minor && o.date_start < a.date_start) ? o : a));
+  return {
+    minimum_minor: best.amount_minor, currency: best.currency, observation_id: best.id, source_domain: best.source_domain,
+    date: best.date_start === best.date_end ? best.date_start : `${best.date_start}/${best.date_end}`,
+  };
+}
+
+export function verdictText(v: Verdict, assessed: AssessedOffer | null, overall: Comparison | null, cov: Coverage, low: HistoricalLow | null = null): string {
+  if (v === 'insufficient_evidence' && !assessed && low) {
+    const n = cov.comparable_observations;
+    return `We found ${n} verified earlier price${n === 1 ? '' : 's'} for this product (lowest ${formatMoney(low.minimum_minor, low.currency)} on ${low.date}), but no current price to compare against. Enter the advertised price to get a verdict.`;
+  }
   const cur = assessed ? formatMoney(assessed.amount_minor, assessed.currency) : null;
   const min = overall && assessed ? formatMoney(overall.minimum_minor, assessed.currency) : null;
   const label = assessed?.basis === 'user_entered' ? 'your entered price' : 'the current offer';

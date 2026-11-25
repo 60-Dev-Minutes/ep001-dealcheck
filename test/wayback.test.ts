@@ -104,3 +104,13 @@ describe('idPrefix', () => {
     expect(idPrefix('https://shop.nz/about')).toBeNull();
   });
 });
+
+import { identityText } from '../src/worker/research/wayback';
+describe('archive identity', () => {
+  it('ignores related-product mentions in body text and isRelatedTo', () => {
+    const html = `<title>Samsung Odyssey OLED G95SC</title>${ld({ '@type': 'Product', name: 'Odyssey OLED G95SC', sku: 'LS49CG954SEXXY', isRelatedTo: { '@type': 'Product', name: 'Odyssey G91F LS49FG912EEXXY' }, offers: { '@type': 'Offer', price: '1999', priceCurrency: 'AUD' } })}<body>Compare with Odyssey G91F LS49FG912EEXXY</body>`;
+    const t = identityText(html).toLowerCase();
+    expect(t).toContain('g95sc');
+    expect(t).not.toContain('g91f');
+  });
+});

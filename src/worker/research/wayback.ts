@@ -118,11 +118,37 @@ export function pageText(html: string): string {
     .trim();
 }
 
-/** Text used for identity checks: visible text plus structured-data strings (names, SKUs, MPNs). */
-function identityText(html: string): string {
-  const ld = Array.from(html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)).map((m) => m[1]).join(' ');
+const ID_FIELDS = ['name', 'sku', 'mpn', 'model', 'gtin', 'gtin8', 'gtin12', 'gtin13', 'gtin14', 'productID'];
+
+function collectProductIds(node: unknown, out: string[], depth = 0): void {
+  if (depth > 8 || node === null || typeof node !== 'object') return;
+  if (Array.isArray(node)) { for (const n of node) collectProductIds(n, out, depth + 1); return; }
+  const o = node as Record<string, unknown>;
+  if (typesOf(o).some((t) => t === 'product' || t === 'productgroup' || t === 'individualproduct')) {
+    for (const f of ID_FIELDS) {
+      const v = o[f];
+      if (typeof v === 'string' || typeof v === 'number') out.push(String(v));
+      else if (v && typeof v === 'object' && typeof (v as Record<string, unknown>).name === 'string') out.push((v as Record<string, string>).name!);
+    }
+    return; // do not descend into isRelatedTo / isSimilarTo product lists
+  }
+  for (const [k, v] of Object.entries(o)) if (k !== 'isRelatedTo' && k !== 'isSimilarTo' && k !== 'isAccessoryOrSparePartFor') collectProductIds(v, out, depth + 1);
+}
+
+/**
+ * Text that identifies the page's own product only: <title>, og:title, <h1>, and the Product's
+ * name/sku/mpn/gtin in structured data. Body text is excluded because product pages also list
+ * related or comparable models, which would otherwise match the wrong product.
+ */
+export function identityText(html: string): string {
+  const ids: string[] = [];
+  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try { collectProductIds(JSON.parse(m[1]!.trim()), ids); } catch { /* ignore */ }
+  }
   const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
-  return `${title} ${pageText(html)} ${ld}`;
+  const og = metaContent(html, 'property', 'og:title') ?? '';
+  const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]?.replace(/<[^>]+>/g, ' ') ?? '';
+  return `${title} ${og} ${h1} ${ids.join(' ')}`;
 }
 
 // ------------------------------------------------------------------ candidate URLs and snapshots

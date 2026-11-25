@@ -19,6 +19,7 @@ import {
   percentOf,
   reportCondition,
   verdictText,
+  historicalLow,
   type ObservationInput,
 } from './report/compute';
 import { AnthropicProvider } from './research/anthropic';
@@ -537,7 +538,7 @@ export async function reportStage(
       };
     }
 
-    const annotated = annotate(research.observations, assessed, market.code, EVENT_CONFIG, asOfLocal);
+    const annotated = annotate(research.observations, assessed, market.code, EVENT_CONFIG, asOfLocal, market.currency);
     const primary = annotated.filter(isPrimary);
     const cov = coverage(primary, EVENT_CONFIG, asOfLocal);
     const c = assessed?.amount_minor ?? null;
@@ -573,12 +574,13 @@ export async function reportStage(
       product: { label: product.label, brand: product.brand, model: product.model, variant: product.variant, gtin: product.gtin, condition: 'new' },
       assessed,
       verdict,
-      verdict_text: verdictText(verdict, assessed, overall, cov),
+      verdict_text: verdictText(verdict, assessed, overall, cov, historicalLow(primary)),
       condition: reportCondition(assessed, primary, cov),
       previous_event: prev,
       offseason: off,
       overall,
       same_retailer: same,
+      historical_low: historicalLow(primary),
       advertised_discount: advertised,
       observations: annotated.sort((a, b) => a.date_start.localeCompare(b.date_start)),
       current_alternatives: alternatives,
