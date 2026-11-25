@@ -6,7 +6,7 @@
 import type { EventConfig, Market } from '../../shared/markets';
 import { localDate } from '../admission';
 import type { ObservationInput } from '../report/compute';
-import { alnum, fingerprint, hostOf, productTokens, sourceMarket, variantConflict, type ProductIdentity } from './evidence';
+import { alnum, fingerprint, hostOf, identityMatch, productTokens, sourceMarket, variantConflict, type ProductIdentity } from './evidence';
 
 const ARCHIVE = 'https://web.archive.org';
 const USER_AGENT = 'DealCheck/1.0 (+https://dealcheck.kratt.nz; consumer price research, low volume)';
@@ -19,7 +19,7 @@ export interface WaybackLimits {
   totalMs: number;
 }
 
-export const WAYBACK_LIMITS: WaybackLimits = { maxUrls: 3, maxSnapshots: 9, perRequestMs: 7000, totalMs: 28_000 };
+export const WAYBACK_LIMITS: WaybackLimits = { maxUrls: 5, maxSnapshots: 12, perRequestMs: 7000, totalMs: 32_000 };
 
 export interface StructuredPrice {
   amount_minor: number;
@@ -156,6 +156,9 @@ export function identityText(html: string): string {
 /** Product-page URLs in this market, best candidates first. */
 export function candidateUrls(urls: string[], market: Market, product: ProductIdentity, max: number): string[] {
   const tokens = productTokens(product);
+  // Short model codes (V10, G9, S24) help ranking even though they are too weak for identity on their own.
+  const shortCodes = (product.model ?? '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 2 && /\d/.test(w) && /[a-z]/.test(w));
+  const modelWords = (product.model ?? '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !/\d/.test(w));
   const seen = new Set<string>();
   const scored: { url: string; score: number }[] = [];
   for (const raw of urls) {
@@ -167,18 +170,40 @@ export function candidateUrls(urls: string[], market: Market, product: ProductId
     }
     if (u.protocol !== 'https:' && u.protocol !== 'http:') continue;
     if (u.hostname.endsWith('archive.org')) continue;
-    const key = `${u.hostname.replace(/^www\./, '')}${u.pathname.replace(/\/+$/, '')}`;
+    let decodedPath = u.pathname;
+    try { decodedPath = decodeURIComponent(u.pathname); } catch { /* keep raw */ }
+    const key = `${u.hostname.replace(/^www\./, '')}${decodedPath.replace(/\/+$/, '').toLowerCase()}${u.search}`;
+    if (/refurb|renewed|used|second-hand|ex-demo|open-box/i.test(decodedPath)) continue;
     if (seen.has(key) || u.pathname.length < 2) continue;
     if (sourceMarket(raw, '', market) !== 'match') continue;
     if (/\/(search|category|categories|hot-deals|deals|c|collections|filter|tag|blog|news)(\/|$)/i.test(u.pathname) && !/\/(product|products|p|dp|item)\//i.test(u.pathname)) continue;
     seen.add(key);
-    const path = alnum(u.pathname + u.search);
+    const path = alnum(decodedPath + u.search);
+    const pathWords = decodedPath.toLowerCase().split(/[^a-z0-9]+/);
     let score = 0;
     if (tokens.some((t) => path.includes(t))) score += 3;
-    if (/\/(product|products|p|dp|item|prod)\//i.test(u.pathname)) score += 2;
+    if (shortCodes.some((c) => pathWords.includes(c))) score += 2;
+    score += modelWords.filter((w) => pathWords.includes(w)).length;
+    if (/\/(product|products|p|dp|item|prod)\//i.test(u.pathname) || /product\.php|\/p-\d+/i.test(u.pathname)) score += 2;
+    if (score === 0) continue; // nothing ties this URL to the product
     scored.push({ url: `${u.protocol}//${u.host}${u.pathname}${u.search}`, score });
   }
-  return scored.sort((a, b) => b.score - a.score).slice(0, max).map((s) => s.url);
+  // One page per site first (models often cite the same store twice, sometimes truncated), then fill.
+  const ranked = scored.sort((a, b) => b.score - a.score);
+  const picked: string[] = [];
+  const hosts = new Set<string>();
+  for (const r of ranked) {
+    const h = hostOf(r.url);
+    if (hosts.has(h)) continue;
+    hosts.add(h);
+    picked.push(r.url);
+    if (picked.length >= max) return picked;
+  }
+  for (const r of ranked) {
+    if (picked.length >= max) break;
+    if (!picked.includes(r.url)) picked.push(r.url);
+  }
+  return picked;
 }
 
 /** "host/product/ABC123" for URLs like host/product/ABC123/some-slug (first path segment with a digit). */
@@ -267,8 +292,7 @@ export async function waybackObservations(
 ): Promise<WaybackResult> {
   const deadline = Date.now() + limits.totalMs;
   const result: WaybackResult = { observations: [], log: { cdx_queries: 0, snapshots_fetched: 0, urls: [], misses: [] } };
-  const tokens = productTokens(product);
-  if (!tokens.length) return result;
+  if (!product.model && !product.gtin) return result;
   const targets = candidateUrls(urls, market, product, limits.maxUrls);
   result.log.urls = targets.map(hostOf);
   const from = cfg.previous_event_date.replace(/-/g, '');
@@ -312,7 +336,7 @@ export async function waybackObservations(
       const price = extractStructuredPrice(html, market.currency);
       if (!price) continue;
       const ident = identityText(html);
-      if (!tokens.some((t) => alnum(ident).includes(t))) continue;
+      if (!identityMatch(product, ident)) continue;
       if (variantConflict(product.variant, ident, ident)) continue;
       const date = localDate(new Date(snapshotIso(snap.timestamp)), market.timezone);
       const viewUrl = `${ARCHIVE}/web/${snap.timestamp}/${snap.original}`;

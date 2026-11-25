@@ -122,7 +122,7 @@ export class FixtureProvider implements ResearchProvider {
         base.observations.push(obs(m, cur, 74900, '2025-11-28', u1, `Black Friday deal 28 November 2025: Fixture Phone FX-100 128 GB for ${cur} 749.00`));
         base.observations.push(obs(m, cur, 77900, '2026-07-10', u2, `FX-100 128 GB winter sale ${cur} 779.00`));
         base.observations.push(obs(m, cur, 79900, '2026-03-15', u3, `2026-03-15: ${cur} 799.00`));
-        base.unverified_leads.push({ description: 'Forum mention of a lower price without a page we could retrieve', source_url: null, reason: 'Snippet only', amount_minor: 72900, currency: cur, retailer: 'Fixture Forum', date: '2026-08' });
+        base.unverified_leads.push({ description: 'Forum mention of a lower price without a page we could retrieve', source_url: null, reason: 'Snippet only', amount_minor: 72900, currency: cur, retailer: 'Fixture Forum', date: '2026-08', product_match: 'exact' });
     }
     return { ok: true, corpus, meta: meta(2), output: base };
   }

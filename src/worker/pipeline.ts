@@ -311,6 +311,7 @@ async function validateOne(
       lead: {
         description: `${o.retailer ?? o.source_name}: ${o.currency} ${(o.amount_minor / 100).toFixed(2)} (${date})`, source_url: o.source_url, reason: v.reason,
         amount_minor: o.amount_minor, currency: o.currency.toUpperCase(), retailer: o.retailer, date: kind === 'current' ? null : date,
+        product_match: o.product_match === 'exact' && !/variant|model identifier/i.test(v.reason) ? 'exact' : 'uncertain',
       },
     };
   }
@@ -435,7 +436,7 @@ export async function researchStage(env: Env, jobId: string, product: ResolvedPr
       return {
         description: l.description, source_url: safeUrl(l.source_url), reason: l.reason,
         amount_minor: sameCurrency ? l.amount_minor : null, currency: sameCurrency ? market.currency : null,
-        retailer: l.retailer, date: l.date,
+        retailer: l.retailer, date: l.date, product_match: l.product_match,
       };
     });
     let rejected = 0;

@@ -80,6 +80,7 @@ export const ModelLead = z.object({
   currency: z.string().max(3).nullable(),
   retailer: z.string().max(200).nullable(),
   date: z.string().max(40).nullable(),
+  product_match: z.enum(['exact', 'uncertain', 'different']).catch('uncertain'),
 });
 
 // ------------------------------------------------------------------ text normalisation
@@ -222,6 +223,16 @@ export type ValidationOutcome =
  * segments (letters+digits, e.g. "G91F", "LS49FG912EEXXY", "WH-1000XM5"). Any one must appear.
  */
 export function productTokens(p: ProductIdentity): string[] {
+  const toks = new Set(codeTokens(p));
+  if (p.model && (toks.size === 0 || (p.gtin && toks.size === 1))) {
+    const whole = alnum(p.model);
+    if (whole.length >= 3) toks.add(whole);
+  }
+  return Array.from(toks);
+}
+
+/** GTIN and genuine model/MPN codes only (no whole-name fallback). */
+export function codeTokens(p: ProductIdentity): string[] {
   const toks = new Set<string>();
   if (p.gtin) toks.add(alnum(p.gtin));
   if (p.model) {
@@ -230,14 +241,19 @@ export function productTokens(p: ProductIdentity): string[] {
       const a = alnum(part);
       if (a.length >= 4 && /\d/.test(a) && /\p{L}/u.test(a)) toks.add(a);
     }
-    // Adjacent pairs catch split identifiers like "WH 1000XM5" or "GSR 12V-15".
+    // Adjacent pairs catch split identifiers like "WH 1000XM5" or "GSR 12V-15": a short prefix (or a
+    // code) followed by a code. Never join ordinary words ("Cyclone V10"), which would over-match.
     for (let i = 0; i + 1 < parts.length; i++) {
-      const a = alnum(parts[i]! + parts[i + 1]!);
+      const a0 = alnum(parts[i]!);
+      const b0 = alnum(parts[i + 1]!);
+      if (!/\d/.test(b0) || !(/\d/.test(a0) || a0.length <= 4)) continue;
+      const a = a0 + b0;
       if (a.length >= 5 && /\d/.test(a) && /\p{L}/u.test(a)) toks.add(a);
     }
-    if (toks.size === 0 || (p.gtin && toks.size === 1)) {
-      const whole = alnum(p.model);
-      if (whole.length >= 3) toks.add(whole);
+    // A single-part model that is itself a code (e.g. "Z-999", "BES870BSS").
+    if (parts.length === 1) {
+      const a = alnum(parts[0]!);
+      if (a.length >= 4 && /\d/.test(a) && /\p{L}/u.test(a)) toks.add(a);
     }
   }
   return Array.from(toks);
@@ -274,6 +290,37 @@ export function variantConflict(variant: string | null, pageText: string, excerp
   return null;
 }
 
+// Descriptive words retailers often omit from listing titles; not required for an identity match.
+const OPTIONAL_MODEL_WORDS = new Set([
+  'cyclone', 'cordless', 'wireless', 'vacuum', 'cleaner', 'stick', 'gaming', 'monitor', 'curved', 'edition', 'series', 'model', 'new',
+  'the', 'with', 'and', 'for', 'of', 'in', 'console', 'headphones', 'smartphone', 'phone', 'tv', 'television', 'drill', 'driver',
+  'kit', 'tool', 'only', 'skin', 'bare', 'unit', 'version', 'generation', 'gen', 'inch', 'black', 'white', 'silver',
+]);
+
+function wordsOf(s: string): string[] {
+  return s.normalize('NFKC').toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+}
+
+/**
+ * Does `text` identify this exact product? Either a strong identifier (GTIN or letter+digit code of
+ * 4+ chars such as LS49FG912EEXXY, WH1000XM5) appears, or every distinctive word of the model name
+ * does (e.g. "V10" and "Absolute" for "Cyclone V10 Absolute" — but not "V10 Animal").
+ */
+export function identityMatch(p: ProductIdentity, text: string): boolean {
+  const flat = alnum(text);
+  const strong = codeTokens(p);
+  if (strong.some((t) => flat.includes(t))) return true;
+  // A product with a real code must be matched by that code; words are only a fallback for code-less names.
+  if (strong.length > 0 || !p.model) return false;
+  const brand = new Set(wordsOf(p.brand ?? ''));
+  const required = wordsOf(p.model).filter((w) => w.length >= 2 && !brand.has(w) && !OPTIONAL_MODEL_WORDS.has(w));
+  if (required.length === 0) return false;
+  if (!required.some((w) => /\d/.test(w)) && required.length < 2) return false; // too generic (e.g. just "ipad")
+  const have = new Set(wordsOf(text));
+  const joined = wordsOf(text).join('');
+  return required.every((w) => have.has(w) || (w.length >= 4 && joined.includes(w)));
+}
+
 export function validateObservation(o: ModelObservation, ctx: ValidationContext): ValidationOutcome {
   const { market, corpus } = ctx;
   if (o.market.toUpperCase() !== market.code) return { status: 'rejected', reason: `Observation is for market ${o.market}, not ${market.code}.` };
@@ -302,9 +349,7 @@ export function validateObservation(o: ModelObservation, ctx: ValidationContext)
   if (excerpt.length < 8 || !page.includes(excerpt)) return { status: 'lead', reason: 'The quoted excerpt was not found verbatim in the retrieved page.' };
   if (!amountsInText(o.evidence_excerpt).has(o.amount_minor)) return { status: 'lead', reason: 'The excerpt does not contain the stated amount.' };
 
-  const toks = productTokens(ctx.product);
-  const pageAlnum = alnum(doc.text);
-  if (toks.length === 0 || !toks.some((t) => pageAlnum.includes(t))) return { status: 'lead', reason: 'The page does not mention the exact model identifier.' };
+  if (!identityMatch(ctx.product, doc.text)) return { status: 'lead', reason: 'The page does not mention the exact model identifier.' };
 
   const vc = variantConflict(ctx.product.variant, doc.text, o.evidence_excerpt);
   if (vc) return { status: 'lead', reason: vc };

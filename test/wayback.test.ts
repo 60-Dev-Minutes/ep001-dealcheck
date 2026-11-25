@@ -114,3 +114,39 @@ describe('archive identity', () => {
     expect(t).not.toContain('g91f');
   });
 });
+
+describe('candidateUrls (Dyson V10 regression)', () => {
+  it('prefers product and comparison pages, dedupes encoded URLs, skips refurbished and unrelated pages', () => {
+    const v10 = { brand: 'Dyson', model: 'Cyclone V10 Absolute', variant: null, gtin: null };
+    const urls = candidateUrls([
+      'https://www.airpointsstore.co.nz/product/dyson-cyclone-v10%E2%84%A2-absolute',
+      'https://www.airpointsstore.co.nz/product/dyson-cyclone-v10™-absolute',
+      'https://www.dyson.co.nz/deals/black-friday',
+      'https://www.dyson.co.nz/dyson-v10-absolute-447953-01-nickel-copper',
+      'https://www.dyson.co.nz/dyson-refurbished-v10-absolute-447945-02',
+      'https://pricespy.co.nz/product.php?p=4713094',
+      'https://www.nzherald.co.nz/the-selection/dyson-vacuums-hair-dryers-and-more',
+    ], marketByCode('NZ')!, v10, 5);
+    expect(urls).toContain('https://www.dyson.co.nz/dyson-v10-absolute-447953-01-nickel-copper');
+    expect(urls).toContain('https://pricespy.co.nz/product.php?p=4713094');
+    expect(urls.filter((u) => u.includes('airpointsstore'))).toHaveLength(1);
+    expect(urls.some((u) => u.includes('refurbished'))).toBe(false);
+    expect(urls.some((u) => u.includes('nzherald'))).toBe(false);
+  });
+});
+
+describe('candidateUrls diversity', () => {
+  it('spreads lookups across sites before taking a second page from the same site', () => {
+    const v10 = { brand: 'Dyson', model: 'Cyclone V10 Absolute', variant: null, gtin: null };
+    const urls = candidateUrls([
+      'https://www.airpointsstore.co.nz/product/dyson-cyclone-v10-absolute',
+      'https://www.airpointsstore.co.nz/product/dyson-cyclone-v10-absolut',
+      'https://www.priceme.co.nz/Dyson-V10-Cyclone-Vacuum/p-929694229.aspx',
+      'https://www.priceme.co.nz/Dyson-V10-Absolute/p-1.aspx',
+      'https://www.dyson.co.nz/dyson-v10-absolute-447953-01-nickel-copper',
+      'https://pricespy.co.nz/product.php?p=4713094',
+    ], marketByCode('NZ')!, v10, 4);
+    expect(new Set(urls.map((u) => new URL(u).hostname)).size).toBe(4);
+    expect(urls).toContain('https://pricespy.co.nz/product.php?p=4713094');
+  });
+});

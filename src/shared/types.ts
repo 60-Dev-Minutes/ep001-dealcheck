@@ -160,6 +160,8 @@ export interface ReportLead {
   retailer: string | null;
   /** Date or date range as stated by the source, if any. */
   date: string | null;
+  /** Whether the snippet/page is for this exact product; 'different' leads are not shown as prices. */
+  product_match?: 'exact' | 'uncertain' | 'different';
 }
 
 export interface AssessedOffer {

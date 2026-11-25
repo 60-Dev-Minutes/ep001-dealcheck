@@ -3,13 +3,11 @@ import type {
   AssessedOffer,
   ReportLead,
   Comparison,
-  Eligibility,
   ReportCondition,
   ReportObservation,
   ReportSnapshot,
   TaxBasis,
   Verdict,
-  Window,
 } from '../../shared/types';
 import { formatMoney } from '../../shared/money';
 import {
@@ -24,6 +22,7 @@ import {
   safeHref,
 } from '../util';
 import { PriceChart } from './PriceChart';
+import { PricesFound } from './PricesFound';
 
 // Everything here is rendered as text. Snapshot strings are never interpreted as HTML.
 
@@ -36,15 +35,6 @@ const VERDICT_LABELS: Record<Verdict, string> = {
   limited_history: 'Limited history',
 };
 
-const WINDOW_LABELS: Record<Window, string> = {
-  previous_event: 'Previous Black Friday',
-  offseason: 'Off-season',
-  current_event: 'Current sale period',
-  earlier_context: 'Earlier (context only)',
-  straddles_window: 'Crosses a window boundary',
-  same_day_unordered: 'Same day as assessed price',
-  after_offer: 'After assessed price',
-};
 
 const AVAILABILITY_LABELS: Record<AssessedOffer['availability'], string> = {
   in_stock: 'In stock',
@@ -59,16 +49,6 @@ const TAX_LABELS: Record<TaxBasis, string> = {
   unknown: 'Tax basis not stated',
 };
 
-const ELIGIBILITY_LABELS: Record<Eligibility, string | null> = {
-  public: null,
-  member: 'Members only',
-  coupon: 'Coupon required',
-  trade_in: 'Requires trade-in',
-  financing: 'Financing offer',
-  bundle: 'Bundle',
-  restricted: 'Restricted offer',
-  unknown: 'Eligibility unknown',
-};
 
 const CONDITION_NOTES: Record<Exclude<ReportCondition, 'ok'>, { title: string; body: string }> = {
   current_price_unverified: {
@@ -141,19 +121,9 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
         )}
       </section>
 
-      <AssessedCard assessed={s.assessed} />
+      <PricesFound s={s} />
 
-      {!s.assessed && s.historical_low && (
-        <section className="card historical-low" aria-labelledby="low-title">
-          <h2 id="low-title">Lowest verified price since the previous Black Friday</h2>
-          <p className="big-price">{formatMoney(s.historical_low.minimum_minor, s.historical_low.currency)}</p>
-          <p>
-            On {formatComparisonDate(s.historical_low.date)} at {s.historical_low.source_domain}.{' '}
-            {s.coverage.comparable_observations > 1 && `Lowest of ${s.coverage.comparable_observations} verified prices.`}
-          </p>
-          <p className="small muted">We could not confirm a current price, so there is no verdict. Run a new check with the advertised price to compare.</p>
-        </section>
-      )}
+      <AssessedCard assessed={s.assessed} />
 
       {s.assessed && (
       <section aria-labelledby="cmp-title" className="stack-sm">
@@ -215,34 +185,12 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
           <PromotionExpiryView p={s.promotion_expiry} />
       </section>
 
-      {pricedLeads.length > 0 && (
-        <section aria-labelledby="seen-title" className="stack-sm">
-          <h2 id="seen-title">Other prices we saw (not verified)</h2>
-          <p className="hint">
-            These prices appeared in search results or on pages we could not fully check (for example, the retailer blocked our research tool). They are shown for
-            your information only and are <strong>not used</strong> in the verdict. Check them at the source.
-          </p>
-          <LeadPriceTable leads={pricedLeads} />
-        </section>
-      )}
-
       <section className="card" aria-labelledby="chart-title">
         <h2 id="chart-title">Verified prices over time</h2>
         <PriceChart snapshot={s} />
       </section>
 
       <CoverageView s={s} />
-
-      <section aria-labelledby="evidence-title" className="stack-sm">
-        <h2 id="evidence-title">Verified prices and proof</h2>
-        <p className="hint">Every verified dated price with the proof behind it: the exact quote from the page, what we checked, and a link to the evidence itself.</p>
-        <ObservationTable rows={s.observations} caption="Historical price evidence" emptyText="No dated historical prices were found." />
-      </section>
-
-      <section aria-labelledby="alts-title" className="stack-sm">
-        <h2 id="alts-title">Current alternatives</h2>
-        <ObservationTable rows={s.current_alternatives} caption="Current offers elsewhere" emptyText="No other current offers were found." />
-      </section>
 
       <section className="card" aria-labelledby="leads-title">
         <h2 id="leads-title">Other research leads (not verified, not used in calculations)</h2>
@@ -530,66 +478,7 @@ function CoverageView({ s }: { s: ReportSnapshot }) {
   );
 }
 
-function observationDate(o: ReportObservation): string {
-  if (o.date_precision === 'month') return `${formatMonth(o.date_start)} (month only)`;
-  return formatDateRange(o.date_start, o.date_end);
-}
 
-function ObservationTable({ rows, caption, emptyText }: { rows: ReportObservation[]; caption: string; emptyText: string }) {
-  if (rows.length === 0) return <p className="card muted empty">{emptyText}</p>;
-  const sorted = [...rows].sort((a, b) => (a.date_start < b.date_start ? -1 : a.date_start > b.date_start ? 1 : a.amount_minor - b.amount_minor));
-  return (
-    <div className="table-wrap">
-      <table className="evidence">
-        <caption className="visually-hidden">{caption}</caption>
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Price</th>
-            <th scope="col">Retailer</th>
-            <th scope="col">Window</th>
-            <th scope="col">Comparable</th>
-            <th scope="col">Proof</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((o) => {
-            const href = safeHref(o.source_url);
-            const elig = ELIGIBILITY_LABELS[o.eligibility];
-            return (
-              <tr key={o.id} className={o.comparable ? 'row-comparable' : 'row-noncomparable'}>
-                <td data-label="Date">{observationDate(o)}</td>
-                <td data-label="Price">
-                  <span className="nowrap">{formatMoney(o.amount_minor, o.currency)}</span>
-                  <span className="cell-note">
-                    {TAX_LABELS[o.tax_basis]}
-                    {elig ? ` · ${elig}` : ''}
-                    {o.shipping_minor === null ? ' · delivery unknown' : o.shipping_minor === 0 ? ' · free delivery' : ` · + ${formatMoney(o.shipping_minor, o.currency)} delivery`}
-                  </span>
-                </td>
-                <td data-label="Retailer">{o.retailer ?? <span className="muted">Unknown</span>}</td>
-                <td data-label="Window">{WINDOW_LABELS[o.window]}</td>
-                <td data-label="Comparable">
-                  <span className={`badge ${o.comparable ? 'badge-yes' : 'badge-no'}`}>{o.comparable ? 'Yes' : 'No'}</span>
-                  {o.comparability_notes.length > 0 && (
-                    <ul className="cell-notes">
-                      {o.comparability_notes.map((n, i) => (
-                        <li key={i}>{n}</li>
-                      ))}
-                    </ul>
-                  )}
-                </td>
-                <td data-label="Proof">
-                  <ProofView o={o} fallbackHref={href} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function PriceSummary({ verified, leads, currency }: { verified: number; leads: { amount_minor: number }[]; currency: string }) {
   if (verified === 0 && leads.length === 0) return null;
@@ -612,74 +501,4 @@ function PriceSummary({ verified, leads, currency }: { verified: number; leads: 
   );
 }
 
-function LeadPriceTable({ leads }: { leads: (ReportLead & { amount_minor: number })[] }) {
-  const sorted = [...leads].sort((a, b) => a.amount_minor - b.amount_minor);
-  return (
-    <div className="table-wrap">
-      <table className="evidence leads-table">
-        <caption className="visually-hidden">Unverified prices seen during research, lowest first</caption>
-        <thead>
-          <tr>
-            <th scope="col">Price</th>
-            <th scope="col">Retailer</th>
-            <th scope="col">Date stated</th>
-            <th scope="col">Source</th>
-            <th scope="col">Why not verified</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((l, i) => {
-            const href = safeHref(l.source_url);
-            return (
-              <tr key={i} className="row-noncomparable">
-                <td data-label="Price">
-                  <span className="nowrap">{formatMoney(l.amount_minor, l.currency ?? '')}</span>
-                  <span className="badge badge-no">Unverified</span>
-                </td>
-                <td data-label="Retailer">{l.retailer ?? <span className="muted">Unknown</span>}</td>
-                <td data-label="Date stated">{l.date ?? <span className="muted">Not stated</span>}</td>
-                <td data-label="Source">{href ? <ExternalLink href={href}>{hostOf(href)}</ExternalLink> : <span className="muted">No link</span>}</td>
-                <td data-label="Why not verified">
-                  <span className="cell-note">{l.reason}</span>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
-function ProofView({ o, fallbackHref }: { o: ReportObservation; fallbackHref: string | null }) {
-  const p = o.proof;
-  const openHref = safeHref(p?.open_url ?? null) ?? fallbackHref;
-  return (
-    <div className="proof">
-      <p className="proof-kind">
-        {p?.kind === 'archived_page' ? 'Internet Archive copy' : 'Retrieved page'} · {o.source_domain}
-      </p>
-      {o.excerpt && (
-        <blockquote className="proof-quote">
-          <q>{o.excerpt}</q>
-        </blockquote>
-      )}
-      {p && p.checks.length > 0 && (
-        <ul className="proof-checks">
-          {p.checks.map((c, i) => (
-            <li key={i}>{c}</li>
-          ))}
-        </ul>
-      )}
-      <p className="cell-note">
-        {p?.kind === 'archived_page' ? 'Captured' : 'Retrieved'} {formatLocalDateTime(p?.captured_at ?? o.retrieved_at)}
-      </p>
-      {openHref && (
-        <a className="proof-link" href={openHref} target="_blank" rel="noopener noreferrer nofollow">
-          {p?.open_label ?? 'Open source'}
-          <span className="visually-hidden"> (opens in a new tab)</span>
-        </a>
-      )}
-    </div>
-  );
-}

@@ -154,3 +154,24 @@ describe('productTokens', () => {
     expect(productTokens({ brand: 'Apple', model: 'iPad', variant: null, gtin: null })).toEqual(['ipad']);
   });
 });
+
+import { identityMatch } from '../src/worker/research/evidence';
+describe('identityMatch', () => {
+  const v10 = { brand: 'Dyson', model: 'Cyclone V10 Absolute', variant: null, gtin: null };
+  it('matches on distinctive model words, ignoring descriptive ones', () => {
+    expect(identityMatch(v10, 'Dyson V10 Absolute cordless vacuum — now $549')).toBe(true);
+    expect(identityMatch(v10, 'Dyson Cyclone V10 Absolute (Nickel/Copper)')).toBe(true);
+  });
+  it('rejects a different variant of the same family', () => {
+    expect(identityMatch(v10, 'Dyson Cyclone V10 Animal cordless vacuum')).toBe(false);
+    expect(identityMatch(v10, 'Dyson V15 Detect Absolute')).toBe(false);
+  });
+  it('still uses strong identifiers', () => {
+    expect(identityMatch({ brand: 'Samsung', model: 'Odyssey G91F (LS49FG912EEXXY)', variant: null, gtin: null }, 'Samsung LS49FG912EEXXY')).toBe(true);
+    expect(identityMatch({ brand: 'Sony', model: 'WH-1000XM5', variant: null, gtin: null }, 'Sony WH1000XM5 headphones')).toBe(true);
+  });
+  it('refuses overly generic models', () => {
+    expect(identityMatch({ brand: 'Apple', model: 'iPad', variant: null, gtin: null }, 'Apple iPad Pro 13')).toBe(false);
+    expect(identityMatch({ brand: 'Nintendo', model: 'Switch OLED Model', variant: null, gtin: null }, 'Nintendo Switch (OLED Model) White')).toBe(true);
+  });
+});
