@@ -25,7 +25,8 @@ export function withSecurityHeaders(res: Response, opts: { noStore?: boolean; no
   h.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
   h.set('Cross-Origin-Opener-Policy', 'same-origin');
   h.set('Strict-Transport-Security', 'max-age=31536000');
-  if (opts.noStore) h.set('Cache-Control', 'no-store');
+  // Default to no-store; public endpoints (markets, recent checks) set their own short cache policy.
+  if (opts.noStore && !h.has('Cache-Control')) h.set('Cache-Control', 'no-store');
   if (opts.noIndex) h.set('X-Robots-Tag', 'noindex, nofollow');
   return out;
 }

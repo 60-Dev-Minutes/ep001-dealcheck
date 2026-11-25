@@ -1048,3 +1048,70 @@ table.evidence {
 .leads-table .badge {
   margin-left: 0.5rem;
 }
+
+/* Two-column layout: checker + public recent checks (stacks on narrow screens). */
+.layout {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (min-width: 64rem) {
+  .container.layout {
+    max-width: 76rem;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+  .recent {
+    position: sticky;
+    top: 1rem;
+  }
+}
+.recent h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.75rem;
+}
+.recent-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.recent-item {
+  display: grid;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+.recent-product {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.recent-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.recent-market {
+  font-weight: 700;
+}
+.recent-cheaper_before {
+  color: #b42318;
+}
+.recent-lowest_observed {
+  color: #067647;
+}
+@media (prefers-color-scheme: dark) {
+  .recent-cheaper_before { color: #fda29b; }
+  .recent-lowest_observed { color: #75e0a7; }
+}
+.subscribe-gate {
+  border: 2px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}

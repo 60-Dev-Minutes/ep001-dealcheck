@@ -3,6 +3,7 @@ import { DEFAULT_MARKET, MARKETS } from '../shared/markets';
 import type { MarketInfo } from '../shared/types';
 import { getMarkets, getQuota, isAbort } from './api';
 import { CheckForm, EMPTY_VALUES, type FormValues, type QuotaState } from './components/CheckForm';
+import { RecentChecks } from './components/RecentChecks';
 import { Footer } from './components/Footer';
 import { JobView } from './components/JobView';
 import { JOB_ID_RE, STORAGE_JOB, STORAGE_MARKET, storage } from './util';
@@ -114,7 +115,8 @@ export function App() {
           </p>
         </div>
       </header>
-      <main id="main" ref={mainRef} className="container main">
+      <div className="container layout">
+      <main id="main" ref={mainRef} className="main">
         {jobId ? (
           <JobView key={jobId} jobId={jobId} onRestart={leaveJob} onGone={jobGone} onSettled={settled} />
         ) : (
@@ -130,6 +132,8 @@ export function App() {
           />
         )}
       </main>
+      <RecentChecks />
+      </div>
       <Footer />
     </div>
   );

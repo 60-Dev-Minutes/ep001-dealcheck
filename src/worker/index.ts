@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { MARKETS } from '../shared/markets';
-import type { Clarification, InvestigationStatus, MarketInfo, QuotaInfo } from '../shared/types';
+import type { Clarification, InvestigationStatus, MarketInfo, QuotaInfo, RecentCheck, Verdict } from '../shared/types';
 import { STAGE_LABELS, TERMINAL_STATES } from '../shared/types';
 import { admit, budgetOpen, dayKeyFor, quotaView } from './admission';
 import { readConfig, type Env } from './env';
@@ -84,6 +84,28 @@ app.get('/health', () => json({ status: 'ok' }));
 app.get('/api/markets', () => {
   const markets: MarketInfo[] = MARKETS.map((m) => ({ code: m.code, name: m.name, currency: m.currency }));
   return json({ markets }, 200, 'public, max-age=300');
+});
+
+// Public feed of recently completed checks. Only the AI-identified product name (never the visitor's
+// typed text), market, verdict and time; no report links, prices, sessions or network data.
+app.get('/api/recent', async (c) => {
+  const rows = await c.env.DB.prepare(
+    `SELECT i.market AS market, i.updated_at AS finished_at, json_extract(r.snapshot, '$.product.label') AS label,
+            json_extract(r.snapshot, '$.product.model') AS model, json_extract(r.snapshot, '$.verdict') AS verdict,
+            json_extract(r.snapshot, '$.synthetic_fixture') AS synthetic
+     FROM investigations i JOIN reports r ON r.investigation_id = i.id
+     WHERE i.state = 'complete' ORDER BY i.updated_at DESC LIMIT 40`,
+  ).all<{ market: string; finished_at: string; label: string | null; model: string | null; verdict: Verdict; synthetic: number | null }>();
+  const recent: RecentCheck[] = [];
+  for (const r of rows.results) {
+    // Unidentified products fall back to the raw input as label: never publish those.
+    if (!r.label || !r.model || r.synthetic) continue;
+    const label = r.label.replace(/[\u0000-\u001f]/g, ' ').replace(/https?:\/\/\S+/g, '').trim();
+    if (!label) continue;
+    recent.push({ product: label.length > 90 ? label.slice(0, 89) + '…' : label, market: r.market, verdict: r.verdict, finished_at: r.finished_at });
+    if (recent.length >= 20) break;
+  }
+  return json({ recent }, 200, 'public, max-age=30');
 });
 
 app.get('/api/quota', async (c) => {

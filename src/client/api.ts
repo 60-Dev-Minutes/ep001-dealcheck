@@ -5,6 +5,7 @@ import type {
   InvestigationStatus,
   MarketInfo,
   QuotaInfo,
+  RecentCheck,
   ReportSnapshot,
 } from '../shared/types';
 
@@ -77,6 +78,10 @@ async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export function getMarkets(signal?: AbortSignal): Promise<{ markets: MarketInfo[] }> {
   return call('/api/markets', { signal });
+}
+
+export function getRecent(signal?: AbortSignal): Promise<{ recent: RecentCheck[] }> {
+  return call('/api/recent', { signal });
 }
 
 export function getQuota(signal?: AbortSignal): Promise<QuotaInfo> {

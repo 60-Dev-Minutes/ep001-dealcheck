@@ -4,7 +4,7 @@ import { parseUserPrice } from '../../shared/money';
 import type { MarketInfo, QuotaInfo } from '../../shared/types';
 import { ApiFailure, createInvestigation } from '../api';
 import { useTurnstile } from '../turnstile';
-import { randomKey } from '../util';
+import { randomKey, storage, STORAGE_SUBSCRIBE, SUBSCRIBE_URL } from '../util';
 
 export type QuotaState = { status: 'loading' } | { status: 'error' } | { status: 'ok'; info: QuotaInfo };
 
@@ -88,6 +88,10 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
   const [submitting, setSubmitting] = useState(false);
   const [pausedByServer, setPausedByServer] = useState<string | null>(null);
   const [exhaustedByServer, setExhaustedByServer] = useState(false);
+  // Owner decision (2026-11-25): the first check requires clicking Subscribe. Not verified — a click
+  // opens the newsletter's subscribe page in a new tab and unlocks checks in this browser.
+  const [subscribeClicked, setSubscribeClicked] = useState(() => storage.get(STORAGE_SUBSCRIBE) !== null);
+  const [justUnlocked, setJustUnlocked] = useState(false);
   /** Idempotency key reused only when retrying the identical submission after a network error. */
   const pending = useRef<{ fingerprint: string; key: string } | null>(null);
 
@@ -131,9 +135,15 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
     el?.focus();
   }
 
+  function onSubscribeClick() {
+    storage.set(STORAGE_SUBSCRIBE, new Date().toISOString());
+    setSubscribeClicked(true);
+    setJustUnlocked(true);
+  }
+
   async function submit(e?: FormEvent) {
     e?.preventDefault();
-    if (submitting || blocked || quota.status === 'loading') return;
+    if (!subscribeClicked || submitting || blocked || quota.status === 'loading') return;
     const errs = validate();
     setFieldErrors(errs);
     const firstInvalid = (['product', 'price', 'retailer'] as const).find((f) => errs[f]);
@@ -373,8 +383,29 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
           </div>
         )}
 
+        {!subscribeClicked && !blocked && (
+          <div className="subscribe-gate" role="group" aria-labelledby={`${ids.quota}-sub`}>
+            <p id={`${ids.quota}-sub`} className="alert-title">
+              One step before your first check
+            </p>
+            <p>
+              DealCheck is a free experiment from the 60 Dev Minutes newsletter. Please subscribe (it's free) to unlock your checks — the subscribe page
+              opens in a new tab.
+            </p>
+            <a className="btn btn-secondary" href={SUBSCRIBE_URL} target="_blank" rel="noopener noreferrer" onClick={onSubscribeClick}>
+              Subscribe to 60 Dev Minutes
+              <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </div>
+        )}
+        {justUnlocked && !blocked && (
+          <p className="hint" role="status">
+            Thanks! Checks are unlocked in this browser — come back to this tab to run yours.
+          </p>
+        )}
+
         <div className="actions">
-          <button type="submit" className="btn btn-primary" disabled={submitting || blocked || quota.status === 'loading'} aria-busy={submitting || undefined}>
+          <button type="submit" className="btn btn-primary" disabled={submitting || blocked || !subscribeClicked || quota.status === 'loading'} aria-busy={submitting || undefined}>
             {submitting ? 'Starting…' : 'Check the price history'}
           </button>
         </div>

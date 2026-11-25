@@ -45,9 +45,9 @@ US (USD), New Zealand (NZD), Australia (AUD), Estonia (EUR), Germany (EUR). Mark
 
 ## Access and limits
 
-No account. Each network gets a small number of free investigations for the pilot, shared by everyone on that
+No account. Before the first check, visitors are asked to click *Subscribe* (opens the free newsletter's subscribe page; not verified). Each network gets a small number of free investigations for the pilot, shared by everyone on that
 network (it is not a per-person allowance). A daily research budget pauses new investigations when reached.
-Product text you enter is sent to an AI research provider (Anthropic); please don't include personal information.
+Product text you enter is sent to an AI research provider (Anthropic); please don't include personal information. A public *Recently checked* list shows the product name DealCheck identified, the market and the verdict of completed checks — never what you typed or anything that identifies you.
 
 ## Stack
 

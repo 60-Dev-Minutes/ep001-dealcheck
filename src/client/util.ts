@@ -2,6 +2,9 @@
 
 export const STORAGE_MARKET = 'dealcheck.market';
 export const STORAGE_JOB = 'dealcheck.job';
+export const STORAGE_SUBSCRIBE = 'dealcheck.subscribe_clicked';
+export const PUBLICATION_URL = 'https://60devminutes.substack.com/';
+export const SUBSCRIBE_URL = 'https://60devminutes.substack.com/subscribe';
 
 export const storage = {
   get(key: string): string | null {

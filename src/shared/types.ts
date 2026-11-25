@@ -61,6 +61,14 @@ export interface CreateInvestigationRequest {
   turnstile_token: string;
 }
 
+/** Public "recently checked" entry: model-identified product name only, never the visitor's raw text. */
+export interface RecentCheck {
+  product: string;
+  market: string;
+  verdict: Verdict;
+  finished_at: string;
+}
+
 export interface ClarificationCandidate {
   id: string;
   label: string;
