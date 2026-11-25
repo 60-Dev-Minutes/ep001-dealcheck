@@ -103,3 +103,25 @@ describe('research output parsing', () => {
     expect(r.limitations).toEqual(['ok']);
   });
 });
+
+describe('search location', () => {
+  it('uses the data-driven location (EE: city + timezone, no unsupported country code)', async () => {
+    const seen: Record<string, unknown>[] = [];
+    const p = new AnthropicProvider('k', 'claude-haiku-5-5', fakeFetch([{ status: 200, body: message([SUBMIT], 'tool_use') }], seen));
+    await p.identify({ ...REQ, marketCode: 'EE' }, new AbortController().signal);
+    const ws = (seen[0]!.tools as { name: string; user_location?: Record<string, string> }[]).find((t) => t.name === 'web_search')!;
+    expect(ws.user_location).toEqual({ type: 'approximate', city: 'Tallinn', timezone: 'Europe/Tallinn' });
+  });
+  it('retries once without the location hint when the provider rejects the country code', async () => {
+    const seen: Record<string, unknown>[] = [];
+    const p = new AnthropicProvider('k', 'claude-haiku-5-5', fakeFetch([
+      { status: 400, body: { type: 'error', error: { type: 'invalid_request_error', message: 'tools.0.web_search_20250305: Country code NZ is not supported.' } } },
+      { status: 200, body: message([SUBMIT], 'tool_use') },
+    ], seen));
+    const r = await p.identify(REQ, new AbortController().signal);
+    expect(r.ok).toBe(true);
+    expect(seen).toHaveLength(2);
+    const loc = (seen[1]!.tools as { name: string; user_location?: Record<string, string> }[]).find((t) => t.name === 'web_search')!.user_location;
+    expect(loc).toEqual({ type: 'approximate', timezone: 'Pacific/Auckland' });
+  });
+});

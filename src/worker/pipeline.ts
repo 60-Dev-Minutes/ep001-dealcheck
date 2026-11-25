@@ -127,9 +127,41 @@ export async function logEvent(db: D1Database, jobId: string, kind: string, deta
 
 /** Terminal failure/cancel: release quota (no report delivered) and settle the budget hold. */
 export async function stopJob(env: Env, jobId: string, outcome: 'failed' | 'cancelled', code: ErrorCode | null): Promise<void> {
-  await setState(env.DB, jobId, outcome, { error_code: code, detail: outcome });
+  const changed = await setState(env.DB, jobId, outcome, { error_code: code, detail: outcome });
   await finalizeQuota(env.DB, jobId, 'released', nowIso());
   await settleBudget(env.DB, jobId, nowIso());
+  if (changed) await logQueryOutcome(env, jobId);
+}
+
+/**
+ * Owner-facing query log (Workers Logs / `wrangler tail`): one structured line per submitted and
+ * per finished investigation. Product text and outcome only; never network or session identifiers.
+ */
+export function logQuerySubmitted(jobId: string, input: JobInput): void {
+  console.log(JSON.stringify({ event: 'query_submitted', job: jobId, market: input.market, product: input.product.slice(0, 200), price_minor: input.price_minor, retailer: input.retailer }));
+}
+
+export async function logQueryOutcome(env: Env, jobId: string): Promise<void> {
+  try {
+    const row = await env.DB.prepare(
+      `SELECT i.market, i.input_json, i.state, i.error_code, i.created_at, i.updated_at, r.snapshot,
+              (SELECT COALESCE(SUM(cost_estimate), 0) FROM provider_usage WHERE job_id = i.id) AS cost
+       FROM investigations i LEFT JOIN reports r ON r.investigation_id = i.id WHERE i.id = ?1`,
+    ).bind(jobId).first<{ market: string; input_json: string; state: string; error_code: string | null; created_at: string; updated_at: string; snapshot: string | null; cost: number }>();
+    if (!row) return;
+    const input = JSON.parse(row.input_json) as JobInput;
+    const snap = row.snapshot ? (JSON.parse(row.snapshot) as ReportSnapshot) : null;
+    console.log(JSON.stringify({
+      event: 'query_finished', job: jobId, market: row.market, product: input.product.slice(0, 200), state: row.state, error: row.error_code,
+      verdict: snap?.verdict ?? null, identified_as: snap?.product.label.slice(0, 200) ?? null,
+      assessed_minor: snap?.assessed?.amount_minor ?? null, verified_prices: snap ? snap.observations.length : 0,
+      archive_prices: snap ? snap.observations.filter((o) => o.source_type === 'archive_snapshot').length : 0,
+      unverified_prices: snap ? snap.leads.filter((l) => l.amount_minor !== null).length : 0,
+      cost_nzd: Math.round(row.cost / 100) / 10_000, duration_s: Math.round((Date.parse(row.updated_at) - Date.parse(row.created_at)) / 1000),
+    }));
+  } catch {
+    /* logging must never affect the job */
+  }
 }
 
 export function makeProvider(env: Env, cfg: Config, productInput: string): ResearchProvider {
@@ -180,6 +212,7 @@ async function paidCall<T>(
     await logEvent(env.DB, jobId, `${stage}_call`, {
       ok: result.ok, ms: Date.now() - started,
       error: result.ok ? null : result.error.code,
+      error_message: result.ok ? null : result.error.message.slice(0, 400),
       searches: m?.usage.web_search_requests ?? null, fetches: m?.usage.web_fetch_requests ?? null,
       tool_errors: result.corpus.toolErrors, fetched: result.corpus.fetched.map((d) => hostOf(d.url)),
     });
@@ -581,6 +614,7 @@ export async function reportStage(
     if (changed) await finalizeQuota(env.DB, jobId, 'completed', nowIso());
     else await finalizeQuota(env.DB, jobId, 'released', nowIso()); // cancelled meanwhile
     await settleBudget(env.DB, jobId, nowIso());
+    if (changed) await logQueryOutcome(env, jobId);
     return { reportId: finalId };
   });
 }

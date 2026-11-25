@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "DealCheck — was it cheaper before Black Friday? (60 Dev Minutes, Episode 001)",
+  "description": "DealCheck \u2014 was it cheaper before Black Friday? (60 Dev Minutes, Episode 001)",
   "scripts": {
     "dev": "npm run build:client && wrangler dev",
     "build:client": "vite build",
@@ -14,7 +14,9 @@
     "secret-scan": "node scripts/secret-scan.mjs",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
-    "deploy": "npm run build:client && wrangler deploy"
+    "deploy": "npm run build:client && wrangler deploy",
+    "queries": "node scripts/queries.mjs",
+    "tail": "wrangler tail dealcheck --format pretty"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.14.0",

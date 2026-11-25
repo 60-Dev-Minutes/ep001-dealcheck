@@ -15,7 +15,7 @@ import {
   sessionDigest,
   trustedClientAddress,
 } from './identity';
-import { getJob, nowIso, setState, stopJob, type JobInput, type JobRow } from './pipeline';
+import { getJob, logQuerySubmitted, nowIso, setState, stopJob, type JobInput, type JobRow } from './pipeline';
 import { worstCaseJobCost } from './pricing';
 import { reconcile, terminate } from './reconcile';
 import { verifyTurnstile } from './turnstile';
@@ -165,6 +165,7 @@ app.post('/api/investigations', async (c) => {
       break;
   }
   await budgetAlert(env, dayKeyFor(now, cfg.budgetTimezone));
+  logQuerySubmitted(jobId, v.input);
   try {
     await env.INVESTIGATION.create({ id: jobId, params: { jobId } });
   } catch {

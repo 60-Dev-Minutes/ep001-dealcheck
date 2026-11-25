@@ -98,6 +98,7 @@ export class AnthropicProvider implements ResearchProvider {
     let modelUsed = this.model;
     let stopReason = 'none';
     let nudged = false;
+    let location: Anthropic.UserLocation = { type: 'approximate', ...(market.search_location ?? { timezone: market.timezone }) };
     const meta = () => ({ model: modelUsed, requestIds, usage, durationMs: Date.now() - started, stopReason });
     const deadline = AbortSignal.any([outerSignal, AbortSignal.timeout(spec.timeoutMs)]);
 
@@ -118,7 +119,7 @@ export class AnthropicProvider implements ResearchProvider {
                 type: TOOL_VERSIONS.web_search,
                 name: 'web_search',
                 max_uses: remainingSearches,
-                user_location: { type: 'approximate', country: market.code, timezone: market.timezone },
+                user_location: location,
               },
               {
                 type: TOOL_VERSIONS.web_fetch,
@@ -137,6 +138,12 @@ export class AnthropicProvider implements ResearchProvider {
           { signal: deadline, timeout: spec.timeoutMs, maxRetries: 0 },
         );
       } catch (err) {
+        // Unsupported location hint: rejected before processing (unbilled); retry once without it.
+        if (err instanceof Anthropic.BadRequestError && /country code|user_location|location/i.test(err.message) && (location.country || location.city)) {
+          location = { type: 'approximate', timezone: market.timezone };
+          i--;
+          continue;
+        }
         return { ok: false, error: classifyError(err, deadline), corpus, meta: requestIds.length ? meta() : null };
       }
       const rid = (res as unknown as { _request_id?: string | null })._request_id;

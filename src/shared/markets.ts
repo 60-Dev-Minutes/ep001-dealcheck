@@ -9,6 +9,8 @@ export interface Market {
   languages: string[];
   timezone: string;
   aliases: string[];
+  /** Approximate location hint for provider web search (country codes vary in support). */
+  search_location?: { country?: string; city?: string; timezone?: string };
 }
 
 export interface EventConfig {
@@ -21,7 +23,7 @@ export interface EventConfig {
 
 export const SEED_VERSION: string = seed.seed_version;
 export const EVENT_CONFIG: EventConfig = seed.event_config;
-export const MARKETS: Market[] = seed.markets;
+export const MARKETS: Market[] = seed.markets as Market[];
 export const DEFAULT_MARKET: MarketCode = 'NZ';
 
 /** Number separator convention used to interpret user-entered prices. */
