@@ -334,6 +334,17 @@ export async function waybackObservations(
         tax_basis: 'unknown',
         eligibility: 'public',
         shipping_minor: null,
+        proof: {
+          kind: 'archived_page',
+          captured_at: snapshotIso(snap.timestamp),
+          checks: [
+            `Independent copy of the page saved by the Internet Archive on ${snapshotIso(snap.timestamp).slice(0, 10)}`,
+            `Price read from the page's own product data: ${price.pointer}`,
+            'The archived page is for this exact model (title / product code)',
+          ],
+          open_url: viewUrl,
+          open_label: `Open the archived copy (${snapshotIso(snap.timestamp).slice(0, 10)})`,
+        },
       });
     }
   }

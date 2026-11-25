@@ -3,7 +3,7 @@ import type { ApiError, ErrorCode } from '../shared/types';
 export const CSP = [
   "default-src 'self'",
   "script-src 'self' https://challenges.cloudflare.com",
-  "frame-src https://challenges.cloudflare.com",
+  "frame-src https://challenges.cloudflare.com https://60devminutes.substack.com",
   "connect-src 'self'",
   "img-src 'self' data:",
   "style-src 'self'",

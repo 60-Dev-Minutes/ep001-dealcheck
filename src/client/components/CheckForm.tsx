@@ -4,7 +4,7 @@ import { parseUserPrice } from '../../shared/money';
 import type { MarketInfo, QuotaInfo } from '../../shared/types';
 import { ApiFailure, createInvestigation } from '../api';
 import { useTurnstile } from '../turnstile';
-import { randomKey, storage, STORAGE_SUBSCRIBE, SUBSCRIBE_URL } from '../util';
+import { randomKey, storage, STORAGE_SUBSCRIBE, SUBSCRIBE_EMBED_URL } from '../util';
 
 export type QuotaState = { status: 'loading' } | { status: 'error' } | { status: 'ok'; info: QuotaInfo };
 
@@ -92,6 +92,8 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
   // opens the newsletter's subscribe page in a new tab and unlocks checks in this browser.
   const [subscribeClicked, setSubscribeClicked] = useState(() => storage.get(STORAGE_SUBSCRIBE) !== null);
   const [justUnlocked, setJustUnlocked] = useState(false);
+  // The Substack form loads only after the visitor chooses to subscribe (no third-party request before).
+  const [showEmbed, setShowEmbed] = useState(false);
   /** Idempotency key reused only when retrying the identical submission after a network error. */
   const pending = useRef<{ fingerprint: string; key: string } | null>(null);
 
@@ -135,7 +137,7 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
     el?.focus();
   }
 
-  function onSubscribeClick() {
+  function onContinueAfterSubscribe() {
     storage.set(STORAGE_SUBSCRIBE, new Date().toISOString());
     setSubscribeClicked(true);
     setJustUnlocked(true);
@@ -300,7 +302,7 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
             autoComplete="off"
             spellCheck={false}
             required
-            placeholder="e.g. Sony WH-1000XM5 headphones, black"
+            placeholder="e.g. Sony WH-1000XM5"
           />
           <p id={ids.productHint} className="hint">
             Text up to 512 characters, or a link starting with http:// or https://. New condition only.
@@ -389,19 +391,31 @@ export function CheckForm({ markets, market, onMarketChange, quota, values, onVa
             <p id={`${ids.quota}-sub`} className="alert-title">
               One step before your first check
             </p>
-            <p>
-              DealCheck is a free experiment from the 60 Dev Minutes newsletter. Please subscribe (it's free) to unlock your checks — the subscribe page
-              opens in a new tab.
-            </p>
-            <a className="btn btn-secondary" href={SUBSCRIBE_URL} target="_blank" rel="noopener noreferrer" onClick={onSubscribeClick}>
-              Subscribe to 60 Dev Minutes
-              <span className="visually-hidden"> (opens in a new tab)</span>
-            </a>
+            <p>DealCheck is a free experiment from the 60 Dev Minutes newsletter. Subscribe (it's free) to unlock your checks.</p>
+            {!showEmbed ? (
+              <button type="button" className="btn btn-secondary" onClick={() => setShowEmbed(true)}>
+                Subscribe to 60 Dev Minutes
+              </button>
+            ) : (
+              <>
+                <iframe
+                  className="substack-embed"
+                  src={SUBSCRIBE_EMBED_URL}
+                  title="Subscribe to 60 Dev Minutes (form provided by Substack)"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+                <p className="small muted">Form provided by Substack. Enter your email above, then continue.</p>
+                <button type="button" className="btn btn-primary" onClick={onContinueAfterSubscribe}>
+                  Continue to DealCheck
+                </button>
+              </>
+            )}
           </div>
         )}
         {justUnlocked && !blocked && (
           <p className="hint" role="status">
-            Thanks! Checks are unlocked in this browser — come back to this tab to run yours.
+            Thanks! Checks are unlocked in this browser.
           </p>
         )}
 

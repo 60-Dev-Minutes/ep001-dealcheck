@@ -45,7 +45,9 @@ describe('verdict precedence', () => {
   it('insufficient without evidence or without a price', () => {
     expect(run(79900, []).verdict).toBe('insufficient_evidence');
     const { primary, cov } = run(79900, [o(70000, '2026-05-01')]);
-    expect(decideVerdict(null, primary, cov)).toBe('insufficient_evidence');
+    // Verified history but no usable current price: reported as history, not as missing evidence.
+    expect(decideVerdict(null, primary, cov)).toBe('history_only');
+    expect(decideVerdict(null, [], cov)).toBe('insufficient_evidence');
   });
   it('a single lower verified price means cheaper before', () => expect(run(79900, [o(79899, '2026-05-01')]).verdict).toBe('cheaper_before'));
   it('exact equality in minor units is price matched', () => {
@@ -129,10 +131,20 @@ describe('no current price', () => {
     expect(cov.months_represented).toEqual(['2026-08', '2026-09', '2026-10']);
     const low = historicalLow(primary)!;
     expect(low.minimum_minor).toBe(129900);
-    expect(decideVerdict(null, primary, cov)).toBe('insufficient_evidence');
-    expect(verdictText('insufficient_evidence', null, null, cov, low)).toMatch(/3 verified earlier prices .*lowest NZD 1,299.00 on 2026-09-06.*Enter the advertised price/);
+    expect(decideVerdict(null, primary, cov)).toBe('history_only');
+    expect(verdictText('history_only', null, null, cov, low)).toMatch(/3 verified prices since the previous Black Friday.*lowest was NZD 1,299.00 on 2026-09-06.*add the advertised price/);
   });
   it('without a market currency baseline nothing is comparable (legacy behaviour)', () => {
     expect(annotate([o(1, '2026-10-07')], null, 'NZ', EVENT_CONFIG, AS_OF).filter(isPrimary)).toHaveLength(0);
+  });
+});
+
+import { quoteLink } from '../src/worker/report/compute';
+describe('proof links', () => {
+  it('builds a text-fragment link to the quoted passage', () => {
+    expect(quoteLink('https://shop.co.nz/p#x', 'now $749.00')).toBe('https://shop.co.nz/p#:~:text=now%20%24749.00');
+    const long = quoteLink('https://shop.co.nz/p', 'Black Friday deal 28 November 2025: Fixture Phone FX-100 128 GB for NZD 749.00');
+    expect(long).toBe('https://shop.co.nz/p#:~:text=Black%20Friday%20deal%2028%20November,GB%20for%20NZD%20749.00');
+    expect(quoteLink('https://a.nz/p', 'pre-order, now 5')).toBe('https://a.nz/p#:~:text=pre%2Dorder%2C%20now%205');
   });
 });

@@ -99,6 +99,8 @@ export interface InvestigationStatus {
 
 export type Verdict =
   | 'insufficient_evidence'
+  /** Verified history exists but today's price could not be established (owner decision 2026-11-25). */
+  | 'history_only'
   | 'cheaper_before'
   | 'price_matched_before'
   | 'lowest_observed'
@@ -114,6 +116,16 @@ export type Window = 'previous_event' | 'offseason' | 'current_event' | 'earlier
 
 export type TaxBasis = 'included' | 'excluded' | 'unknown';
 export type Eligibility = 'public' | 'member' | 'coupon' | 'trade_in' | 'financing' | 'bundle' | 'restricted' | 'unknown';
+
+/** How a verified price was proven, shown to the user instead of a bare link. */
+export interface ObservationProof {
+  kind: 'retrieved_page' | 'archived_page';
+  /** When the evidence was captured (page retrieval or archive snapshot), UTC ISO. */
+  captured_at: string;
+  checks: string[];
+  open_url: string;
+  open_label: string;
+}
 
 export interface ReportObservation {
   id: string;
@@ -135,6 +147,7 @@ export interface ReportObservation {
   window: Window;
   comparable: boolean;
   comparability_notes: string[];
+  proof?: ObservationProof;
 }
 
 export interface ReportLead {

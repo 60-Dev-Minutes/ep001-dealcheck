@@ -18,6 +18,14 @@ export const COVERAGE_RULE =
 
 export type ObservationInput = Omit<ReportObservation, 'window' | 'comparable' | 'comparability_notes'>;
 
+/** Text-fragment link that opens the source and highlights the quoted passage (where browsers support it). */
+export function quoteLink(url: string, excerpt: string): string {
+  const words = excerpt.replace(/\s+/g, ' ').trim().split(' ');
+  const enc = (s: string) => encodeURIComponent(s).replace(/-/g, '%2D').replace(/,/g, '%2C');
+  const frag = words.length <= 10 ? enc(words.join(' ')) : `${enc(words.slice(0, 5).join(' '))},${enc(words.slice(-4).join(' '))}`;
+  return `${url.split('#')[0]}#:~:text=${frag}`;
+}
+
 export function classifyWindow(o: { date_start: string; date_end: string }, cfg: EventConfig, asOfLocal: string): Window {
   if (o.date_start > asOfLocal) return 'after_offer';
   // Not strictly before the assessed offer: ordering within the same day is unknown.
@@ -172,7 +180,8 @@ function prevDay(d: string): string {
 }
 
 export function decideVerdict(c: number | null, primary: ReportObservation[], cov: Coverage): Verdict {
-  if (c === null || primary.length === 0) return 'insufficient_evidence';
+  if (c === null) return primary.length ? 'history_only' : 'insufficient_evidence';
+  if (primary.length === 0) return 'insufficient_evidence';
   if (primary.some((o) => o.amount_minor < c)) return 'cheaper_before';
   if (primary.some((o) => o.amount_minor === c)) return 'price_matched_before';
   return cov.threshold_met ? 'lowest_observed' : 'limited_history';
@@ -197,14 +206,16 @@ export function historicalLow(primary: ReportObservation[]): HistoricalLow | nul
 }
 
 export function verdictText(v: Verdict, assessed: AssessedOffer | null, overall: Comparison | null, cov: Coverage, low: HistoricalLow | null = null): string {
-  if (v === 'insufficient_evidence' && !assessed && low) {
+  if (v === 'history_only' && low) {
     const n = cov.comparable_observations;
-    return `We found ${n} verified earlier price${n === 1 ? '' : 's'} for this product (lowest ${formatMoney(low.minimum_minor, low.currency)} on ${low.date}), but no current price to compare against. Enter the advertised price to get a verdict.`;
+    return `We found ${n} verified price${n === 1 ? '' : 's'} since the previous Black Friday — the lowest was ${formatMoney(low.minimum_minor, low.currency)} on ${low.date}. We couldn't confirm today's price, so add the advertised price to see whether the current deal beats it.`;
   }
   const cur = assessed ? formatMoney(assessed.amount_minor, assessed.currency) : null;
   const min = overall && assessed ? formatMoney(overall.minimum_minor, assessed.currency) : null;
   const label = assessed?.basis === 'user_entered' ? 'your entered price' : 'the current offer';
   switch (v) {
+    case 'history_only':
+      return 'We found verified price history, but could not confirm today\'s price. Add the advertised price to compare.';
     case 'insufficient_evidence':
       return assessed
         ? `We could not find a verified, comparable earlier price for this exact product in this market, so no comparison can be made. That does not mean it was never cheaper.`

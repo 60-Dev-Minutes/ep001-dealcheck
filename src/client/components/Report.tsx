@@ -28,6 +28,7 @@ import { PriceChart } from './PriceChart';
 // Everything here is rendered as text. Snapshot strings are never interpreted as HTML.
 
 const VERDICT_LABELS: Record<Verdict, string> = {
+  history_only: 'Price history found',
   insufficient_evidence: 'Insufficient evidence',
   cheaper_before: 'Cheaper before',
   price_matched_before: 'Price matched before',
@@ -154,6 +155,7 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
         </section>
       )}
 
+      {s.assessed && (
       <section aria-labelledby="cmp-title" className="stack-sm">
         <h2 id="cmp-title">How it compares</h2>
         <div className="grid-cards">
@@ -194,6 +196,7 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
           />
         </div>
       </section>
+      )}
 
       <section className="card" aria-labelledby="promo-title">
           <h2 id="promo-title">The retailer's claims</h2>
@@ -231,8 +234,8 @@ export function Report({ snapshot: s, onNewCheck }: Props) {
       <CoverageView s={s} />
 
       <section aria-labelledby="evidence-title" className="stack-sm">
-        <h2 id="evidence-title">Evidence</h2>
-        <p className="hint">Every dated price we found, including ones we could not compare. Sources open in a new tab.</p>
+        <h2 id="evidence-title">Verified prices and proof</h2>
+        <p className="hint">Every verified dated price with the proof behind it: the exact quote from the page, what we checked, and a link to the evidence itself.</p>
         <ObservationTable rows={s.observations} caption="Historical price evidence" emptyText="No dated historical prices were found." />
       </section>
 
@@ -546,8 +549,7 @@ function ObservationTable({ rows, caption, emptyText }: { rows: ReportObservatio
             <th scope="col">Retailer</th>
             <th scope="col">Window</th>
             <th scope="col">Comparable</th>
-            <th scope="col">Source</th>
-            <th scope="col">Excerpt</th>
+            <th scope="col">Proof</th>
           </tr>
         </thead>
         <tbody>
@@ -577,12 +579,9 @@ function ObservationTable({ rows, caption, emptyText }: { rows: ReportObservatio
                     </ul>
                   )}
                 </td>
-                <td data-label="Source">
-                  <span className="cell-source">{o.source_name}</span>
-                  {href ? <ExternalLink href={href}>{o.source_domain}</ExternalLink> : <span>{o.source_domain}</span>}
-                  <span className="cell-note">Retrieved {formatLocalDateTime(o.retrieved_at)}</span>
+                <td data-label="Proof">
+                  <ProofView o={o} fallbackHref={href} />
                 </td>
-                <td data-label="Excerpt">{o.excerpt ? <q className="excerpt">{o.excerpt}</q> : <span className="muted">None</span>}</td>
               </tr>
             );
           })}
@@ -648,6 +647,39 @@ function LeadPriceTable({ leads }: { leads: (ReportLead & { amount_minor: number
           })}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+function ProofView({ o, fallbackHref }: { o: ReportObservation; fallbackHref: string | null }) {
+  const p = o.proof;
+  const openHref = safeHref(p?.open_url ?? null) ?? fallbackHref;
+  return (
+    <div className="proof">
+      <p className="proof-kind">
+        {p?.kind === 'archived_page' ? 'Internet Archive copy' : 'Retrieved page'} · {o.source_domain}
+      </p>
+      {o.excerpt && (
+        <blockquote className="proof-quote">
+          <q>{o.excerpt}</q>
+        </blockquote>
+      )}
+      {p && p.checks.length > 0 && (
+        <ul className="proof-checks">
+          {p.checks.map((c, i) => (
+            <li key={i}>{c}</li>
+          ))}
+        </ul>
+      )}
+      <p className="cell-note">
+        {p?.kind === 'archived_page' ? 'Captured' : 'Retrieved'} {formatLocalDateTime(p?.captured_at ?? o.retrieved_at)}
+      </p>
+      {openHref && (
+        <a className="proof-link" href={openHref} target="_blank" rel="noopener noreferrer nofollow">
+          {p?.open_label ?? 'Open source'}
+          <span className="visually-hidden"> (opens in a new tab)</span>
+        </a>
+      )}
     </div>
   );
 }

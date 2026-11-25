@@ -20,6 +20,7 @@ import {
   reportCondition,
   verdictText,
   historicalLow,
+  quoteLink,
   type ObservationInput,
 } from './report/compute';
 import { AnthropicProvider } from './research/anthropic';
@@ -332,6 +333,19 @@ async function validateOne(
       tax_basis: o.tax_basis,
       eligibility: o.eligibility,
       shipping_minor: o.shipping_minor,
+      proof: {
+        kind: 'retrieved_page',
+        captured_at: v.doc.retrieved_at,
+        checks: [
+          'The quoted text appears word-for-word on the page we retrieved',
+          `The quote contains the price ${o.currency.toUpperCase()} ${(o.amount_minor / 100).toFixed(2)}`,
+          'The page names the exact model',
+          kind === 'historical' ? (v.notes.length ? `The date is stated on the page (${v.notes[0]?.toLowerCase().replace(/\.$/, '')})` : 'The date is stated in the quote') : 'Price seen on the page at retrieval time',
+          `Source is a ${market.name} site or states the ${market.currency} price explicitly`,
+        ],
+        open_url: quoteLink(o.source_url, o.evidence_excerpt),
+        open_label: 'Open the source at the quoted passage',
+      },
     },
   };
 }
