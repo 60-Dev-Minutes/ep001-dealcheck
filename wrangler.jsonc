@@ -35,7 +35,7 @@
   "triggers": { "crons": ["*/5 * * * *"] },
   "vars": {
     "ENVIRONMENT": "production",
-    "RESEARCH_ENABLED": "false",
+    "RESEARCH_ENABLED": "true",
     "PROVIDER": "anthropic",
     "ANTHROPIC_MODEL": "claude-haiku-5-5",
     "DAILY_BUDGET_NZD": "25",
