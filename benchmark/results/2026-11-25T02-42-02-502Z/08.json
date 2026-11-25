@@ -1,0 +1,285 @@
+{
+  "n": 8,
+  "market": "NZ",
+  "input": "Fisher & Paykel 8kg front loader washing machine",
+  "started_at": "2026-11-25T02:42:56.016Z",
+  "events": [
+    {
+      "t": 1065,
+      "state": "identifying"
+    },
+    {
+      "t": 2583,
+      "state": "identifying"
+    },
+    {
+      "t": 4849,
+      "state": "identifying"
+    },
+    {
+      "t": 8242,
+      "state": "awaiting_clarification"
+    },
+    {
+      "t": 13310,
+      "state": "researching"
+    },
+    {
+      "t": 18332,
+      "state": "researching"
+    },
+    {
+      "t": 23354,
+      "state": "researching"
+    },
+    {
+      "t": 28375,
+      "state": "researching"
+    },
+    {
+      "t": 33393,
+      "state": "researching"
+    },
+    {
+      "t": 38404,
+      "state": "validating"
+    },
+    {
+      "t": 43415,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_jSNpweh_fLE_9qBlMQp1KJae",
+      "state": "queued"
+    }
+  },
+  "clarification": {
+    "question": "Which Fisher & Paykel 8kg front loader model do you mean? The main options are WH8060J3 (Series 3, the entry model), WH8060P3 (Series 5 with Steam Care), WH8060P5 (Series 5 FlexiDose, white) and WH8060PG5 (Series 5 FlexiDose, graphite). Please give the model number or the features you need.",
+    "candidates": [
+      {
+        "id": "c1",
+        "label": "Fisher & Paykel 8kg Series 3 Front Loader Washer WH8060J3 (White)",
+        "detail": "Entry Series 3 model; search results show NZD prices from about $919 to $1,499 across retailers and dates, so the price depends on retailer and date."
+      },
+      {
+        "id": "c2",
+        "label": "Fisher & Paykel 8kg Series 5 Front Loader Washer Steam Care WH8060P3 (White)",
+        "detail": "Steam Care feature; manufacturer page lists NZD $1,549.00; 100% Appliances lists $1,399.00 for WH8060P3."
+      },
+      {
+        "id": "c3",
+        "label": "Fisher & Paykel 8kg Series 5 Contemporary Front Loader Washer FlexiDose WH8060P5 (White)",
+        "detail": "FlexiDose automatic detergent dosing; manufacturer page lists NZD $1,499.00."
+      },
+      {
+        "id": "c4",
+        "label": "Fisher & Paykel 8kg Series 5 Contemporary Front Loader Washer FlexiDose WH8060PG5 (Graphite)",
+        "detail": "Graphite colour finish (Noel Leeming listing); colour is a separate SKU with its own price."
+      },
+      {
+        "id": "c5",
+        "label": "Fisher & Paykel 8kg Series 5 Top Load Washer",
+        "detail": "Not a front loader; included only because a retailer lists it under the 8kg Fisher & Paykel range. Likely excluded by the shopper's 'front loader' requirement."
+      }
+    ],
+    "chosen": "c1"
+  },
+  "final_state": "complete",
+  "duration_ms": 43415,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:43:39.348Z",
+    "market": {
+      "code": "NZ",
+      "name": "New Zealand",
+      "currency": "NZD",
+      "timezone": "Pacific/Auckland"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Fisher & Paykel 8kg Series 3 Front Loader Washer WH8060J3 (White)",
+      "brand": "Fisher & Paykel",
+      "model": "WH8060J3",
+      "variant": "Series 3, white, 9 wash cycles, 4.5-star water / 4-star energy",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "PriceMe NZ product page: 'The best price for Fisher & Paykel WH8060J3 is $869.00' with a price-trend table that rendered empty; the $869 offer appears beside Farmers in the snippet, but the snippet does not clearly tie the amount to one retailer.",
+        "source_url": "https://www.priceme.co.nz/Fisher-Paykel-WH8060J3/p-906065586.aspx",
+        "reason": "Search snippet only; priceme.co.nz fetch recently failed; snippet undated and cache age about 2449 days.",
+        "amount_minor": 86900,
+        "currency": "NZD",
+        "retailer": null,
+        "date": null
+      },
+      {
+        "description": "PriceMe NZ listing snippet shows a $876.00 offer next to Noel Leeming for Fisher & Paykel 8kg Series 3 Front Load Washer (WH8060J3).",
+        "source_url": "https://www.priceme.co.nz/Fisher-Paykel-WH8060J3/p-906065586.aspx",
+        "reason": "Search snippet only; amount-to-retailer mapping not certain; no date.",
+        "amount_minor": 87600,
+        "currency": "NZD",
+        "retailer": "Noel Leeming",
+        "date": null
+      },
+      {
+        "description": "Farmers NZ product page shows $1,459.00 for Fisher & Paykel 8kg Front Load QuickSmart Washing Machine, White, WH8060J3 (product #6536332).",
+        "source_url": "https://www.farmers.co.nz/fisher-paykel-8kg-front-load-quicksmart-washing-machine-white-wh8060j3-6536332",
+        "reason": "Search snippet only; undated; farmers.co.nz not on the verified-fetch list.",
+        "amount_minor": 145900,
+        "currency": "NZD",
+        "retailer": "Farmers",
+        "date": null
+      },
+      {
+        "description": "100% Home NZ product page shows $919 for Fisher & Paykel 8kg Front Load Washing Machine WH8060J3.",
+        "source_url": "https://www.100percent.co.nz/fisher-paykel-8kg-front-load-washing-machine-wh8060j3",
+        "reason": "Search snippet only; undated; not fetched.",
+        "amount_minor": 91900,
+        "currency": "NZD",
+        "retailer": "100% Home",
+        "date": null
+      },
+      {
+        "description": "Gary Anderson NZ product page shows original $1,499.00 and current $1,199.00 for Fisher & Paykel WH8060J3 8kg Front Load Washing Machine.",
+        "source_url": "https://garyanderson.co.nz/product/fisher-paykel-wh8060j3-8kg-front-load-washing-machine/",
+        "reason": "Search snippet only; undated; snippet mixes related-product prices in the same block.",
+        "amount_minor": 119900,
+        "currency": "NZD",
+        "retailer": "Gary Anderson",
+        "date": null
+      },
+      {
+        "description": "Extreme Appliances NZ product page shows $899.00 for Fisher & Paykel 8kg Front Load Washing Machine WH8060J3; a second page snippet lists WH8060J3 at $854.00 in a comparison table.",
+        "source_url": "https://extremeappliances.co.nz/fisher-paykel-8kg-front-load-washing-machine/",
+        "reason": "Snippet only; fetch failed; undated.",
+        "amount_minor": 89900,
+        "currency": "NZD",
+        "retailer": "Extreme Appliances",
+        "date": null
+      },
+      {
+        "description": "Harvey Norman NZ product page snippet shows $1,025 ('GREAT PRICE') for Fisher & Paykel 8kg Front Loading Washing Machine WH8060J3.",
+        "source_url": "https://www.harveynorman.co.nz/whiteware/laundry/front-loaders/fisher-and-paykel-8kg-front-loading-washing-machine.html",
+        "reason": "Snippet only; undated; not fetched.",
+        "amount_minor": 102500,
+        "currency": "NZD",
+        "retailer": "Harvey Norman",
+        "date": null
+      },
+      {
+        "description": "PriceSpy NZ product page (fetched) for Fisher & Paykel WH8060J3 (White) shows a current $1,099.00 offer at Folders but marked 'Not in stock'; the 3-month price trend reads 'Lowest: $989.00 | Highest: $1,449.00' with no dates per low.",
+        "source_url": "https://pricespy.co.nz/product.php?p=5324425",
+        "reason": "Fetched but the 3-month low of $989.00 has no date, so it cannot be an observation; offer is out of stock.",
+        "amount_minor": 98900,
+        "currency": "NZD",
+        "retailer": "Folders",
+        "date": null
+      },
+      {
+        "description": "Fisher & Paykel NZ official page lists RRP $1,499.00 for Front Loader Washing Machine, 8kg (WH8060J3, White).",
+        "source_url": "https://www.fisherpaykel.com/nz/laundry/washing-machines/front-load/front-loader-washing-machine-8kg-wh8060j3-92279.html?bvstate=pg:3/ct:r",
+        "reason": "Manufacturer RRP from search snippet, not a retail sale price; undated.",
+        "amount_minor": 149900,
+        "currency": "NZD",
+        "retailer": "Fisher & Paykel",
+        "date": null
+      },
+      {
+        "description": "Rewards-shop NZ page lists WH8060J3 at 144,900 points (not a cash price), marked out of stock.",
+        "source_url": "https://www.rewards-shop.co.nz/product/fisher-paykel-8kg-front-load-washing-machine/",
+        "reason": "Points-based reward price, not NZD; out of stock; excluded from observations.",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": "Rewards Shop",
+        "date": null
+      },
+      {
+        "description": "Product URLs for archive lookup: NZ retailer pages for WH8060J3 found in search (Farmers, 100% Home, Gary Anderson, Extreme Appliances, Harvey Norman NZ, Fisher & Paykel NZ, PriceSpy NZ, PriceMe NZ).",
+        "source_url": "https://www.farmers.co.nz/fisher-paykel-8kg-front-load-quicksmart-washing-machine-white-wh8060j3-6536332",
+        "reason": "Archive lookup targets only; no price verified on them as dated.",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": null,
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No dated NZD price for WH8060J3 was verified on a fetched page, so the question of whether a cheaper price occurred since Black Friday 2025-11-28 cannot be answered from evidence.",
+      "No NZ Black Friday 2025 price (2025-11-28) was found for this exact product.",
+      "PriceSpy NZ fetched page gives a 3-month low of $989.00 and high of $1,449.00 with no dates for the low, and the price history graph contents were not in the text.",
+      "PriceMe NZ (priceme.co.nz) fetch recently failed; its price-trend table rendered empty in search snippets, and snippet ages (about 2449 days) suggest stale caches.",
+      "Noel Leeming and PB Tech NZ pages could not be fetched (known to fail); Harvey Norman, Farmers, 100% Home, Gary Anderson and Extreme Appliances NZ prices are undated snippets only.",
+      "Extreme Appliances fetch failed, so its $899.00 price could not be verified.",
+      "Cheapies (ChoiceCheapies), BetaDeals and Cheapest NZ were not searched because the search budget was used on product-level queries.",
+      "Australian pages (PriceMe AU, OzBargain, Good Sense, Appliances Online AU, Winning Appliances, Appliances Warehouse AU, The Good Guys, JB Hi-Fi AU, eands.com.au, buywisely.com.au) were excluded because they are not NZ-market prices.",
+      "Current status: the only fetched current NZ listing (PriceSpy, Folders at $1,099.00) is marked not in stock, so no current alternative was verified as available.",
+      "No promotion end date was documented on any fetched page.",
+      "1 source request(s) failed or were blocked (url_not_accessible).",
+      "Internet Archive: checked 0 archived snapshot(s) of garyanderson.co.nz, priceme.co.nz, farmers.co.nz; 0 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 6,
+      "fetches": 2,
+      "duration_ms": 43290,
+      "cache_hit": false
+    }
+  }
+}

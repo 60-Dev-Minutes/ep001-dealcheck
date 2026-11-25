@@ -1,0 +1,15 @@
+{
+  "run_id": "2026-11-25T02-42-02-502Z",
+  "base": "http://localhost:8787",
+  "attempted": 7,
+  "completed": 7,
+  "failed": 0,
+  "with_1plus_comparable": 0,
+  "with_3plus_comparable": 0,
+  "emitted_observations": 6,
+  "median_duration_ms": 53384,
+  "verdicts": {
+    "insufficient_evidence": 7
+  },
+  "note": "Cost per investigation: query provider_usage in D1 (see runbook). Accuracy and identity require independent manual review of the raw files."
+}

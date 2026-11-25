@@ -1,0 +1,290 @@
+{
+  "n": 13,
+  "market": "EE",
+  "input": "Apple iPhone 16 128GB",
+  "started_at": "2026-11-25T02:44:32.831Z",
+  "events": [
+    {
+      "t": 1078,
+      "state": "identifying"
+    },
+    {
+      "t": 2590,
+      "state": "identifying"
+    },
+    {
+      "t": 4851,
+      "state": "identifying"
+    },
+    {
+      "t": 8263,
+      "state": "awaiting_clarification"
+    },
+    {
+      "t": 13307,
+      "state": "researching"
+    },
+    {
+      "t": 18319,
+      "state": "researching"
+    },
+    {
+      "t": 23334,
+      "state": "researching"
+    },
+    {
+      "t": 28345,
+      "state": "researching"
+    },
+    {
+      "t": 33356,
+      "state": "researching"
+    },
+    {
+      "t": 38373,
+      "state": "researching"
+    },
+    {
+      "t": 43402,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_0567hkt_4xXyJXz5ViTJRxgC",
+      "state": "queued"
+    }
+  },
+  "clarification": {
+    "question": "Which colour of the Apple iPhone 16 128GB do you want (Black, White, Pink, Teal or Ultramarine)? Prices differ by colour in Estonia.",
+    "candidates": [
+      {
+        "id": "c1",
+        "label": "Apple iPhone 16 128GB Black",
+        "detail": "Colour Black; Estonian listings on hinnavaatlus.ee and hind.ee show a wide price spread, so colour is price-relevant. Retailer page: hinnavaatlus.ee/3576521/apple-iphone-16-128gb-black/"
+      },
+      {
+        "id": "c2",
+        "label": "Apple iPhone 16 128GB White",
+        "detail": "Colour White; listed on hind.ee with new and refurbished offers. Price not verified on a fetched page."
+      },
+      {
+        "id": "c3",
+        "label": "Apple iPhone 16 128GB Pink",
+        "detail": "Colour Pink; hinnavaatlus.ee listing at https://www.hinnavaatlus.ee/3576523/apple-iphone-16-128gb-pink/ shows offers from 828.00 EUR upward on the listing header."
+      },
+      {
+        "id": "c4",
+        "label": "Apple iPhone 16 128GB Teal",
+        "detail": "Colour Teal; hinnavaatlus.ee listing at https://www.hinnavaatlus.ee/3576525/apple-iphone-16-128gb-teal/ shows offers from 727.45 EUR upward."
+      },
+      {
+        "id": "c5",
+        "label": "Apple iPhone 16 128GB Ultramarine",
+        "detail": "Colour Ultramarine; sellme.ee listing marked out of stock, and hinnavaatlus.ee listing is for used units, so new-stock offers need a fresh check."
+      }
+    ],
+    "chosen": "c1"
+  },
+  "final_state": "complete",
+  "duration_ms": 43402,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:45:16.050Z",
+    "market": {
+      "code": "EE",
+      "name": "Estonia",
+      "currency": "EUR",
+      "timezone": "Europe/Tallinn"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Apple iPhone 16 128GB Black",
+      "brand": "Apple",
+      "model": "iPhone 16",
+      "variant": "128GB Black",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": {
+      "amount_minor": 81900,
+      "currency": "EUR",
+      "basis": "verified_offer",
+      "retailer": "Mobile Trade",
+      "source_url": "https://www.hinnavaatlus.ee/3576521/apple-iphone-16-128gb-black/",
+      "availability": "in_stock",
+      "tax_basis": "unknown",
+      "as_of": "2026-11-25T02:44:48+00:00",
+      "as_of_local_date": "2026-11-25",
+      "verified_match": "matches",
+      "verified_amount_minor": 81900
+    },
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not find a verified, comparable earlier price for this exact product in this market, so no comparison can be made. That does not mean it was never cheaper.",
+    "condition": "no_historical_evidence",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [
+      {
+        "id": "3e15bc9599ca62d11fe6cea24a3b26855d8ba8d3",
+        "amount_minor": 81900,
+        "currency": "EUR",
+        "date_start": "2026-11-25",
+        "date_end": "2026-11-25",
+        "date_precision": "day",
+        "retailer": "Mobile Trade",
+        "source_name": "Hinnavaatlus",
+        "source_url": "https://www.hinnavaatlus.ee/3576521/apple-iphone-16-128gb-black/",
+        "source_domain": "hinnavaatlus.ee",
+        "source_type": "price_comparison_listing",
+        "excerpt": "Kohal | 819,00 €",
+        "retrieved_at": "2026-11-25T02:44:48+00:00",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "availability": "in_stock",
+        "window": "current_event",
+        "comparable": true,
+        "comparability_notes": []
+      }
+    ],
+    "leads": [
+      {
+        "description": "Telia product page (Apple iPhone 16 128 GB must, MYE73HX/A), structured data price only in search snippet",
+        "source_url": "https://pood.telia.ee/nutitelefonid/Apple-iPhone-16-128-GB-must/MYE73HX%2FA",
+        "reason": "Search snippet only, not fetched; undated",
+        "amount_minor": 99900,
+        "currency": "EUR",
+        "retailer": "Telia",
+        "date": null
+      },
+      {
+        "description": "Hind.ee comparison page for iPhone 16 128GB (Black listed at several EE shops); price list snippet, undated",
+        "source_url": "https://www.hind.ee/p/apple-iphone-16/",
+        "reason": "Search snippet only; fetch of hind.ee page failed; no dates shown; many listings are refurbished/used or non-EE",
+        "amount_minor": 82900,
+        "currency": "EUR",
+        "retailer": "mobix.ee",
+        "date": null
+      },
+      {
+        "description": "Hind.ee listing of iPhone 16 128GB Black at plazamobiil.ee",
+        "source_url": "https://www.hind.ee/p/apple-iphone-16/",
+        "reason": "Snippet only, undated",
+        "amount_minor": 83900,
+        "currency": "EUR",
+        "retailer": "plazamobiil.ee",
+        "date": null
+      },
+      {
+        "description": "Digizone product page Apple iPhone 16 128GB must (MYE73HX/A)",
+        "source_url": "https://www.digizone.ee/181/Apple/190/Apple-mobiiltelefonid/1946024/Apple-iPhone-16-128GB-must",
+        "reason": "Search snippet only; undated; listing shows 840 EUR",
+        "amount_minor": 84000,
+        "currency": "EUR",
+        "retailer": "Digizone",
+        "date": null
+      },
+      {
+        "description": "ONOFF product page Apple iPhone 16 128GB, must (leasing shown)",
+        "source_url": "https://onoff.ee/et/nutitelefonid/127822-apple-iphone-16-128gb-must-925001181-195949821837.html",
+        "reason": "Search snippet only; undated; ONOFF also shows monthly instalment",
+        "amount_minor": 79990,
+        "currency": "EUR",
+        "retailer": "ONOFF",
+        "date": null
+      },
+      {
+        "description": "Hinnavaatlus forum and historical data: no price-history page or dated deal post for this exact product was retrieved",
+        "source_url": "https://foorum.hinnavaatlus.ee/",
+        "reason": "Not fetched; no dated thread found in searches",
+        "amount_minor": null,
+        "currency": null,
+        "retailer": null,
+        "date": null
+      },
+      {
+        "description": "Plazamobiil: EUR 749.00 (2026-11-25)",
+        "source_url": "https://www.hinnavaatlus.ee/3576521/apple-iphone-16-128gb-black/",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 74900,
+        "currency": "EUR",
+        "retailer": "Plazamobiil",
+        "date": null
+      },
+      {
+        "description": "Klick: EUR 1049.00 (2026-11-25)",
+        "source_url": "https://www.klick.ee/en/nutitelefon-apple-iphone-16-128gb-must",
+        "reason": "The excerpt does not contain the stated amount.",
+        "amount_minor": 104900,
+        "currency": "EUR",
+        "retailer": "Klick",
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No dated historical price was verified for this exact product (Apple iPhone 16 128GB Black, MYE73HX/A) in Estonia; so the previous Black Friday (2025-11-28) price and off-season (2025-11-29 to 2026-11-26) price cannot be established.",
+      "The fetched Hinnavaatlus product page and Klick product page show current prices without any date or price history; their cached age is uncertain (search metadata and a footnote on Klick reference 2024 content), so the current_alternatives dated 2026-11-25 are only as current as the cache.",
+      "hind.ee product pages failed to fetch; hind.ee and Hinnavaatlus snippets are undated and cannot be used as observations.",
+      "No Estonian Black Friday 2025 offers or retailer promotions for this product were found; the Black Friday evidence found was US/UK (not valid for EE).",
+      "No Hinnavaatlus forum (foorum.hinnavaatlus.ee) deal thread or price-history series was accessed.",
+      "Shipping costs and tax basis (KM included or excluded) were not stated on the fetched pages for the current alternatives.",
+      "Plazamobiil listing URL refers to an eSIM black variant, so product match is marked uncertain.",
+      "Research budget (searches and fetches) was limited, so retailer coverage in EE is partial (Euronics, Klick, Arvutitark, Kaup24, 1a, RDE only partly checked).",
+      "1 source request(s) failed or were blocked (url_not_accessible).",
+      "Internet Archive: checked 0 archived snapshot(s) of hind.ee, hind.ee, hind.ee; 0 dated prices read from structured page data.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 6,
+      "fetches": 3,
+      "duration_ms": 43192,
+      "cache_hit": false
+    }
+  }
+}

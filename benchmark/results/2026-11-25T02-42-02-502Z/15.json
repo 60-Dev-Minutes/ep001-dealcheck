@@ -1,0 +1,211 @@
+{
+  "n": 15,
+  "market": "EE",
+  "input": "Philips Airfryer HD9252/90",
+  "started_at": "2026-11-25T02:46:19.706Z",
+  "events": [
+    {
+      "t": 1110,
+      "state": "identifying"
+    },
+    {
+      "t": 2627,
+      "state": "identifying"
+    },
+    {
+      "t": 4890,
+      "state": "identifying"
+    },
+    {
+      "t": 8284,
+      "state": "identifying"
+    },
+    {
+      "t": 13315,
+      "state": "researching"
+    },
+    {
+      "t": 18342,
+      "state": "researching"
+    },
+    {
+      "t": 23374,
+      "state": "researching"
+    },
+    {
+      "t": 28400,
+      "state": "researching"
+    },
+    {
+      "t": 33416,
+      "state": "researching"
+    },
+    {
+      "t": 38439,
+      "state": "validating"
+    },
+    {
+      "t": 43460,
+      "state": "validating"
+    },
+    {
+      "t": 48482,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_sO53t54UGRmPKDntLaEPxJXw",
+      "state": "queued"
+    }
+  },
+  "final_state": "complete",
+  "duration_ms": 48482,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:47:05.242Z",
+    "market": {
+      "code": "EE",
+      "name": "Estonia",
+      "currency": "EUR",
+      "timezone": "Europe/Tallinn"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Philips Airfryer Essential L HD9252/90 (4.1 L, black, 1400 W)",
+      "brand": "Philips",
+      "model": "HD9252/90",
+      "variant": "Airfryer Essential L / 3000 Series Airfryer L, 4.1 L pan, black",
+      "gtin": "8710103951803",
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Euronics EE product page for Philips Essential 4.1 L, 1400 W, black Airfryer HD9252/90: search snippet shows discount price and regular price (not fetchable; the fetch returned the Euronics cooking category listing, which did not show this model)",
+        "source_url": "https://www.euronics.ee/en/kitchen/cooking/fryers/hd9252fs90/philips-essential-4-1-l-1400-w-black-airfryer",
+        "reason": "Snippet only; the fetched copy of the URL returned a category page, so the product price could not be verified; no date stated",
+        "amount_minor": 10599,
+        "currency": "EUR",
+        "retailer": "Euronics",
+        "date": null
+      },
+      {
+        "description": "Philips EE shop product page for Airfryer Essential L HD9252/90: snippet shows 139.99 EUR list and 105.99 EUR sale price with 24% off; embedded data lists priceValidUntil 2025-12-31. Fetch failed.",
+        "source_url": "https://www.shop.philips.ee/kodumasinad/koogitehnika/airfryer/essential-airfryer-hd9252-90/",
+        "reason": "Snippet only; page fetch failed; snippet age about 884 days, so the sale date is unknown and it may fall outside the off-season window",
+        "amount_minor": 10599,
+        "currency": "EUR",
+        "retailer": "Philips (shop.philips.ee)",
+        "date": null
+      },
+      {
+        "description": "Digizone EE product listing for Philips Airfryer Essential (HD9252/90), black: snippet shows 128 EUR but marked as partner out of stock",
+        "source_url": "https://www.digizone.ee/et/226/K%C3%B6%C3%B6k/259/Muu-k%C3%B6%C3%B6gitehnika/1145797/Philips-kuuma%C3%B5hufrit%C3%BC%C3%BCr-Airfryer-Essential-(HD9252-90),-must",
+        "reason": "Snippet only, undated, not fetched",
+        "amount_minor": 12800,
+        "currency": "EUR",
+        "retailer": "Digizone",
+        "date": null
+      },
+      {
+        "description": "Hind.ee aggregator for Philips HD9252 lists many EE sellers at once (e.g., home-appliences.ee 71.99 EUR, percte.eu 79.14 EUR, kaup24.ee 117.39 EUR, arvutitark.ee 113.70 EUR, rde.ee 143.95 EUR), all marked out of stock; some listings refer to other model variants (e.g., Compact Spectre naming, HD9252/70)",
+        "source_url": "https://www.hind.ee/p/philips-hd9252/",
+        "reason": "Snippet only; hind.ee fetch is known to fail; undated; variant matching uncertain; out-of-stock markers mean these are not current offers",
+        "amount_minor": 7199,
+        "currency": "EUR",
+        "retailer": "home-appliences.ee",
+        "date": null
+      },
+      {
+        "description": "Hinnavaatlus.ee product page for HD9252/90 (GTIN 8710103951803): snippet shows 137.80 and 159.90 EUR offers from BIGBOX.EE and TELO, but the fetched page showed no offer rows and the snippet is about 1695 days old",
+        "source_url": "https://www.hinnavaatlus.ee/2378705/philips-essential-airfryer-hd9252/",
+        "reason": "Snippet prices are not dated; fetched page's offer table was empty, so not verified as observations",
+        "amount_minor": 13780,
+        "currency": "EUR",
+        "retailer": "BIGBOX.EE",
+        "date": null
+      },
+      {
+        "description": "Mediamarkt NL Black Friday listing for HD9252/90 at 99 EUR (Netherlands market, not Estonia)",
+        "source_url": "https://www.mediamarkt.nl/nl/product/_philips-philips-hd9252-90-airfryer-essential-1732910.html",
+        "reason": "Different market (NL); not valid for Estonia even for the same product; listed only to document the Black Friday context",
+        "amount_minor": 9900,
+        "currency": "EUR",
+        "retailer": "MediaMarkt NL",
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": null,
+      "note": null
+    },
+    "limitations": [
+      "No price-history series or tracked history was found for this product in EE; the Hinnavaatlus and hind.ee price history pages were not accessible.",
+      "Hinnavaatlus fetch succeeded but its offer table was empty, so no prices were verified from it; its listed prices (137.80 and 159.90 EUR) are undated and about 1695 days old.",
+      "The shop.philips.ee fetch failed; its 105.99 EUR sale price with priceValidUntil 2025-12-31 is a snippet-only lead and cannot be dated or verified.",
+      "The Euronics fetch returned the cooking category listing rather than the product page, so the 105.99 EUR vs 119.99 EUR discount price could not be verified; the Euronics page shows a Black Friday up-to-40% banner but no end date for this product.",
+      "hind.ee fetch is known to fail, and the hind.ee snippets show out-of-stock aggregated offers with variant ambiguity (HD9252/70, Compact Spectre naming).",
+      "Deal communities (foorum.hinnavaatlus.ee) and Estonian Black Friday deal threads were not found or fetched within the search budget.",
+      "Retailers Klick, Arvutitark, Kaup24, 1a and RDE were not verified for this exact product on fetched pages; Kaup24 Black Friday snippet concerns other Philips fryers, not this model.",
+      "Search budget (6 searches, 3 fetches) was exhausted before dated Estonian offers for this model could be verified.",
+      "1 source request(s) failed or were blocked (url_not_accessible).",
+      "Internet Archive: checked 0 archived snapshot(s) of hind.ee, kohvisemu.ee, hinnavaatlus.ee; 0 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 7,
+      "fetches": 4,
+      "duration_ms": 45493,
+      "cache_hit": false
+    }
+  }
+}

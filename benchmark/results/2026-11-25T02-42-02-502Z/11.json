@@ -1,0 +1,349 @@
+{
+  "n": 11,
+  "market": "AU",
+  "input": "Dyson V15 Detect Absolute",
+  "started_at": "2026-11-25T02:43:39.439Z",
+  "events": [
+    {
+      "t": 1053,
+      "state": "identifying"
+    },
+    {
+      "t": 2566,
+      "state": "identifying"
+    },
+    {
+      "t": 4834,
+      "state": "identifying"
+    },
+    {
+      "t": 8220,
+      "state": "awaiting_clarification"
+    },
+    {
+      "t": 13250,
+      "state": "researching"
+    },
+    {
+      "t": 18273,
+      "state": "researching"
+    },
+    {
+      "t": 23294,
+      "state": "researching"
+    },
+    {
+      "t": 28311,
+      "state": "researching"
+    },
+    {
+      "t": 33317,
+      "state": "researching"
+    },
+    {
+      "t": 38340,
+      "state": "researching"
+    },
+    {
+      "t": 43351,
+      "state": "researching"
+    },
+    {
+      "t": 48363,
+      "state": "validating"
+    },
+    {
+      "t": 53384,
+      "state": "complete"
+    }
+  ],
+  "create": {
+    "status": 202,
+    "body": {
+      "id": "inv_aFpRIBeyvBho2SNzQJEw5nsO",
+      "state": "queued"
+    }
+  },
+  "clarification": {
+    "question": "Which variant do you mean: the standard Dyson V15 Detect Absolute (SKU 447955-01, Yellow/Iron/Nickel), the JB Hi-Fi model 626408-01, the Dok bundle (626412-01), or the Grey colour at Myer? Their prices differ, so please confirm the variant or colour.",
+    "candidates": [
+      {
+        "id": "c1",
+        "label": "Dyson V15 Detect Absolute cordless stick vacuum, SKU 447955-01 (Yellow/Iron/Nickel, standard)",
+        "detail": "Dyson AU lists SKU 447955-01 with RRP $1,249; the standard kit without the Dok charging dock."
+      },
+      {
+        "id": "c2",
+        "label": "Dyson V15 Detect Absolute, model 626408-01 (JB Hi-Fi listing)",
+        "detail": "Different model/SKU code from 447955-01; JB Hi-Fi shows a price of $739 on its page. Not verified whether it is the same kit as 447955-01."
+      },
+      {
+        "id": "c3",
+        "label": "Dyson V15 Detect Absolute + Dok bundle (Yellow/Nickel), SKU 626412-01",
+        "detail": "Includes the Dok dock, so a different bundle and price point from the standard kit."
+      },
+      {
+        "id": "c4",
+        "label": "Dyson V15 Detect Absolute 447955-01 in Grey (Myer listing)",
+        "detail": "Colour variant sold at Myer; Myer shows $799.00 against a $1249.00 reference, but the Grey colour may be priced differently from Yellow/Nickel."
+      }
+    ],
+    "chosen": "c1"
+  },
+  "final_state": "complete",
+  "duration_ms": 53384,
+  "report": {
+    "schema_version": 1,
+    "calculation_version": "calc-1.0.0",
+    "synthetic_fixture": false,
+    "generated_at": "2026-11-25T02:44:28.412Z",
+    "market": {
+      "code": "AU",
+      "name": "Australia",
+      "currency": "AUD",
+      "timezone": "Australia/Sydney"
+    },
+    "window_config": {
+      "edition": "ep001-2026",
+      "previous_event_date": "2025-11-28",
+      "offseason_start": "2025-11-29",
+      "offseason_end": "2026-11-26",
+      "current_event_start": "2026-11-27"
+    },
+    "product": {
+      "label": "Dyson V15 Detect Absolute cordless stick vacuum, SKU 447955-01 (Yellow/Iron/Nickel, standard)",
+      "brand": "Dyson",
+      "model": "V15 Detect Absolute",
+      "variant": "SKU 447955-01, standard (no dock bundle)",
+      "gtin": null,
+      "condition": "new"
+    },
+    "assessed": null,
+    "verdict": "insufficient_evidence",
+    "verdict_text": "We could not establish a usable current price, so no comparison can be made.",
+    "condition": "current_price_unverified",
+    "previous_event": null,
+    "offseason": null,
+    "overall": null,
+    "same_retailer": null,
+    "advertised_discount": null,
+    "observations": [
+      {
+        "id": "da38aca0b86c784332d7f7ef5c87bdd855b19fd7",
+        "amount_minor": 67600,
+        "currency": "AUD",
+        "date_start": "2025-12-17",
+        "date_end": "2025-12-17",
+        "date_precision": "day",
+        "retailer": "Dyson Australia",
+        "source_name": "OzBargain deal node 940468",
+        "source_url": "https://www.ozbargain.com.au/node/940468",
+        "source_domain": "ozbargain.com.au",
+        "source_type": "dated_deal_post",
+        "excerpt": "Dyson V15 Detect Absolute Vacuum Cleaner *$676* Delivered @ Dyson",
+        "retrieved_at": "2026-11-25T02:43:53+00:00",
+        "tax_basis": "unknown",
+        "eligibility": "coupon",
+        "shipping_minor": 0,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "8b5f62b88694ae799e2f52b7b1b6e803df2a4ce4",
+        "amount_minor": 89900,
+        "currency": "AUD",
+        "date_start": "2026-09-15",
+        "date_end": "2026-09-15",
+        "date_precision": "day",
+        "retailer": "jbhifi.com.au",
+        "source_name": "Internet Archive snapshot of jbhifi.com.au",
+        "source_url": "https://web.archive.org/web/20260915124029/https://www.jbhifi.com.au/products/dyson-v15-detect-absolute",
+        "source_domain": "jbhifi.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 899.00 AUD (archived 2026-09-15 12:40:29 UTC)",
+        "retrieved_at": "2026-11-25T02:44:28.041Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      },
+      {
+        "id": "fbf49046da42e38203fbf453cd0864319c57499a",
+        "amount_minor": 74900,
+        "currency": "AUD",
+        "date_start": "2026-10-21",
+        "date_end": "2026-10-21",
+        "date_precision": "day",
+        "retailer": "jbhifi.com.au",
+        "source_name": "Internet Archive snapshot of jbhifi.com.au",
+        "source_url": "https://web.archive.org/web/20261020183236/https://www.jbhifi.com.au/products/dyson-v15-detect-absolute",
+        "source_domain": "jbhifi.com.au",
+        "source_type": "archive_snapshot",
+        "excerpt": "JSON-LD Offer.price = 749.00 AUD (archived 2026-10-20 18:32:36 UTC)",
+        "retrieved_at": "2026-11-25T02:44:26.706Z",
+        "tax_basis": "unknown",
+        "eligibility": "public",
+        "shipping_minor": null,
+        "window": "offseason",
+        "comparable": false,
+        "comparability_notes": [
+          "No assessed offer to compare against."
+        ]
+      }
+    ],
+    "current_alternatives": [],
+    "leads": [
+      {
+        "description": "Dyson AU Black Friday page lists V15 Detect Absolute cordless vacuum at $737 (was $1,249); SKU not shown in snippet; fetch failed",
+        "source_url": "https://www.dyson.com.au/deals/black-friday",
+        "reason": "Search snippet only; dyson.com.au fetch failed; SKU unclear vs 447955-01",
+        "amount_minor": 73700,
+        "currency": "AUD",
+        "retailer": "Dyson Australia",
+        "date": "2026-11-25"
+      },
+      {
+        "description": "Harvey Norman Dyson Black Friday sale lists V15 2026 Detect Absolute Stick Vacuum at $738",
+        "source_url": "https://www.harveynorman.com.au/sale/dyson-black-friday",
+        "reason": "Search snippet only; not fetched; model naming and SKU not confirmed",
+        "amount_minor": 73800,
+        "currency": "AUD",
+        "retailer": "Harvey Norman",
+        "date": null
+      },
+      {
+        "description": "JB Hi-Fi V15 Detect Absolute listed at $739 under Black Friday deal (model 626408-01, SKU 899278); stock status out of stock in snippet",
+        "source_url": "https://www.jbhifi.com.au/collections/prices-blitzed-on-dyson-vacuums",
+        "reason": "Search snippet only; not fetched; different model number from 447955-01",
+        "amount_minor": 73900,
+        "currency": "AUD",
+        "retailer": "JB Hi-Fi",
+        "date": null
+      },
+      {
+        "description": "Dyson AU product page for SKU 447955-01 (Yellow/Iron/Nickel stated in URL slug) shows RRP $1,249.00 and Out of stock",
+        "source_url": "https://www.dyson.com.au/dyson-v15-detect-absolute-447955-01-yellow-nickel",
+        "reason": "Search snippet only; page not fetched; undated",
+        "amount_minor": 124900,
+        "currency": "AUD",
+        "retailer": "Dyson Australia",
+        "date": null
+      },
+      {
+        "description": "ShopBack blog states the V15 Detect Absolute was A$676 on 17 December 2025 after Black Friday, and the lowest Dyson-direct OzBargain price in the past year",
+        "source_url": "https://www.shopback.com.au/blog/electronics/dyson-have-sales-australia-black-friday-best-time",
+        "reason": "Secondary article citing OzBargain; not fetched; not independent of the OzBargain post",
+        "amount_minor": 67600,
+        "currency": "AUD",
+        "retailer": "Dyson Australia",
+        "date": "2025-12-17"
+      },
+      {
+        "description": "PriceMe price trend for Dyson AU lists V15 Detect Absolute at $897 on 2026-06-05, $874 on 2026-04-24, and $868 on 2026-03-15 (SKU 447955-01 product page)",
+        "source_url": "https://www.priceme.com.au/Dyson-V15-Detect-Absolute/p-911056270.aspx",
+        "reason": "Search snippet only; PriceMe fetch previously failed; table not verified on fetched page",
+        "amount_minor": 86800,
+        "currency": "AUD",
+        "retailer": "Dyson AU",
+        "date": "2026-03-15"
+      },
+      {
+        "description": "OzBargain comment reports Dyson chat price-match at $666 and JB Hi-Fi price-match at $677 for the $676 deal (early Jan 2026)",
+        "source_url": "https://www.ozbargain.com.au/node/940468",
+        "reason": "User comments inside fetched page, not retailer-published prices; unverified",
+        "amount_minor": 66600,
+        "currency": "AUD",
+        "retailer": "Dyson Australia",
+        "date": "2026-01-03"
+      },
+      {
+        "description": "Dyson V15 Detect Absolute Vacuum Cleaner $787.50 Delivered @ Dyson deal (EXTRA10 code) posted on OzBargain",
+        "source_url": "https://www.ozbargain.com.au/node/956870",
+        "reason": "Search snippet only; undated in snippet, deal age reported as about 7 months; not fetched",
+        "amount_minor": 78750,
+        "currency": "AUD",
+        "retailer": "Dyson Australia",
+        "date": null
+      },
+      {
+        "description": "Amazon AU Dyson V15 Detect Absolute $828.99 delivered deal posted 2025-03-07 (outside the window)",
+        "source_url": "https://www.ozbargain.com.au/node/896493",
+        "reason": "Search snippet only; date falls before previous Black Friday window",
+        "amount_minor": 82899,
+        "currency": "AUD",
+        "retailer": "Amazon AU",
+        "date": "2025-03-07"
+      },
+      {
+        "description": "The Good Guys: AUD 739.00 (2026-11-25)",
+        "source_url": "https://www.thegoodguys.com.au/deals/black-friday-dyson",
+        "reason": "Product or variant match is uncertain.",
+        "amount_minor": 73900,
+        "currency": "AUD",
+        "retailer": "The Good Guys",
+        "date": null
+      }
+    ],
+    "coverage": {
+      "comparable_observations": 0,
+      "distinct_dates": 0,
+      "date_range": null,
+      "span_days": 0,
+      "distinct_origins": 0,
+      "months_represented": [],
+      "months_missing": [
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "threshold_met": false,
+      "threshold_rule": "At least 3 distinct dated comparable observations spanning at least 90 days from at least 2 independent origins, or a verified continuous price series covering at least 90 days."
+    },
+    "promotion_expiry": {
+      "status": "not_found",
+      "ends_local": null,
+      "source_url": "https://www.thegoodguys.com.au/deals/black-friday-dyson",
+      "note": null
+    },
+    "limitations": [
+      "Previous Black Friday (2025-11-28) price for this exact SKU 447955-01 was not established; no dated AU offer from that day was retrieved.",
+      "Only one verified in-window dated price (AUD 676.00 on 2025-12-17, coupon-dependent, delivered); coverage of 2025-11-29 to 2026-11-26 is otherwise thin, with no verified data for Jan-Nov 2026 apart from unverified snippets.",
+      "OzBargain post 940468 shows no end date; a comment dated 08/01/2026 says 'price has gone up' but this is a user comment, not a verified price; the deal's end date is unknown.",
+      "PriceMe price-history table (which would give a continuous series) could not be fetched; only search-snippet rows are available as leads. camelcamelcamel AU, PriceHipster, StaticICE, GetPrice and PriceHound price history were not verified.",
+      "Dyson AU Black Friday page fetch failed; its $737 figure is a snippet only and SKU is unclear.",
+      "The Good Guys $739 listing is for model/SKU 626408-01, not the 447955-01 SKU in the brief; product match is uncertain and it is not confirmed as the same variant.",
+      "Harvey Norman, JB Hi-Fi and Amazon AU product pages were not fetched; their prices are search-snippet leads only.",
+      "Tax basis (GST inclusion) and availability were not stated on the fetched pages; the $676 figure is labelled 'Delivered' so shipping is recorded as 0 from that wording.",
+      "Promotion end date for the current Black Friday offer was not found on fetched pages; snippets mention Cyber Monday 30 November 2026 but were not verified on a fetched page.",
+      "Dyson Black Friday and Good Guys pages were captured on 2026-11-25, before the current event window (from 2026-11-27).",
+      "1 source request(s) failed or were blocked (url_not_accessible).",
+      "Internet Archive: checked 3 archived snapshot(s) of ozbargain.com.au, jbhifi.com.au, buywisely.com.au; 2 dated prices read from structured page data.",
+      "No current price was entered and no current offer could be verified.",
+      "No comparable evidence for: 2025-11, 2025-12, 2026-01, 2026-02, 2026-03, 2026-04, 2026-05, 2026-06, 2026-07, 2026-08, 2026-09, 2026-10, 2026-11."
+    ],
+    "research": {
+      "model": "claude-haiku-5-5",
+      "searches": 5,
+      "fetches": 3,
+      "duration_ms": 48943,
+      "cache_hit": false
+    }
+  }
+}
